@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuillShield: AI security reviewer for smart contracts | QuillAudits</title>
+<meta name="description" content="AI agents that review every pull request with the full context of your protocol, starting from a complete audit of it. Solidity today, for Foundry projects.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#103DD3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QuillShield">
+<meta property="og:title" content="QuillShield: the AI security reviewer for onchain code">
+<meta property="og:description" content="AI agents that review every pull request with the full context of your protocol, starting from a complete audit of it.">
+<meta property="og:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="archivo.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');setTimeout(function(){d.classList.remove('anim')},7000);}}catch(e){}})();
+</script>
+<style>
+@font-face{font-family:"Archivo";src:url("archivo.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{
+  --core:#103DD3;--core-dark:#0C31AC;--ink:#161616;--body:#3A4150;--sec:#565E6C;
+  --hair:#E4E7EE;--rule:#CBD2DE;--tint:#F7F7F7;--red:#D31E23;--green:#0F7A40;
+  --max:1248px;--pad:96px;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 1h7v7H7.4V3.7L2.1 9 1 7.9 6.3 2.6H2z'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:92px}
+body{margin:0;font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.5;color:var(--body);background:#fff;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,p,ul,ol,figure,blockquote{margin:0;padding:0}
+ul,ol{list-style:none}
+p,li,summary{text-wrap:pretty}
+svg{display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--core);outline-offset:3px}
+.on-dark :focus-visible{outline-color:#fff}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:16px;top:16px;z-index:100;background:#fff;color:var(--ink);padding:12px 16px}
+.wrap{width:100%;max-width:calc(var(--max) + 2 * var(--pad));margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.h2{font-size:clamp(32px,3.7vw,52px);line-height:1.08;letter-spacing:-.025em;font-weight:640;color:var(--ink);max-width:19em;text-wrap:balance}
+.lede{margin-top:20px;font-size:clamp(18px,1.5vw,21px);line-height:1.5;max-width:34em}
+.h3{font-size:20px;line-height:1.25;letter-spacing:-.01em;font-weight:640;color:var(--ink)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.pm{position:relative;flex:none;width:14px;height:14px}
+.pm::before,.pm::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:currentColor}
+.pm::after{transform:rotate(90deg)}
+details[open] > summary .pm::after{display:none}
+
+/* links and buttons */
+.ext::after{content:"";display:inline-block;vertical-align:baseline;width:.62em;height:.62em;margin-left:.34em;background:currentColor;-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:-.005em;text-decoration:none;border:1px solid transparent;white-space:nowrap}
+.btn--white{background:#fff;color:var(--core)}
+.btn--white:hover{background:#E9EEFC}
+.btn--line-w{border-color:rgba(255,255,255,.7);color:#fff}
+.btn--line-w:hover{background:rgba(255,255,255,.12)}
+.btn--core{background:var(--core);color:#fff}
+.btn--core:hover{background:var(--core-dark)}
+.btn--sm{min-height:44px;padding:0 18px;font-size:16px}
+.tlink{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--core);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.tlink:hover{text-decoration-thickness:2px}
+.on-dark .tlink{color:#fff}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:var(--core);color:#fff;transition:background-color .2s ease,color .2s ease}
+.nav.is-light{background:#fff;color:var(--ink);box-shadow:0 1px 0 var(--hair)}
+.nav__in{display:flex;align-items:center;min-height:72px}
+.logo{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:none}
+.logo svg{height:26px;width:auto}
+.nav.is-light .logo{color:var(--core)}
+.nav__links{display:flex;margin-left:28px}
+.nav__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font-size:16px;font-weight:500;text-decoration:none}
+.nav__links a:hover{text-decoration:underline;text-underline-offset:5px}
+.nav__cta{margin-left:auto;display:flex;align-items:center;gap:6px}
+.nav__signin{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font-size:16px;font-weight:500;text-decoration:none}
+.nav__signin:hover{text-decoration:underline;text-underline-offset:5px}
+.nav.is-light .btn--white{background:var(--core);color:#fff}
+.nav.is-light .btn--white:hover{background:var(--core-dark)}
+.menu{display:none;position:relative;margin-left:6px}
+.menu summary{list-style:none;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid currentColor;font-size:16px;font-weight:500;cursor:pointer}
+.menu summary::-webkit-details-marker{display:none}
+.menu__panel{position:absolute;right:0;top:calc(100% + 14px);min-width:248px;background:#fff;color:var(--ink);border:1px solid var(--rule);padding:8px 0}
+.menu__panel a{display:flex;align-items:center;min-height:48px;padding:0 20px;font-weight:500;text-decoration:none}
+.menu__panel a:hover{background:var(--tint)}
+
+/* hero */
+.hero{background:var(--core);color:#fff;padding:32px 0 96px}
+.hero h1{font-size:clamp(44px,7.4vw,108px);line-height:.98;letter-spacing:-.045em;font-weight:640;color:#fff}
+.hero h1 .nb{white-space:nowrap}
+.hero__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;margin-top:40px;align-items:start}
+.hero__copy{grid-column:1 / span 5}
+.hero__panel{grid-column:6 / span 7}
+.hero__sub{font-size:clamp(19px,1.8vw,26px);line-height:1.38;letter-spacing:-.005em;color:#fff}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero__note{margin-top:18px;font-size:16px;color:rgba(255,255,255,.9)}
+.hero__alt{margin-top:8px}
+.hero__alt .tlink{font-weight:500;font-size:16px}
+.hero__cap{margin:0 0 12px;font-size:14px;color:rgba(255,255,255,.88)}
+
+/* audit panel */
+.audit{background:#fff;color:var(--ink)}
+.audit__head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 24px 14px;border-bottom:1px solid var(--hair)}
+.audit__title{font-size:19px;line-height:1.25;letter-spacing:-.01em;font-weight:640}
+.audit__kind{margin-top:2px;font-size:14px;color:var(--sec)}
+.audit__state{display:inline-flex;align-items:center;padding-top:3px;font-size:14px;font-weight:600;color:var(--green);white-space:nowrap}
+.audit__state .s-run{display:none;color:var(--core)}
+.audit__stats{display:grid;grid-template-columns:1fr 1fr 1.3fr 1fr;border-bottom:1px solid var(--hair)}
+.audit__stat{padding:12px 16px 14px 24px;border-left:1px solid var(--hair)}
+.audit__stat:first-child{border-left:0}
+.audit__n{font-size:clamp(30px,2.6vw,38px);line-height:1.1;letter-spacing:-.035em;font-weight:700}
+.audit__l{margin-top:2px;font-size:14px;line-height:1.3;color:var(--sec)}
+.frow{border-bottom:1px solid var(--hair);transition:opacity .28s ease,transform .28s ease}
+.audit__rows li:last-child .frow{border-bottom:0}
+.frow summary{display:grid;grid-template-columns:76px minmax(0,1fr) auto 14px;column-gap:16px;align-items:center;min-height:46px;padding:6px 24px;list-style:none;cursor:pointer}
+.frow summary::-webkit-details-marker{display:none}
+.frow summary:hover{background:var(--tint)}
+.frow[open] summary{align-items:start;padding-top:12px;padding-bottom:8px}
+.sev{display:inline-flex;align-items:center;justify-content:center;height:24px;padding:0 8px;font-size:13px;font-weight:700;white-space:nowrap}
+.sev--critical{background:var(--red);color:#fff}
+.sev--medium{border:1px solid var(--ink);color:var(--ink)}
+.frow__t{font-size:15px;line-height:1.35;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.frow[open] .frow__t{white-space:normal}
+.frow__more{padding:0 24px 12px 116px;font-family:var(--mono);font-size:13.5px;color:var(--sec)}
+.poc{display:inline-flex;align-items:center;font-size:14px;font-weight:600;color:var(--green);white-space:nowrap}
+.poc .p-run{display:none;color:var(--sec);font-weight:500}
+.tick{display:inline-block;vertical-align:-1px;margin-right:6px}
+.anim .audit:not(.is-done) .frow{opacity:0;transform:translateY(6px)}
+.anim .audit:not(.is-done) .frow.is-in{opacity:1;transform:none}
+.anim .audit:not(.is-done) .frow:not(.is-proved) .p-ok{display:none}
+.anim .audit:not(.is-done) .frow:not(.is-proved) .p-run{display:inline}
+.anim .audit:not(.is-done) .s-ok{display:none}
+.anim .audit:not(.is-done) .s-run{display:inline-flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;background:currentColor;display:inline-block}
+.anim .audit:not(.is-done) .dot{animation:blink 1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:.25}}
+
+/* stats */
+.stats{padding:88px 0 96px}
+.stats__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+.tile{border-top:1px solid var(--rule);padding-top:20px}
+@supports (grid-template-rows:subgrid){@media (min-width:1101px){.tile{display:grid;grid-row:span 3;grid-template-rows:subgrid}}}
+.tile--a{grid-column:span 3}.tile--b{grid-column:span 3}.tile--c{grid-column:span 4}.tile--d{grid-column:span 2}
+.tile__n{font-size:clamp(46px,5.4vw,78px);line-height:1;letter-spacing:-.045em;font-weight:700;color:var(--core)}
+.tile__l{margin-top:14px;font-size:17px;line-height:1.4;font-weight:500;color:var(--ink)}
+.tile__s{margin-top:8px;font-size:14px;line-height:1.4;color:var(--sec);text-wrap:balance}
+
+/* quotes */
+.quotes{padding:88px 0;border-top:1px solid var(--hair)}
+.quotes__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 72px}
+.quote blockquote{font-size:clamp(21px,2vw,28px);line-height:1.32;letter-spacing:-.012em;font-weight:500;color:var(--ink);text-wrap:balance}
+.quote__by{margin-top:20px;font-size:15px;line-height:1.45;color:var(--sec);max-width:34em}
+
+/* how it works */
+.how{background:var(--tint);padding:112px 0}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:24px;margin-top:56px}
+.step{display:flex;flex-direction:column}
+@supports (grid-template-rows:subgrid){.step{display:grid;grid-row:span 4;grid-template-rows:subgrid}}
+.plate{position:relative;min-height:316px;background:#fff;color:var(--ink);border:1px solid var(--hair);padding:22px;font-size:15px;line-height:1.45}
+.plate__tag{position:absolute;top:0;right:0;padding:3px 8px;background:var(--tint);border-left:1px solid var(--hair);border-bottom:1px solid var(--hair);font-size:13.5px;color:var(--sec)}
+.plate__k{font-size:14px;color:var(--sec)}
+.plate__h{margin-top:2px;font-size:17px;font-weight:640;letter-spacing:-.01em;line-height:1.3}
+.plate ul{margin-top:14px;border-top:1px solid var(--hair)}
+.plate li{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:38px;border-bottom:1px solid var(--hair)}
+.plate li > span:last-child{color:var(--sec);font-size:14px;white-space:nowrap}
+.plate .mono{font-family:var(--mono);font-size:13.5px}
+.plate__foot{margin-top:14px;font-size:14px;font-weight:600;color:var(--green)}
+.plate__p{margin-top:10px}
+.plate__q{margin-top:12px;font-size:14px;font-weight:640;color:var(--ink)}
+.triage{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.triage span{padding:3px 9px;border:1px solid var(--rule);font-size:13.5px;color:var(--sec)}
+.triage span.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.ck{display:flex;align-items:center;gap:10px}
+.ck svg{flex:none}
+.ok{color:var(--green)}.no{color:var(--red)}
+.step__n{margin-top:26px;font-size:60px;line-height:1;letter-spacing:-.04em;font-weight:700;color:var(--core)}
+.step .h3{margin-top:10px;font-size:22px}
+.step__t{margin-top:8px;font-size:16.5px}
+
+/* findings */
+.find{padding:112px 0}
+.case{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;margin-top:56px;align-items:start}
+.case__story{grid-column:1 / span 5}
+.case__trail{grid-column:7 / span 6}
+.case__lead{font-size:18px;line-height:1.5}
+.case__quote{margin-top:28px}
+.case__quote blockquote{font-size:clamp(28px,3vw,44px);line-height:1.08;letter-spacing:-.03em;font-weight:640;color:var(--ink);text-wrap:balance}
+.case__by{margin-top:14px;font-size:15px;color:var(--sec)}
+.case__fine{margin-top:24px;font-size:14.5px;line-height:1.5;color:var(--sec)}
+.trail li{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:8px;padding:18px 0;border-top:1px solid var(--rule)}
+.trail li:last-child{border-bottom:1px solid var(--rule)}
+.trail__n{font-size:28px;line-height:1;letter-spacing:-.03em;font-weight:700;color:var(--core)}
+.trail__who{font-size:17px;font-weight:640;color:var(--ink)}
+.trail__what{margin-top:4px;font-size:16px}
+.trail__tag{display:inline-block;margin-top:10px;padding:3px 9px;font-size:14px;font-weight:600;border:1px solid var(--rule);color:var(--sec)}
+.trail__tag--win{background:var(--core);border-color:var(--core);color:#fff}
+.trail__tag--ok{border-color:var(--green);color:var(--green)}
+.minis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:32px}
+.mini{border-top:1px solid var(--rule);padding-top:14px}
+.mini__n{font-size:clamp(34px,3.4vw,46px);line-height:1;letter-spacing:-.04em;font-weight:700;color:var(--core)}
+.mini__l{margin-top:8px;font-size:15.5px;line-height:1.4;color:var(--ink)}
+
+/* stack */
+.stack{padding:112px 0;border-top:1px solid var(--hair)}
+.stack__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 24px;margin-top:56px}
+.stack__grid > div{display:flex;flex-direction:column;min-width:0}
+.term{position:relative;min-height:124px;padding:18px 20px;background:var(--ink);color:#fff;font-family:var(--mono);font-size:13.5px;line-height:1.75;white-space:pre;overflow-x:auto}
+.term .dim{color:rgba(255,255,255,.68)}
+.term--light{background:#fff;color:var(--ink);border:1px solid var(--rule);font-family:inherit;font-size:15px;line-height:1.4;white-space:normal;padding-top:30px}
+.term--light .ck{min-height:30px;justify-content:space-between}
+.term--light .ck b{font-weight:600;font-size:14px}
+.stack .h3{margin-top:18px}
+.stack__t{margin-top:6px;font-size:16px}
+.stack .tlink{margin-top:auto;align-self:flex-start;font-size:15.5px}
+
+/* human review */
+.human{padding:112px 0;border-top:1px solid var(--hair)}
+.human__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end}
+.human__copy{grid-column:1 / span 6}
+.human__data{grid-column:8 / span 5;border-top:1px solid var(--rule);padding-top:20px}
+.human__cta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;margin-top:32px}
+.human__n{font-size:clamp(56px,7vw,104px);line-height:1;letter-spacing:-.045em;font-weight:700;color:var(--core)}
+.human__l{margin-top:14px;font-size:17px;font-weight:500;color:var(--ink)}
+.human__names{margin-top:8px;font-size:15.5px;color:var(--sec)}
+
+/* benchmark */
+.bench{background:var(--core);color:#fff;padding:112px 0}
+.bench .h2{color:#fff}
+.bench .lede{color:rgba(255,255,255,.94)}
+.bench__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;margin-top:56px;align-items:start}
+.bench__bars{grid-column:1 / span 6}
+.bench__waffle{grid-column:8 / span 5}
+.brow + .brow{margin-top:36px}
+.brow__top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.brow__name{font-size:18px;font-weight:640;color:#fff}
+.brow__sub{font-size:14.5px;color:rgba(255,255,255,.88)}
+.brow__v{font-size:clamp(40px,5.8vw,84px);line-height:.9;letter-spacing:-.045em;font-weight:700;color:#fff}
+.track{position:relative;height:28px;margin-top:14px;background:rgba(255,255,255,.2)}
+.track i{position:absolute;left:0;top:0;bottom:0;background:#fff}
+.track i.base{background:rgba(255,255,255,.55)}
+.bench__note{margin-top:28px;font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.88);max-width:40em}
+.waffle{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:5px}
+.waffle i{aspect-ratio:1 / 1;background:#fff}
+.waffle i.miss{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.72)}
+.waffle__cap{margin-top:16px;font-size:16px;font-weight:500;color:#fff}
+.waffle__sub{margin-top:4px;font-size:15px;color:rgba(255,255,255,.88)}
+
+/* your code */
+.code{padding:112px 0}
+.code__grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;margin-top:56px}
+.fact{border-top:1px solid var(--rule);padding-top:18px}
+.fact .h3{font-size:18.5px}
+.fact p{margin-top:8px;font-size:15.5px;line-height:1.45}
+.code__links{display:flex;flex-wrap:wrap;gap:0 28px;margin-top:36px}
+
+/* faq */
+.faq{padding:112px 0;border-top:1px solid var(--hair)}
+.faq__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:start}
+.faq__h{grid-column:1 / span 4}
+.faq__list{grid-column:6 / span 7}
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:68px;padding:10px 0;font-size:19px;line-height:1.3;font-weight:600;color:var(--ink);cursor:pointer}
+.faq summary::-webkit-details-marker{display:none}
+.faq details p{padding:0 40px 24px 0;font-size:17px;max-width:38em}
+
+/* close */
+.close{background:var(--core);color:#fff;padding:120px 0}
+.close__t{font-size:clamp(32px,4.7vw,68px);line-height:1.04;letter-spacing:-.04em;font-weight:640;max-width:16.5em;text-wrap:balance}
+.close__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:44px}
+
+/* footer */
+.foot{padding:72px 0 36px;font-size:15.5px}
+.foot__top{display:grid;grid-template-columns:1.5fr repeat(4,minmax(0,1fr));gap:32px 24px}
+.foot .logo{color:var(--core)}
+.foot__tag{margin-top:10px;max-width:16em;color:var(--body)}
+.foot__h{margin-bottom:4px;font-size:14.5px;font-weight:600;color:var(--sec)}
+.foot li a{display:inline-block;padding:11px 0;line-height:22px;color:var(--ink);text-decoration:none}
+.foot li a:hover{text-decoration:underline;text-underline-offset:4px}
+.foot .ext::after{display:none}
+.foot__bot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 24px;margin-top:40px;padding-top:16px;border-top:1px solid var(--hair);color:var(--sec);font-size:14.5px}
+.foot__soc{display:flex;flex-wrap:wrap;gap:0 20px}
+.foot__soc a{display:inline-flex;align-items:center;min-height:44px;color:var(--body);text-decoration:none}
+.foot__soc a:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* responsive */
+@media (min-width:1101px){.fact .h3{min-height:2.5em}}
+@media (max-width:1240px){:root{--pad:56px}}
+@media (max-width:1100px){
+  .hero__copy,.hero__panel{grid-column:1 / -1}
+  .hero__panel{margin-top:44px}
+  .hero__sub{max-width:30em}
+  .tile--a,.tile--b,.tile--c,.tile--d{grid-column:span 6}
+  .tile--c,.tile--d{margin-top:48px}
+  .steps{grid-template-columns:1fr;row-gap:56px}
+  .step{display:block}
+  .plate{min-height:0}
+  .case__story,.case__trail{grid-column:1 / -1}
+  .case__trail{margin-top:56px}
+  .human__grid{align-items:start}
+  .human__copy,.human__data{grid-column:1 / -1}
+  .human__data{margin-top:56px}
+  .bench__bars,.bench__waffle{grid-column:1 / -1}
+  .bench__waffle{margin-top:56px;max-width:520px}
+  .code__grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:40px}
+  .faq__h,.faq__list{grid-column:1 / -1}
+  .faq__list{margin-top:40px}
+  .foot__top{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot__brand{grid-column:1 / -1}
+}
+@media (max-width:980px){
+  .nav__links,.nav__signin{display:none}
+  .menu{display:block}
+}
+@media (max-width:760px){
+  :root{--pad:22px}
+  body{font-size:16.5px}
+  .hero{padding:24px 0 72px}
+  .hero h1 .nb{white-space:normal}
+  .hero__grid{margin-top:28px}
+  .logo svg{height:22px}
+  .nav__in{min-height:64px}
+  .stats,.quotes{padding:64px 0}
+  .how,.find,.stack,.human,.bench,.code,.faq{padding:76px 0}
+  .close{padding:84px 0}
+  .quotes__grid{grid-template-columns:1fr}
+  .audit__head{padding:16px 16px 14px}
+  .audit__stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .audit__stat{padding:12px 16px}
+  .audit__stat:nth-child(3){border-left:0}
+  .audit__stat:nth-child(n+3){border-top:1px solid var(--hair)}
+  .frow summary{grid-template-columns:auto minmax(0,1fr) 14px;row-gap:8px;padding:12px 16px}
+  .frow .poc{justify-self:end}
+  .frow__t{grid-column:1 / -1;grid-row:2;white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  .frow[open] .frow__t{display:block}
+  .frow__more{padding:0 16px 12px}
+  .faq summary{font-size:18px}
+  .faq details p{padding-right:0}
+}
+@media (max-width:660px){
+  .stack__grid{grid-template-columns:1fr}
+  .term{min-height:0}
+}
+@media (max-width:560px){
+  .tile--a,.tile--b,.tile--c,.tile--d{grid-column:1 / -1}
+  .tile--b,.tile--c,.tile--d{margin-top:40px}
+  .code__grid{grid-template-columns:1fr}
+  .btn{width:100%}
+  .nav .btn{width:auto}
+  .hero__cta,.close__cta{flex-direction:column}
+  .foot__top{grid-template-columns:1fr 1fr}
+  .waffle{gap:4px}
+}
+@media (max-width:400px){
+  .logo svg{height:20px}
+  .nav .btn--sm,.menu summary{padding:0 12px}
+}
+@media (max-width:340px){.nav .btn--sm{display:none}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav on-dark" id="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="QuillShield, back to top">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" role="img" aria-label="QuillShield"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#findings">Findings</a>
+      <a href="#benchmark">Benchmark</a>
+      <a href="#code">Security</a>
+      <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__signin" href="https://shield.quillaudits.com/login">Sign in</a>
+      <a class="btn btn--white btn--sm" href="https://shield.quillaudits.com/register">Start now</a>
+      <details class="menu">
+        <summary>Menu</summary>
+        <div class="menu__panel">
+          <a href="#how">How it works</a>
+          <a href="#findings">Findings</a>
+          <a href="#benchmark">Benchmark</a>
+          <a href="#code">Security</a>
+          <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
+          <a href="https://shield.quillaudits.com/login">Sign in</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero on-dark" id="top">
+  <div class="wrap">
+    <h1>The AI security reviewer <span class="nb">for onchain code</span></h1>
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <p class="hero__sub">AI agents that review every pull request with the full context of your protocol, starting from a complete audit of it.</p>
+        <div class="hero__cta">
+          <a class="btn btn--white" href="https://shield.quillaudits.com/register">Start now</a>
+          <a class="btn btn--line-w ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+        </div>
+        <p class="hero__note">Free to sign up. New accounts get $50 in credit, good for up to half of an order.</p>
+        <p class="hero__alt"><a class="tlink" href="#findings">See what an independent researcher found with it</a></p>
+      </div>
+      <div class="hero__panel">
+        <p class="hero__cap">Real output. Full audit of a demo vault, 23 October 2026.</p>
+        <div class="audit" id="audit" role="group" aria-label="Example: full audit of the Mini DeFi Vault demo">
+          <div class="audit__head">
+            <div>
+              <p class="audit__title">Mini DeFi Vault</p>
+              <p class="audit__kind">Full audit with proof of concept</p>
+            </div>
+            <p class="audit__state"><span class="s-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Completed</span><span class="s-run"><i class="dot"></i>Running</span></p>
+          </div>
+          <div class="audit__stats">
+            <div class="audit__stat"><p class="audit__n num" data-c="findings">5</p><p class="audit__l">findings</p></div>
+            <div class="audit__stat"><p class="audit__n num" data-c="critical">3</p><p class="audit__l">Critical</p></div>
+            <div class="audit__stat"><p class="audit__n num"><span data-c="poc">5</span> of 5</p><p class="audit__l">proofs of concept passed</p></div>
+            <div class="audit__stat"><p class="audit__n num">2h 7m</p><p class="audit__l">start to finish</p></div>
+          </div>
+          <ol class="audit__rows">
+            <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">deposit() prices new shares on a balance that already includes msg.value, so depositors are under-minted and earlier holders take their principal</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:26</p></details></li>
+            <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">redeem() reduces totalShares by only shares/1e9, so remaining holders lose value and ETH is permanently locked</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:40</p></details></li>
+            <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">Broken share accounting permanently freezes depositor principal and donations in MiniYieldVault</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:26</p></details></li>
+            <li><details class="frow" data-row data-sev="medium"><summary><span class="sev sev--medium">Medium</span><span class="frow__t">redeem() checks the share count against minAssets instead of the ETH paid, so redemptions have no slippage protection</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:38</p></details></li>
+            <li><details class="frow" data-row data-sev="medium"><summary><span class="sev sev--medium">Medium</span><span class="frow__t">Searcher can sandwich a visible ETH donation and take yield meant for existing holders</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:27</p></details></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats" aria-label="QuillShield in numbers">
+  <div class="wrap stats__grid">
+    <div class="tile tile--a">
+      <p class="tile__n num">90%</p>
+      <p class="tile__l">of the findings QuillAudits auditors reviewed were valid</p>
+      <p class="tile__s">Private beta, client Solidity code. November 2026.</p>
+    </div>
+    <div class="tile tile--b">
+      <p class="tile__n num">83.8%</p>
+      <p class="tile__l">of known vulnerabilities found on EVMbench, the OpenAI and Paradigm benchmark. The best single model found 45.6%.</p>
+      <p class="tile__s">Alpha run, July 2026.</p>
+    </div>
+    <div class="tile tile--c">
+      <p class="tile__n num">350,000+</p>
+      <p class="tile__l">lines of Solidity reviewed across 155 projects</p>
+      <p class="tile__s">Private beta, August 2026.</p>
+    </div>
+    <div class="tile tile--d">
+      <p class="tile__n num">100+</p>
+      <p class="tile__l">users in the beta</p>
+      <p class="tile__s">27 October 2026.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quotes" aria-label="What users say">
+  <div class="wrap quotes__grid">
+    <figure class="quote">
+      <blockquote>“I have run my repo through 2 other AI auditors to prepare for formal audits and to find out highs were missed is surprising. Glad I was able to test it out.”</blockquote>
+      <figcaption class="quote__by">Beta user, 28 October 2026. Rated the audit positive for a clear report, accurate findings and helpful guidance.</figcaption>
+    </figure>
+    <figure class="quote">
+      <blockquote>“I’m very impressed by the workflow, PoC feature and layout of QuillShield. I can see how this will become an industry standard for smart contracts.”</blockquote>
+      <figcaption class="quote__by">QuillAudits client, after receiving their audit report.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <h2 class="h2">How QuillShield reviews every pull request</h2>
+    <ol class="steps">
+      <li class="step">
+        <div class="plate" role="img" aria-label="Project card for the Mini DeFi Vault showing what stays in the workspace after an audit: security graph, invariants, recon notes, findings and reports. Source code is deleted after the audit.">
+          <p class="plate__k">Kept in your workspace</p>
+          <p class="plate__h">Mini DeFi Vault</p>
+          <ul>
+            <li><span>Security graph</span><span>contracts, roles, calls</span></li>
+            <li><span class="mono">invariants.md</span><span>what must hold</span></li>
+            <li><span class="mono">recon.md</span><span>attack surface</span></li>
+            <li><span>Findings</span><span>5</span></li>
+            <li><span>Reports</span><span>PDF, Markdown</span></li>
+          </ul>
+          <p class="plate__foot">Source code deleted after the audit</p>
+        </div>
+        <p class="step__n num">1</p>
+        <h3 class="h3">Audits your protocol</h3>
+        <p class="step__t">It maps your contracts, roles and calls into a security graph and lists the invariants, the rules that must always hold. Attach your whitepaper and past audits, and it checks the code against that intent.</p>
+      </li>
+      <li class="step">
+        <div class="plate" role="img" aria-label="Detail of a Critical finding in the demo audit. Deposit prices shares on a balance that already includes the deposit. An early holder with 1 ETH redeems more than 20 ETH after a 100 ETH deposit. The proof of concept passed.">
+          <p><span class="sev sev--critical">Critical</span> <span class="mono" style="margin-left:8px;color:var(--sec)">MiniYieldVault.sol:26</span></p>
+          <p class="plate__q">What’s the issue</p>
+          <p class="plate__p" style="margin-top:4px">Every depositor gets too few shares, because deposit() prices them on a balance that already includes msg.value.</p>
+          <p class="plate__q">Impact</p>
+          <p class="plate__p" style="margin-top:4px">When an early holder with 1 ETH in the vault is followed by a 100 ETH deposit, the early holder redeems more than 20 ETH and the victim can withdraw less than 60 ETH.</p>
+          <p class="plate__foot">Proof of concept passed</p>
+          <div class="triage"><span class="on">Open</span><span>Acknowledged</span><span>Fixed</span><span>False positive</span></div>
+        </div>
+        <p class="step__n num">2</p>
+        <h3 class="h3">Attacks it like an adversary</h3>
+        <p class="step__t">Agents trace attack paths, and a reviewer agent tries to disprove each finding.</p>
+      </li>
+      <li class="step">
+        <div class="plate" role="img" aria-label="Illustration of pull request checks on a repository called lending-core. One pull request fails with a High finding and three pass.">
+          <span class="plate__tag">Illustration</span>
+          <p class="plate__k">Pull request checks</p>
+          <p class="plate__h">lending-core</p>
+          <ul>
+            <li><span class="ck no"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">#214 Adjust liquidation bonus</span></span><span style="color:var(--red);font-weight:600">1 High</span></li>
+            <li><span class="ck ok"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">#213 Add pause guardian</span></span><span>Passed</span></li>
+            <li><span class="ck ok"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">#212 Bump oracle heartbeat</span></span><span>Passed</span></li>
+            <li><span class="ck ok"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">#209 Refactor fee rounding</span></span><span>Passed</span></li>
+          </ul>
+          <p class="plate__p" style="font-size:14px;color:var(--sec)">Checked against the full audit of commit 3f9c2ab</p>
+        </div>
+        <p class="step__n num">3</p>
+        <h3 class="h3">Reviews every pull request</h3>
+        <p class="step__t">Each pull request is checked against the security graph. The check fails on a High or Critical finding, or at the threshold you set.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="find" id="findings">
+  <div class="wrap">
+    <h2 class="h2">An independent researcher tested it on a live lending contract</h2>
+    <div class="case">
+      <div class="case__story">
+        <p class="case__lead">He had already audited the contract and ruled this bug out.</p>
+        <div class="case__quote">
+          <blockquote>“Their path worked and mine didn’t.”</blockquote>
+          <p class="case__by">Independent security researcher, in his public write-up. 26 October 2026.</p>
+        </div>
+        <p style="margin-top:14px"><a class="tlink ext" href="https://x.com/Harvesto12/status/2114723142396498119" target="_blank" rel="noopener" title="Opens in a new tab">Read the write-up</a></p>
+        <div class="minis">
+          <div class="mini"><p class="mini__n num">8</p><p class="mini__l">findings: 2 Medium, 2 Low, 4 Info</p></div>
+          <div class="mini"><p class="mini__n num">3 of 8</p><p class="mini__l">proofs of concept passed</p></div>
+          <div class="mini"><p class="mini__n num">4</p><p class="mini__l">findings the earlier AI pass missed</p></div>
+          <div class="mini"><p class="mini__n num">2h 30m</p><p class="mini__l">for the full audit</p></div>
+        </div>
+        <p class="case__fine">He ran the audit with a free promo code from us. The write-up is his own.</p>
+      </div>
+      <ol class="case__trail trail" aria-label="Four reviews of the same bug">
+        <li><span class="trail__n num">1</span><div><p class="trail__who">A 12-agent AI pass</p><p class="trail__what">Flagged the root cause. He tested one attack, a safeguard stopped it, and he filed the finding as refuted.</p><span class="trail__tag">Filed as refuted</span></div></li>
+        <li><span class="trail__n num">2</span><div><p class="trail__who">QuillShield</p><p class="trail__what">Reported the same root cause with a different attack path, and that path got past the safeguard.</p><span class="trail__tag trail__tag--win">Working path, rated Medium</span></div></li>
+        <li><span class="trail__n num">3</span><div><p class="trail__who">The researcher</p><p class="trail__what">Rebuilt the conditions on a mainnet fork with a fresh account. The attack passed.</p><span class="trail__tag trail__tag--ok">Reproduced</span></div></li>
+        <li><span class="trail__n num">4</span><div><p class="trail__who">The protocol’s team</p><p class="trail__what">Said it was already reported, put the real impact at cents and left the code unchanged.</p><span class="trail__tag">Not fixing</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="stack" id="stack">
+  <div class="wrap">
+    <h2 class="h2">Built for code written by people and agents</h2>
+    <div class="stack__grid">
+      <div>
+        <div class="term term--light" role="img" aria-label="Illustration of GitHub checks on a pull request, with the QuillShield security review failing and the build and test checks passing">
+          <span class="plate__tag">Illustration</span>
+          <div class="ck"><span class="ck no"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">QuillShield security review</span></span><b class="no">Failing</b></div>
+          <div class="ck"><span class="ck ok"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">build</span></span><b class="ok">Passed</b></div>
+          <div class="ck"><span class="ck ok"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--ink)">test</span></span><b class="ok">Passed</b></div>
+        </div>
+        <h3 class="h3">GitHub App</h3>
+        <p class="stack__t">A check and one comment, updated in place, on every pull request.</p>
+        <a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">Pull request checks</a>
+      </div>
+      <div>
+        <div class="term" role="img" aria-label="A coding agent asking for QuillShield projects and calling the QuillAudits MCP tools list_projects and list_findings"><span class="dim">&gt;</span> List my QuillShield projects
+<span class="dim">quillaudits ·</span> list_projects
+<span class="dim">quillaudits ·</span> list_findings</div>
+        <h3 class="h3">MCP for Cursor and Claude</h3>
+        <p class="stack__t">Your coding agent reads findings and starts audits.</p>
+        <a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/mcp-for-cursor-and-claude" target="_blank" rel="noopener" title="Opens in a new tab">MCP setup</a>
+      </div>
+      <div>
+        <div class="term" role="img" aria-label="Terminal commands to install the qs command line tool and run an audit"><span class="dim">$</span> npm install -g @quillaudits/cli
+<span class="dim">$</span> qs init
+<span class="dim">$</span> qs audit &lt;repo&gt; --watch</div>
+        <h3 class="h3">CLI</h3>
+        <p class="stack__t">Run and follow audits from the terminal.</p>
+        <a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/cli-install-and-init" target="_blank" rel="noopener" title="Opens in a new tab">CLI install</a>
+      </div>
+      <div>
+        <div class="term" role="img" aria-label="REST API calls for findings, reports and live events"><span class="dim">GET</span> /v1/audits/:job_id/findings
+<span class="dim">GET</span> /v1/audits/:job_id/report
+<span class="dim">GET</span> /v1/audits/:job_id/events</div>
+        <h3 class="h3">REST API</h3>
+        <p class="stack__t">Findings, reports and live events for any pipeline.</p>
+        <a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/developers" target="_blank" rel="noopener" title="Opens in a new tab">API reference</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="human" id="auditors">
+  <div class="wrap human__grid">
+    <div class="human__copy">
+      <h2 class="h2">Escalate any&nbsp;finding to an auditor</h2>
+      <p class="lede">Ask a QuillAudits auditor to validate it, or use the report as the starting point for a manual audit.</p>
+      <div class="human__cta">
+        <a class="btn btn--core ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+        <a class="tlink ext" href="https://www.quillaudits.com/leaderboard" target="_blank" rel="noopener" title="Opens in a new tab">QuillAudits audit leaderboard</a>
+      </div>
+    </div>
+    <div class="human__data">
+      <p class="human__n num">1,500+</p>
+      <p class="human__l">protocols audited by QuillAudits since 2018</p>
+      <p class="human__names">Clients and partners include Taiko, StarkWare, ZetaChain, Metis and Brahma.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bench on-dark" id="benchmark">
+  <div class="wrap">
+    <h2 class="h2">Measured on EVMbench</h2>
+    <p class="lede">EVMbench is the benchmark OpenAI and Paradigm built from vulnerabilities found in real smart contract audits. In July 2026, QuillShield’s alpha found 98 of the 117 known vulnerabilities it was scored on.</p>
+    <div class="bench__grid">
+      <div class="bench__bars">
+        <div class="brow">
+          <div class="brow__top"><div><p class="brow__name">QuillShield alpha</p><p class="brow__sub">July 2026 run</p></div><p class="brow__v num">83.8%</p></div>
+          <div class="track" role="img" aria-label="83.8 percent"><i style="width:83.8%"></i></div>
+        </div>
+        <div class="brow">
+          <div class="brow__top"><div><p class="brow__name">Best single model</p><p class="brow__sub">EVMbench paper, February 2026</p></div><p class="brow__v num">45.6%</p></div>
+          <div class="track" role="img" aria-label="45.6 percent"><i class="base" style="width:45.6%"></i></div>
+        </div>
+        <p class="bench__note">Our own run on 8 July 2026, across 40 audited projects. It compares a multi-agent system with the best single model in the paper, not with other tools.</p>
+        <p><a class="tlink ext" href="https://openai.com/index/introducing-evmbench/" target="_blank" rel="noopener" title="Opens in a new tab">About EVMbench</a></p>
+      </div>
+      <div class="bench__waffle">
+        <div class="waffle" role="img" aria-label="Grid of 117 squares, one for each known vulnerability. 98 are filled as found and 19 are outlined as missed."><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i></div>
+        <p class="waffle__cap">Each square is one known vulnerability. 98 found, 19 missed.</p>
+        <p class="waffle__sub">In 28 of the 40 projects, it found every known vulnerability.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="code" id="code">
+  <div class="wrap">
+    <h2 class="h2">Your unaudited code stays yours</h2>
+    <div class="code__grid">
+      <div class="fact"><h3 class="h3">Source code deleted after each audit</h3><p>Reports, findings and the security graph stay in your workspace until you delete them.</p></div>
+      <div class="fact"><h3 class="h3">Never used for training</h3><p>No model, ours or a third party’s, is trained on your code or your findings.</p></div>
+      <div class="fact"><h3 class="h3">Disclosed to you alone</h3><p>Findings never go to a bug bounty platform or an audit contest.</p></div>
+      <div class="fact"><h3 class="h3">Read-only access to your code</h3><p>The GitHub App reads your code and writes only checks, statuses and pull request comments.</p></div>
+      <div class="fact"><h3 class="h3">ISO/IEC 27001:2022</h3><p>QuillAudits as a company runs a certified information security management system, audited every year.</p></div>
+    </div>
+    <div class="code__links">
+      <a class="tlink ext" href="https://shield.quillaudits.com/terms" target="_blank" rel="noopener" title="Opens in a new tab">Terms of service</a>
+      <a class="tlink ext" href="https://shield.quillaudits.com/privacy" target="_blank" rel="noopener" title="Opens in a new tab">Privacy policy</a>
+      <a class="tlink ext" href="https://www.quillaudits.com/blog/web3-security/quillaudits-iso-certified" target="_blank" rel="noopener" title="Opens in a new tab">ISO certification</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap faq__grid">
+    <h2 class="h2 faq__h">Questions teams ask first</h2>
+    <div class="faq__list">
+      <details open>
+        <summary>How do I start, and when do I pay?<i class="pm" aria-hidden="true"></i></summary>
+        <p>Sign up for free, import a repo and choose what to audit. You see the exact price before anything is charged, and the audit starts when you approve it. The $50 credit for new accounts covers up to half of an order and expires after six months.</p>
+      </details>
+      <details>
+        <summary>Does QuillShield replace a manual audit?<i class="pm" aria-hidden="true"></i></summary>
+        <p>No. It reviews every change between audits, and you can request a manual audit from QuillAudits.</p>
+      </details>
+      <details>
+        <summary>Which languages does it support?<i class="pm" aria-hidden="true"></i></summary>
+        <p>Solidity is supported today, for Foundry projects. More languages are coming, one at a time.</p>
+      </details>
+      <details>
+        <summary>How long does an audit take?<i class="pm" aria-hidden="true"></i></summary>
+        <p>The demo vault at the top of this page took 2h 7m, and the researcher’s lending contract took 2h 30m. Larger codebases take longer. Findings appear while the audit runs, so your team can start fixing before it finishes.</p>
+      </details>
+      <details>
+        <summary>How are findings checked before they reach me?<i class="pm" aria-hidden="true"></i></summary>
+        <p>A separate reviewer agent tries to disprove every finding before you see it. Each one that holds up arrives with the exact lines, the impact, a recommended fix and, on full audits, the proof of concept result.</p>
+      </details>
+      <details>
+        <summary>Can a failing check stop a merge?<i class="pm" aria-hidden="true"></i></summary>
+        <p>Yes, on GitHub. Make the QuillShield check required and a pull request cannot merge while it has a High or Critical finding, or one at the threshold you set. Each full audit comes with five pull request checks, and more can be added. They need a GitHub or GitLab.com repo, so an uploaded zip gets a full audit and no checks.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="close on-dark" aria-label="Get started">
+  <div class="wrap">
+    <p class="close__t">QuillShield is building the security layer between AI and money, so you can keep shipping between audits.</p>
+    <div class="close__cta">
+      <a class="btn btn--white" href="https://shield.quillaudits.com/register">Start now</a>
+      <a class="btn btn--line-w ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a class="logo" href="#top" aria-label="QuillShield, back to top">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" aria-hidden="true"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
+        </a>
+        <p class="foot__tag">The AI security reviewer for onchain code.</p>
+      </div>
+      <div>
+        <h3 class="foot__h">Product</h3>
+        <ul>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/run-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Full audit</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">Pull request checks</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/workflows" target="_blank" rel="noopener" title="Opens in a new tab">Workflows</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/mcp-for-cursor-and-claude" target="_blank" rel="noopener" title="Opens in a new tab">MCP for Cursor and Claude</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/cli-install-and-init" target="_blank" rel="noopener" title="Opens in a new tab">CLI</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/developers" target="_blank" rel="noopener" title="Opens in a new tab">REST API</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot__h">Resources</h3>
+        <ul>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/getting-started/quickstart" target="_blank" rel="noopener" title="Opens in a new tab">Quickstart</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/changelog" target="_blank" rel="noopener" title="Opens in a new tab">Changelog</a></li>
+          <li><a href="#benchmark">Benchmark</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/leaderboard" target="_blank" rel="noopener" title="Opens in a new tab">Audit leaderboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot__h">QuillAudits</h3>
+        <ul>
+          <li><a class="ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">Manual audits</a></li>
+          <li><a class="ext" href="https://github.com/Quillhash/QuillAudit_smart_contract_audit_Reports" target="_blank" rel="noopener" title="Opens in a new tab">Audit reports on GitHub</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/web3-hacks-database" target="_blank" rel="noopener" title="Opens in a new tab">Web3 hacks database</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/blog/web3-security/quillaudits-iso-certified" target="_blank" rel="noopener" title="Opens in a new tab">ISO/IEC 27001</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot__h">Legal</h3>
+        <ul>
+          <li><a href="#code">Security</a></li>
+          <li><a class="ext" href="https://shield.quillaudits.com/terms" target="_blank" rel="noopener" title="Opens in a new tab">Terms of service</a></li>
+          <li><a class="ext" href="https://shield.quillaudits.com/privacy" target="_blank" rel="noopener" title="Opens in a new tab">Privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <p>© 2026 QuillAudits Inc.</p>
+      <div class="foot__soc">
+        <a class="ext" href="https://x.com/QuillAudits_AI" target="_blank" rel="noopener" title="Opens in a new tab">X</a>
+        <a class="ext" href="https://github.com/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">GitHub</a>
+        <a class="ext" href="https://telegram.me/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">Telegram</a>
+        <a class="ext" href="https://discord.gg/C6M2eQZagw" target="_blank" rel="noopener" title="Opens in a new tab">Discord</a>
+        <a class="ext" href="https://www.linkedin.com/company/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document, root=d.documentElement;
+  /* nav turns white once the hero has scrolled past */
+  var nav=d.getElementById('nav'), hero=d.getElementById('top');
+  if(nav&&hero&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){nav.classList.toggle('is-light',!es[0].isIntersecting);nav.classList.toggle('on-dark',es[0].isIntersecting)},{rootMargin:'-72px 0px 0px 0px'}).observe(hero);
+  }
+  /* close the mobile menu after a choice */
+  var menu=d.querySelector('.menu');
+  if(menu){menu.addEventListener('click',function(e){if(e.target.closest('.menu__panel a')){menu.removeAttribute('open')}})}
+  /* the audit in the hero runs once on load */
+  var audit=d.getElementById('audit');
+  if(!audit||!root.classList.contains('anim')){if(audit){audit.classList.add('is-done')}return}
+  var rows=[].slice.call(audit.querySelectorAll('[data-row]'));
+  var c={f:audit.querySelector('[data-c="findings"]'),k:audit.querySelector('[data-c="critical"]'),p:audit.querySelector('[data-c="poc"]')};
+  var n={f:0,k:0,p:0};
+  function paint(){c.f.textContent=n.f;c.k.textContent=n.k;c.p.textContent=n.p}
+  paint();
+  var i=0;
+  function next(){
+    if(i>=rows.length){setTimeout(function(){audit.classList.add('is-done');root.classList.remove('anim')},700);return}
+    var r=rows[i++];
+    r.classList.add('is-in');n.f++;if(r.getAttribute('data-sev')==='critical'){n.k++}paint();
+    setTimeout(function(){r.classList.add('is-proved');n.p++;paint()},520);
+    setTimeout(next,430);
+  }
+  setTimeout(next,450);
+})();
+</script>
+</body>
+</html>
