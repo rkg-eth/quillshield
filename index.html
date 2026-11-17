@@ -3,474 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QuillShield: AI security reviewer for smart contracts | QuillAudits</title>
-<meta name="description" content="AI agents that review every pull request with the full context of your protocol, starting from a complete audit of it. Solidity today, for Foundry projects.">
+<title>QuillShield: AI smart contract audit and pull request review</title>
+<meta name="description" content="QuillShield runs a full AI audit of Solidity smart contracts with proof of concept exploits, then checks each pull request against it. Free to sign up.">
+<link rel="canonical" href="https://shield.quillaudits.com/">
 <meta name="robots" content="noindex">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0D0F14">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#103DD3">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="QuillShield">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shield.quillaudits.com/">
 <meta property="og:title" content="QuillShield: the AI security reviewer for onchain code">
-<meta property="og:description" content="AI agents that review every pull request with the full context of your protocol, starting from a complete audit of it.">
+<meta property="og:description" content="AI agents that review every pull request with the full context of your protocol, starting from a complete audit of your smart contracts.">
 <meta property="og:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="QuillShield. The AI security reviewer for onchain code. AI agents that review every pull request, starting from a full audit.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@QuillAudits_AI">
+<meta name="twitter:title" content="QuillShield: the AI security reviewer for onchain code">
+<meta name="twitter:description" content="AI agents that review every pull request with the full context of your protocol, starting from a complete audit of your smart contracts.">
+<meta name="twitter:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta name="twitter:image:alt" content="QuillShield. The AI security reviewer for onchain code. AI agents that review every pull request, starting from a full audit.">
+<link rel="alternate" type="application/atom+xml" title="QuillShield blog" href="blog/feed.xml">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css?v=174dc19c">
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
 try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');setTimeout(function(){d.classList.remove('anim')},7000);}}catch(e){}})();
 </script>
-<style>
-@font-face{font-family:"Archivo";src:url("archivo.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
-
-/* ---------- tokens ---------- */
-:root{
-  color-scheme:dark;
-  /* colour */
-  --bg:#0D0F14;--surface:#151821;--surface-2:#1C202B;--line:#272C38;--line-2:#3A4152;--line-3:#566074;
-  --text:#F3F5F9;--text-2:#B6BCC8;--text-3:#8C94A3;
-  --core:#103DD3;--core-hover:#2A55EA;--data:#7C99FF;
-  --crit:#D31E23;--bad:#FF7A7A;--good:#4FCB8F;
-  --on-core:#FFFFFF;--on-core-2:#DBE2F8;--core-track:#4064DC;--core-soft:#93A8EB;
-  /* type: one scale, ratio 1.25 from 16px, plus 14px for small text */
-  --step--1:.875rem;--step-0:1rem;--step-1:1.25rem;--step-2:1.5625rem;--step-3:1.9375rem;--step-4:2.4375rem;--step-5:3.0625rem;--step-6:3.8125rem;
-  --fs-h1:var(--step-6);--fs-h2:var(--step-4);--fs-pull:var(--step-3);--fs-num:var(--step-5);
-  --w-body:400;--w-medium:500;--w-strong:640;--w-num:700;
-  --lh-tight:1;--lh-display:1.05;--lh-head:1.2;--lh-ui:1.3;--lh-body:1.5;--lh-code:1.7;
-  --track-display:-.03em;--track-head:-.02em;--track-sub:-.01em;
-  /* space: 4px base */
-  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;--sp-9:96px;
-  /* layout */
-  --max:1248px;--pad:var(--sp-9);--section:var(--sp-9);--gutter:var(--sp-5);--nav-h:72px;
-  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
-  --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 1h7v7H7.4V3.7L2.1 9 1 7.9 6.3 2.6H2z'/%3E%3C/svg%3E");
-}
-@media (max-width:1240px){:root{--pad:var(--sp-7)}}
-@media (max-width:1100px){:root{--fs-h1:var(--step-5);--fs-h2:var(--step-3);--section:var(--sp-8)}}
-@media (max-width:760px){:root{--fs-h1:var(--step-4);--fs-pull:var(--step-2);--fs-num:var(--step-4);--pad:var(--sp-5);--nav-h:64px}}
-
-/* ---------- base ---------- */
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(var(--nav-h) + var(--sp-5))}
-body{margin:0;font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-size:var(--step-0);font-weight:var(--w-body);line-height:var(--lh-body);color:var(--text-2);background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-h1,h2,h3,p,ul,ol,figure,blockquote{margin:0;padding:0}
-ul,ol{list-style:none}
-p,li,summary{text-wrap:pretty}
-svg{display:block}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--data);outline-offset:3px}
-.bench :focus-visible{outline-color:var(--on-core)}
-.skip{position:absolute;left:-9999px;top:0}
-.skip:focus{left:var(--sp-4);top:var(--sp-4);z-index:100;background:var(--text);color:var(--bg);padding:var(--sp-3) var(--sp-4)}
-.wrap{width:100%;max-width:calc(var(--max) + 2 * var(--pad));margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
-.sec{padding:var(--section) 0}
-.sec--line{border-top:1px solid var(--line)}
-.sec--band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.h2{font-size:var(--fs-h2);line-height:var(--lh-display);letter-spacing:var(--track-display);font-weight:var(--w-strong);color:var(--text);max-width:20em;text-wrap:balance}
-.lede{margin-top:var(--sp-4);font-size:var(--step-1);line-height:var(--lh-body);max-width:34em}
-.h3{font-size:var(--step-1);line-height:var(--lh-ui);letter-spacing:var(--track-sub);font-weight:var(--w-strong);color:var(--text)}
-.num{font-variant-numeric:tabular-nums lining-nums}
-.mono{font-family:var(--mono);font-size:var(--step--1)}
-.muted{color:var(--text-3)}
-.pm{position:relative;flex:none;width:14px;height:14px}
-.pm::before,.pm::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:currentColor}
-.pm::after{transform:rotate(90deg)}
-details[open] > summary .pm::after{display:none}
-
-/* ---------- links and buttons ---------- */
-.ext::after{content:"";display:inline-block;vertical-align:baseline;width:.62em;height:.62em;margin-left:.34em;background:currentColor;-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;flex:none}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 var(--sp-5);font-family:inherit;font-size:var(--step-0);font-weight:var(--w-strong);text-decoration:none;border:1px solid transparent;white-space:nowrap}
-.btn--primary{background:var(--core);color:var(--on-core)}
-.btn--primary:hover{background:var(--core-hover)}
-.btn--ghost{border-color:var(--text-3);color:var(--text)}
-.btn--ghost:hover{border-color:var(--text);background:var(--surface)}
-.btn--sm{min-height:44px;padding:0 var(--sp-4)}
-.tlink{display:inline-flex;align-items:center;min-height:44px;font-weight:var(--w-strong);color:var(--data);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.tlink:hover{text-decoration-thickness:2px}
-
-/* ---------- nav ---------- */
-.nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);color:var(--text)}
-.nav__in{display:flex;align-items:center;min-height:var(--nav-h)}
-.logo{display:inline-flex;align-items:center;min-height:44px;color:var(--text);text-decoration:none}
-.logo svg{height:24px;width:auto}
-.nav__links{display:flex;margin-left:var(--sp-6)}
-.nav__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--sp-3);font-weight:var(--w-medium);color:var(--text-2);text-decoration:none}
-.nav__links a:hover{color:var(--text)}
-.nav__cta{margin-left:auto;display:flex;align-items:center;gap:var(--sp-2)}
-.nav__signin{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--sp-3);font-weight:var(--w-medium);color:var(--text-2);text-decoration:none}
-.nav__signin:hover{color:var(--text)}
-.menu{display:none;position:relative}
-.menu summary{list-style:none;display:inline-flex;align-items:center;min-height:44px;padding:0 var(--sp-4);border:1px solid var(--text-3);font-weight:var(--w-medium);color:var(--text);cursor:pointer}
-.menu summary::-webkit-details-marker{display:none}
-.menu__panel{position:absolute;right:0;top:calc(100% + var(--sp-3));min-width:248px;background:var(--surface);border:1px solid var(--line-2);padding:var(--sp-2) 0}
-.menu__panel a{display:flex;align-items:center;min-height:48px;padding:0 var(--sp-5);font-weight:var(--w-medium);color:var(--text);text-decoration:none}
-.menu__panel a:hover{background:var(--surface-2)}
-
-/* ---------- hero ---------- */
-.hero{padding:var(--sp-8) 0 var(--sp-9)}
-.hero__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start}
-.hero__copy{grid-column:1 / span 6}
-.hero__panel{grid-column:7 / span 6}
-.hero h1{font-size:var(--fs-h1);line-height:var(--lh-display);letter-spacing:var(--track-display);font-weight:var(--w-strong);color:var(--text);text-wrap:balance}
-.hero__sub{margin-top:var(--sp-5);font-size:var(--step-1);line-height:var(--lh-body);color:var(--text-2);max-width:26em}
-.hero__cta{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-6)}
-.hero__note,.close__note{margin-top:var(--sp-4);font-size:var(--step--1);color:var(--text-3)}
-.hero__alt{margin-top:var(--sp-2)}
-.hero__cap{margin:0 0 var(--sp-3);font-size:var(--step--1);color:var(--text-2)}
-
-/* ---------- audit panel ---------- */
-.audit{--sev:72px;background:var(--surface);border:1px solid var(--line);border-top:2px solid var(--core);color:var(--text)}
-.audit__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--sp-4);padding:var(--sp-4) var(--sp-5);border-bottom:1px solid var(--line)}
-.audit__title{font-size:var(--step-1);line-height:var(--lh-ui);letter-spacing:var(--track-sub);font-weight:var(--w-strong)}
-.audit__kind{font-size:var(--step--1);color:var(--text-3)}
-.audit__state{display:inline-flex;align-items:center;padding-top:var(--sp-1);font-size:var(--step--1);font-weight:var(--w-strong);color:var(--good);white-space:nowrap}
-.audit__state .s-run{display:none;color:var(--data)}
-.audit__stats{display:grid;grid-template-columns:1fr 1fr 1.4fr 1fr;border-bottom:1px solid var(--line)}
-.audit__stat{padding:var(--sp-3) var(--sp-4) var(--sp-4) var(--sp-5);border-left:1px solid var(--line)}
-.audit__stat:first-child{border-left:0}
-.audit__n{font-size:var(--step-3);line-height:var(--lh-head);letter-spacing:var(--track-head);font-weight:var(--w-num);color:var(--text)}
-.audit__l{font-size:var(--step--1);line-height:var(--lh-ui);color:var(--text-3)}
-.frow{border-bottom:1px solid var(--line);transition:opacity .28s ease,transform .28s ease}
-.audit__rows li:last-child .frow{border-bottom:0}
-.frow summary{display:grid;grid-template-columns:var(--sev) minmax(0,1fr) auto 14px;column-gap:var(--sp-4);align-items:center;min-height:48px;padding:var(--sp-2) var(--sp-5);list-style:none;cursor:pointer}
-.frow summary::-webkit-details-marker{display:none}
-.frow summary:hover{background:var(--surface-2)}
-.frow[open] summary{align-items:start;padding-top:var(--sp-3)}
-.sev{display:inline-flex;align-items:center;justify-content:center;padding:var(--sp-1) var(--sp-2);font-size:var(--step--1);line-height:var(--lh-ui);font-weight:var(--w-strong);white-space:nowrap}
-.sev--critical{background:var(--crit);color:var(--on-core)}
-.sev--medium{border:1px solid var(--text-3);color:var(--text)}
-.frow__t{font-size:var(--step-0);line-height:var(--lh-ui);font-weight:var(--w-medium);color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.frow[open] .frow__t{white-space:normal}
-.frow__more{padding:0 var(--sp-5) var(--sp-3) calc(var(--sev) + var(--sp-4) + var(--sp-5));font-family:var(--mono);font-size:var(--step--1);color:var(--text-3)}
-.poc{display:inline-flex;align-items:center;font-size:var(--step--1);font-weight:var(--w-strong);color:var(--good);white-space:nowrap}
-.poc .p-run{display:none;color:var(--text-3);font-weight:var(--w-medium)}
-.tick{display:inline-block;vertical-align:-1px;margin-right:var(--sp-2)}
-.anim .audit:not(.is-done) .frow{opacity:0;transform:translateY(6px)}
-.anim .audit:not(.is-done) .frow.is-in{opacity:1;transform:none}
-.anim .audit:not(.is-done) .frow:not(.is-proved) .p-ok{display:none}
-.anim .audit:not(.is-done) .frow:not(.is-proved) .p-run{display:inline}
-.anim .audit:not(.is-done) .s-ok{display:none}
-.anim .audit:not(.is-done) .s-run{display:inline-flex;align-items:center;gap:var(--sp-2)}
-.dot{width:8px;height:8px;background:currentColor;display:inline-block}
-.anim .audit:not(.is-done) .dot{animation:blink 1s steps(2,start) infinite}
-@keyframes blink{50%{opacity:.25}}
-
-/* ---------- stat tiles ---------- */
-.stats__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
-.tile{border-top:1px solid var(--line-2);padding-top:var(--sp-4)}
-@supports (grid-template-rows:subgrid){@media (min-width:1101px){.tile{display:grid;grid-row:span 3;grid-template-rows:subgrid}}}
-.tile--a{grid-column:span 3}.tile--b{grid-column:span 4}.tile--c{grid-column:span 3}.tile--d{grid-column:span 2}
-.tile__n{font-size:var(--fs-num);line-height:var(--lh-display);letter-spacing:var(--track-display);font-weight:var(--w-num);color:var(--data)}
-.tile__l{margin-top:var(--sp-3);line-height:var(--lh-ui);font-weight:var(--w-medium);color:var(--text)}
-.tile__s{margin-top:var(--sp-2);font-size:var(--step--1);line-height:var(--lh-ui);color:var(--text-3);text-wrap:balance}
-
-/* ---------- client words ---------- */
-.words__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-7) var(--gutter)}
-.words__grid figure{display:flex;flex-direction:column}
-.card{background:var(--surface);border:1px solid var(--line)}
-.words .card{flex:1;display:flex;flex-direction:column}
-.words .card__body{flex:1;display:flex;flex-direction:column;justify-content:center}
-.card__head{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-4);padding:var(--sp-4) var(--sp-5);border-bottom:1px solid var(--line)}
-.card__title{font-weight:var(--w-strong);color:var(--text)}
-.card__meta{font-size:var(--step--1);color:var(--text-3)}
-.card__body{padding:var(--sp-5)}
-.card__k{font-size:var(--step--1);color:var(--text-3)}
-.chips{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:var(--sp-2) 0 var(--sp-5)}
-.chip{padding:var(--sp-1) var(--sp-2);border:1px solid var(--line-2);font-size:var(--step--1);line-height:var(--lh-ui);color:var(--text-2)}
-.chip--good{border-color:var(--good);color:var(--good);font-weight:var(--w-strong)}
-.say{position:relative;margin-top:var(--sp-2);padding-left:var(--sp-7)}
-.say::before{content:"\201C";position:absolute;left:0;top:-.12em;font-size:var(--step-6);line-height:var(--lh-tight);font-weight:var(--w-num);color:var(--data)}
-.say blockquote{font-size:var(--step-1);line-height:var(--lh-body);font-weight:var(--w-medium);color:var(--text)}
-.words__by{margin-top:var(--sp-3);font-size:var(--step--1);color:var(--text-3)}
-
-/* ---------- how it works ---------- */
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter);margin-top:var(--sp-7)}
-.step{display:flex;flex-direction:column}
-.step .plate{order:-1}
-@supports (grid-template-rows:subgrid){@media (min-width:1101px){
-  .step{display:grid;grid-row:span 5;grid-template-rows:subgrid}
-  .step .plate{display:grid;grid-row:1 / span 2;grid-template-rows:subgrid}
-  .step__n{grid-row:3}
-  .step .h3{grid-row:4}
-  .step__t{grid-row:5}
-}}
-.plate{background:var(--bg);border:1px solid var(--line);color:var(--text-2);font-size:var(--step--1);line-height:var(--lh-body)}
-.plate__body{padding:var(--sp-4) var(--sp-5) var(--sp-5)}
-.plate__k{color:var(--text-3)}
-.plate__h{font-size:var(--step-0);font-weight:var(--w-strong);line-height:var(--lh-ui);color:var(--text)}
-.plate__q{margin-top:var(--sp-3);font-weight:var(--w-strong);color:var(--text)}
-.plate__ref{margin-left:var(--sp-2);font-family:var(--mono);color:var(--text-3)}
-.plate__note{margin-top:var(--sp-3);color:var(--text-3)}
-.plate ul{margin-top:var(--sp-3);border-top:1px solid var(--line)}
-.plate li{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);min-height:40px;border-bottom:1px solid var(--line);color:var(--text)}
-.plate li > span:last-child{color:var(--text-3);white-space:nowrap}
-.plate li > span.is-bad{color:var(--bad);font-weight:var(--w-strong)}
-.plate li > span.is-ok{color:var(--good);font-weight:var(--w-strong)}
-.plate__foot{margin-top:var(--sp-3);font-weight:var(--w-strong);color:var(--text)}
-.plate__foot--ok{color:var(--good)}
-.triage{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-3)}
-.triage span{padding:var(--sp-1) var(--sp-2);border:1px solid var(--line-2);line-height:var(--lh-ui);color:var(--text-3)}
-.triage span.on{border-color:var(--text);color:var(--text);font-weight:var(--w-strong)}
-.ck{display:flex;align-items:center;gap:var(--sp-2)}
-.ck svg{flex:none}
-.ok{color:var(--good)}.no{color:var(--bad)}
-.ck > span{color:var(--text)}
-.step__n{margin-top:var(--sp-5);font-size:var(--step-3);line-height:var(--lh-display);letter-spacing:var(--track-head);font-weight:var(--w-num);color:var(--data)}
-.step .h3{margin-top:var(--sp-2)}
-.step__t{margin-top:var(--sp-2)}
-.how__note{margin-top:var(--sp-6);font-size:var(--step--1);color:var(--text-3)}
-
-/* the security graph: drawn once, shown in three states */
-.fig{--sg-line:var(--text-3);--sg-node:var(--text-2);border-bottom:1px solid var(--line)}
-.fig--dim{--sg-line:var(--line-3);--sg-node:var(--line-3)}
-.fig__svg{width:100%;max-width:520px;height:auto;margin:0 auto;fill:none}
-.sg-call,.sg-inv{stroke:var(--sg-line);shape-rendering:crispEdges}
-.sg-inv{stroke-dasharray:4 3}
-.sg-head{stroke:var(--sg-line)}
-.sg-role{stroke:var(--sg-node);stroke-width:1.5}
-.sg-node{fill:var(--sg-node)}
-.p-atk,.p-chk{stroke:var(--data);stroke-width:2}
-.p-stop,.r-stop{stroke:var(--text-3);stroke-width:1.5}
-.p-bar{stroke:var(--text-3);stroke-width:2}
-.r-atk{stroke:var(--data);stroke-width:1.5}
-.n-atk{fill:var(--data)}
-.n-hit{fill:var(--crit)}
-.n-x{stroke:var(--bg);stroke-width:2}
-.n-pr{fill:var(--text)}
-.n-prf{stroke:var(--text);shape-rendering:crispEdges}
-.fig__key{display:flex;flex-wrap:wrap;gap:var(--sp-1) var(--sp-4);padding:0 var(--sp-5) var(--sp-3);color:var(--text-3)}
-.key{display:inline-flex;align-items:center;gap:var(--sp-2);white-space:nowrap}
-.key svg{flex:none;width:16px;height:16px;fill:none}
-/* paths draw once when a figure scrolls into view; without script or with reduced motion they are simply there */
-.motion .fig--draw:not(.is-done) .draw{stroke-dasharray:1;transition:stroke-dashoffset 1.1s linear .2s}
-.motion .fig--draw:not(.is-in) .draw{stroke-dashoffset:1}
-.motion .fig--pr:not(.is-done) .draw{transition-duration:.5s}
-.motion .fig--draw:not(.is-done) .p-stop.draw{transition-duration:.4s}
-.motion .fig--draw .fig__svg .n-hit{transition:fill .2s linear 1.3s}
-.motion .fig--draw .fig__svg .n-x{transition:opacity .2s linear 1.3s}
-.motion .fig--pr .fig__svg .n-hit,.motion .fig--pr .fig__svg .n-x{transition-delay:.7s}
-.motion .fig--draw:not(.is-in) .fig__svg .n-hit{fill:var(--line-3)}
-.motion .fig--draw:not(.is-in) .fig__svg .n-x{opacity:0}
-.motion .fig--draw .fig__svg .p-bar{transition:opacity .15s linear .6s}
-.motion .fig--draw:not(.is-in) .fig__svg .p-bar{opacity:0}
-
-/* ---------- independent test ---------- */
-.case{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);margin-top:var(--sp-7);align-items:start}
-.case__story{grid-column:1 / span 5}
-.case__trail{grid-column:7 / span 6}
-.case__lead{font-size:var(--step-1);line-height:var(--lh-body)}
-.case__quote{margin-top:var(--sp-5)}
-.case__quote blockquote{font-size:var(--fs-pull);line-height:var(--lh-head);letter-spacing:var(--track-head);font-weight:var(--w-strong);color:var(--text);text-wrap:balance}
-.case__by{margin-top:var(--sp-3);font-size:var(--step--1);color:var(--text-3)}
-.case__link{margin-top:var(--sp-2)}
-.case__fine{margin-top:var(--sp-5);font-size:var(--step--1);color:var(--text-3)}
-/* the trail is a branch: one root cause, a path that was refuted and a path that worked.
-   lane A (refuted) sits at 8px, lane B (worked) at 40px, text starts at 64px */
-.trail__root,.tstep{position:relative;padding-left:var(--sp-8)}
-.trail__root{padding-bottom:var(--sp-5);font-size:var(--step--1);color:var(--text-3)}
-.trail__root::before,.tstep::before{content:"";position:absolute;left:40px;top:0;bottom:0;width:2px;background:var(--data)}
-.trail__root::before{top:var(--sp-4)}
-.tstep:last-child::before{bottom:auto;height:var(--sp-5)}
-.trail__root::after{content:"";position:absolute;left:var(--sp-2);top:28px;bottom:0;width:var(--sp-6);border-top:2px solid var(--text-3);border-left:2px solid var(--text-3)}
-.tstep--a::after{content:"";position:absolute;left:var(--sp-2);top:0;bottom:30px;border-left:2px solid var(--text-3)}
-.tstep__in{padding:var(--sp-4) 0;border-top:1px solid var(--line)}
-.tstep:last-child .tstep__in{border-bottom:1px solid var(--line)}
-.mk{position:absolute;left:34px;top:21px;width:14px;height:14px}
-.mk--root{top:3px;background:var(--text)}
-.mk--stop{left:1px;top:auto;bottom:29px;width:var(--sp-4);height:2px;background:var(--text-3)}
-.mk--win{background:var(--core);border:1px solid var(--data)}
-.mk--ok{color:var(--good);fill:var(--bg)}
-.mk--end{background:var(--bg);border:1px solid var(--text-3)}
-.trail__who{font-weight:var(--w-strong);color:var(--text)}
-.trail__what{margin-top:var(--sp-1)}
-.trail__tag{display:inline-block;margin-top:var(--sp-3);padding:var(--sp-1) var(--sp-2);font-size:var(--step--1);line-height:var(--lh-ui);font-weight:var(--w-strong);border:1px solid var(--line-2);color:var(--text-2)}
-.trail__tag--win{border-color:var(--data);color:var(--data)}
-.trail__tag--ok{border-color:var(--good);color:var(--good)}
-.minis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-5) var(--gutter);margin-top:var(--sp-6)}
-.mini{border-top:1px solid var(--line-2);padding-top:var(--sp-3)}
-.mini__n{font-size:var(--step-3);line-height:var(--lh-head);letter-spacing:var(--track-head);font-weight:var(--w-num);color:var(--data)}
-.mini__l{margin-top:var(--sp-1);font-size:var(--step--1);line-height:var(--lh-ui);color:var(--text)}
-/* one square is one finding, filled when its proof passed, as in the benchmark grid */
-.units{display:grid;grid-template-columns:repeat(8,minmax(0,12px));gap:var(--sp-1);margin:var(--sp-1) 0 var(--sp-2)}
-.units i{aspect-ratio:1 / 1;border:1px solid var(--text-3)}
-.units i.on{border-color:var(--good);background:var(--good)}
-
-/* ---------- stack ---------- */
-.stack__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-7) var(--gutter);margin-top:var(--sp-7)}
-.stack__grid > div{display:flex;flex-direction:column;min-width:0}
-@supports (grid-template-rows:subgrid){@media (min-width:661px){
-  .stack__grid{row-gap:0}
-  .stack__grid > div{display:grid;grid-row:span 4;grid-template-rows:subgrid}
-  .stack__grid > div:nth-child(n+3){margin-top:var(--sp-7)}
-}}
-.term{min-height:120px;padding:var(--sp-4) var(--sp-5);background:var(--surface);border:1px solid var(--line);color:var(--text);font-family:var(--mono);font-size:var(--step--1);line-height:var(--lh-code);white-space:pre;overflow-x:auto}
-.term .dim{color:var(--text-3)}
-.term--ui{font-family:inherit;line-height:var(--lh-body);white-space:normal}
-.term__k{margin-bottom:var(--sp-1);color:var(--text-3)}
-.term--ui .ck{min-height:32px;justify-content:space-between}
-.term--ui .ck b{font-weight:var(--w-strong)}
-.stack .h3{margin-top:var(--sp-4)}
-.stack__t{margin-top:var(--sp-1)}
-.stack .tlink{margin-top:auto;align-self:flex-start;justify-self:start}
-
-/* ---------- human review ---------- */
-.human__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start}
-.human__copy{grid-column:1 / span 6}
-.human__data{grid-column:8 / span 5;border-top:1px solid var(--line-2);padding-top:var(--sp-4)}
-.human__cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-5);margin-top:var(--sp-6)}
-.human__n{font-size:var(--fs-num);line-height:var(--lh-display);letter-spacing:var(--track-display);font-weight:var(--w-num);color:var(--data)}
-.human__l{margin-top:var(--sp-3);font-weight:var(--w-medium);color:var(--text)}
-.human__names{margin-top:var(--sp-2);font-size:var(--step--1);color:var(--text-3)}
-
-/* ---------- benchmark: the one ultramarine field ---------- */
-.bench{background:var(--core);color:var(--on-core)}
-.bench .h2{color:var(--on-core)}
-.bench .lede{color:var(--on-core-2)}
-.bench .tlink{color:var(--on-core)}
-.bench__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);margin-top:var(--sp-7);align-items:start}
-.bench__bars{grid-column:1 / span 6}
-.bench__waffle{grid-column:8 / span 5}
-.brow + .brow{margin-top:var(--sp-6)}
-.brow__top{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--sp-4)}
-.brow__name{font-weight:var(--w-strong);color:var(--on-core)}
-.brow__sub{font-size:var(--step--1);color:var(--on-core-2)}
-.brow__v{font-size:var(--fs-num);line-height:var(--lh-tight);letter-spacing:var(--track-display);font-weight:var(--w-num);color:var(--on-core)}
-.track{position:relative;height:24px;margin-top:var(--sp-3);background:var(--core-track)}
-.track i{position:absolute;left:0;top:0;bottom:0;background:var(--on-core)}
-.track i.base{background:var(--core-soft)}
-.bench__note{margin-top:var(--sp-5);font-size:var(--step--1);color:var(--on-core-2);max-width:40em}
-.waffle{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:var(--sp-1)}
-.waffle i{aspect-ratio:1 / 1;background:var(--on-core)}
-.waffle i.miss{background:transparent;box-shadow:inset 0 0 0 1.5px var(--core-soft)}
-.waffle__cap{margin-top:var(--sp-4);font-weight:var(--w-medium);color:var(--on-core)}
-.waffle__sub{margin-top:var(--sp-1);font-size:var(--step--1);color:var(--on-core-2)}
-
-/* ---------- your code ---------- */
-.code__grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gutter);margin-top:var(--sp-7)}
-.fact{border-top:1px solid var(--line-2);padding-top:var(--sp-4)}
-.fact__i{width:var(--sp-6);height:var(--sp-6);margin-bottom:var(--sp-4);fill:none;stroke:var(--text-2);stroke-width:1.5}
-.fact__i .f{fill:var(--text-2)}
-.fact .h3{font-size:var(--step-0)}
-.fact p{margin-top:var(--sp-2);font-size:var(--step--1)}
-.code__links{display:flex;flex-wrap:wrap;gap:0 var(--sp-6);margin-top:var(--sp-6)}
-
-/* ---------- faq ---------- */
-.faq__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start}
-.faq__h{grid-column:1 / span 4}
-.faq__list{grid-column:6 / span 7}
-.faq details{border-top:1px solid var(--line)}
-.faq details:last-child{border-bottom:1px solid var(--line)}
-.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:var(--sp-5);min-height:64px;padding:var(--sp-2) 0;font-size:var(--step-1);line-height:var(--lh-ui);font-weight:var(--w-strong);color:var(--text);cursor:pointer}
-.faq summary::-webkit-details-marker{display:none}
-.faq__a{padding:0 var(--sp-7) var(--sp-5) 0;max-width:40em}
-.faq__a .tlink{margin-top:var(--sp-1)}
-
-/* ---------- close ---------- */
-.close__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:end}
-.close__main{grid-column:1 / span 7}
-.close__t{font-size:var(--fs-h2);line-height:var(--lh-display);letter-spacing:var(--track-display);font-weight:var(--w-strong);color:var(--text);text-wrap:balance}
-.close__cta{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-6)}
-.start{grid-column:9 / span 4}
-.start li{display:grid;grid-template-columns:var(--sp-6) minmax(0,1fr);align-items:baseline;padding:var(--sp-3) 0;border-top:1px solid var(--line-2);font-weight:var(--w-medium);color:var(--text)}
-.start li:last-child{border-bottom:1px solid var(--line-2)}
-.start__n{font-weight:var(--w-num);color:var(--data)}
-
-/* ---------- footer ---------- */
-.foot{padding:var(--sp-8) 0 var(--sp-6);font-size:var(--step--1)}
-.foot__top{display:grid;grid-template-columns:1.5fr repeat(4,minmax(0,1fr));gap:var(--sp-6) var(--gutter)}
-.foot__tag{margin-top:var(--sp-2);max-width:17em;color:var(--text-3)}
-.foot__h{margin-bottom:var(--sp-1);font-size:var(--step--1);font-weight:var(--w-strong);color:var(--text-3)}
-.foot li a{display:inline-block;min-width:44px;padding:var(--sp-3) 0;color:var(--text-2);text-decoration:none}
-.foot li a:hover{color:var(--text)}
-.foot .ext::after{display:none}
-.foot__bot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--sp-1) var(--sp-5);margin-top:var(--sp-7);padding-top:var(--sp-4);border-top:1px solid var(--line);color:var(--text-3)}
-.foot__soc{display:flex;flex-wrap:wrap;gap:0 var(--sp-5)}
-.foot__soc a{display:inline-flex;align-items:center;min-height:44px;color:var(--text-2);text-decoration:none}
-.foot__soc a:hover{color:var(--text)}
-.foot__soc .xs{padding:0 var(--sp-5);margin:0 calc(-1 * var(--sp-5))}
-
-/* ---------- responsive ---------- */
-@media (min-width:1101px){.fact .h3{min-height:2.6em}}
-@media (max-width:1100px){
-  .hero{padding:var(--sp-7) 0 var(--sp-8)}
-  .hero__copy,.hero__panel{grid-column:1 / -1}
-  .hero__panel{margin-top:var(--sp-7)}
-  .tile--a,.tile--b,.tile--c,.tile--d{grid-column:span 6}
-  .tile--c,.tile--d{margin-top:var(--sp-7)}
-  .words__grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr;row-gap:var(--sp-7)}
-  .step{display:block}
-  .step .plate{margin-top:var(--sp-4)}
-  .step__n{margin-top:0}
-  .case__story,.case__trail{grid-column:1 / -1}
-  .case__trail{margin-top:var(--sp-7)}
-  .human__copy,.human__data{grid-column:1 / -1}
-  .human__data{margin-top:var(--sp-7)}
-  .bench__bars,.bench__waffle{grid-column:1 / -1}
-  .bench__waffle{margin-top:var(--sp-7);max-width:520px}
-  .code__grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--sp-6)}
-  .faq__h,.faq__list{grid-column:1 / -1}
-  .close__main,.start{grid-column:1 / -1}
-  .start{margin-top:var(--sp-7);max-width:520px}
-  .faq__list{margin-top:var(--sp-6)}
-  .foot__top{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .foot__brand{grid-column:1 / -1}
-}
-@media (min-width:661px) and (max-width:1100px){
-  .step .plate{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .fig{display:flex;flex-direction:column;justify-content:center;border-bottom:0;border-right:1px solid var(--line)}
-}
-@media (max-width:980px){
-  .nav__links,.nav__signin{display:none}
-  .menu{display:block}
-}
-@media (max-width:760px){
-  .hero{padding:var(--sp-6) 0 var(--sp-8)}
-  .logo svg{height:22px}
-  .audit__head{padding:var(--sp-4)}
-  .audit__stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .audit__stat{padding:var(--sp-3) var(--sp-4)}
-  .audit__stat:nth-child(3){border-left:0}
-  .audit__stat:nth-child(n+3){border-top:1px solid var(--line)}
-  .frow summary{grid-template-columns:auto minmax(0,1fr) 14px;row-gap:var(--sp-2);padding:var(--sp-3) var(--sp-4)}
-  .frow .poc{justify-self:end}
-  .frow__t{grid-column:1 / -1;grid-row:2;white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-  .frow[open] .frow__t{display:block}
-  .frow__more{padding:0 var(--sp-4) var(--sp-3)}
-  .hero__panel{margin-top:var(--sp-6)}
-  .card__body{padding:var(--sp-4)}
-  .card__head{padding:var(--sp-3) var(--sp-4)}
-  .say{padding-left:0;padding-top:var(--sp-6)}
-  .say::before{top:-.1em;font-size:var(--step-5)}
-  .faq__a{padding-right:0}
-}
-@media (max-width:660px){
-  .stack__grid{grid-template-columns:1fr}
-  .term{min-height:0}
-}
-@media (max-width:560px){
-  .tile--a,.tile--b,.tile--c,.tile--d{grid-column:1 / -1}
-  .tile--b,.tile--c,.tile--d{margin-top:var(--sp-6)}
-  .code__grid{grid-template-columns:1fr}
-  .btn{width:100%}
-  .nav .btn{width:auto}
-  .hero__cta,.close__cta{flex-direction:column}
-  .foot__top{grid-template-columns:1fr 1fr}
-}
-@media (max-width:400px){
-  .logo svg{height:20px}
-  .nav .btn--sm,.menu summary{padding:0 var(--sp-3)}
-}
-@media (max-width:340px){.nav .btn--sm{display:none}}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.quillaudits.com/#organization","name":"QuillAudits","url":"https://www.quillaudits.com/","logo":{"@type":"ImageObject","url":"https://www.quillaudits.com/logo/quillaudits-full.svg"},"description":"QuillAudits is a smart contract audit firm. It has audited 1,500+ protocols since 2018 and makes QuillShield. QuillShield is an AI security reviewer for smart contracts. It runs a full audit of a Solidity codebase, builds a security graph and tests its findings with proofs of concept, then checks every pull request against that graph.","sameAs":["https://x.com/QuillAudits_AI","https://github.com/quillaudits","https://www.linkedin.com/company/quillaudits"]},{"@type":"WebSite","@id":"https://shield.quillaudits.com/#website","url":"https://shield.quillaudits.com/","name":"QuillShield","description":"QuillShield is an AI security reviewer for smart contracts. It runs a full audit of a Solidity codebase, builds a security graph and tests its findings with proofs of concept, then checks every pull request against that graph.","inLanguage":"en","publisher":{"@id":"https://www.quillaudits.com/#organization"}},{"@type":"WebPage","@id":"https://shield.quillaudits.com/#webpage","url":"https://shield.quillaudits.com/","name":"QuillShield: AI smart contract audit and pull request review","description":"QuillShield runs a full AI audit of Solidity smart contracts with proof of concept exploits, then checks each pull request against it. Free to sign up.","isPartOf":{"@id":"https://shield.quillaudits.com/#website"},"about":{"@id":"https://shield.quillaudits.com/#software"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://shield.quillaudits.com/og.png","width":1200,"height":630},"inLanguage":"en","dateModified":"2026-11-17T00:00:00Z"},{"@type":"SoftwareApplication","@id":"https://shield.quillaudits.com/#software","name":"QuillShield","url":"https://shield.quillaudits.com/","description":"QuillShield is an AI security reviewer for smart contracts. It runs a full audit of a Solidity codebase, builds a security graph and tests its findings with proofs of concept, then checks every pull request against that graph.","applicationCategory":"SecurityApplication","operatingSystem":"Web","image":"https://shield.quillaudits.com/og.png","creator":{"@id":"https://www.quillaudits.com/#organization"},"publisher":{"@id":"https://www.quillaudits.com/#organization"},"featureList":["Full audit of a Solidity project, for Foundry projects","Security graph built by the full audit","Proof of concept exploits run by the full audit","Every pull request checked against the security graph"],"softwareHelp":{"@type":"CreativeWork","name":"QuillShield docs","url":"https://www.quillaudits.com/quillshield"},"releaseNotes":"https://shield.quillaudits.com/updates/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://shield.quillaudits.com/#faq","mainEntity":[{"@type":"Question","name":"How do I start, and when do I pay?","acceptedAnswer":{"@type":"Answer","text":"Sign up for free, import a repo and choose what to audit. You see the exact price before anything is charged, and the audit starts when you approve it. The $50 credit for new accounts covers up to half of an order and expires after six months."}},{"@type":"Question","name":"Does QuillShield replace a manual audit?","acceptedAnswer":{"@type":"Answer","text":"No. QuillShield is an AI smart contract audit that runs between manual audits. It reviews every change, and you can request a manual audit from QuillAudits."}},{"@type":"Question","name":"Which languages does QuillShield support?","acceptedAnswer":{"@type":"Answer","text":"Solidity is supported today, for Foundry projects. More languages are coming, one at a time."}},{"@type":"Question","name":"How long does a QuillShield audit take?","acceptedAnswer":{"@type":"Answer","text":"The demo vault at the top of this page took 2h 7m, and the researcher’s lending contract took 2h 30m. Larger codebases take longer. Findings appear while the audit runs, so your team can start fixing before it finishes."}},{"@type":"Question","name":"How are findings checked before they reach me?","acceptedAnswer":{"@type":"Answer","text":"A separate reviewer agent tries to disprove every finding before you see it. Each one that holds up arrives with the exact lines, the impact, a recommended fix and, on full audits, the proof of concept result. If you want a human check as well, you can ask a QuillAudits auditor to verify specific findings from the audit page."}},{"@type":"Question","name":"Can a failing check stop a merge?","acceptedAnswer":{"@type":"Answer","text":"Yes, on GitHub, where your plan includes branch protection or rulesets. Make the QuillShield check required and a pull request cannot merge while it has a High or Critical finding, or one at the threshold you set. Each full audit comes with five pull request checks, and more can be added. They need a GitHub or GitLab.com repo, so an uploaded zip gets a full audit and no checks."}}]}</script>
 </head>
-<body>
+<body class="t-light">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav" id="nav">
+<header class="nav t-blue" id="nav">
   <div class="wrap nav__in">
     <a class="logo" href="#top" aria-label="QuillShield, back to top">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" role="img" aria-label="QuillShield"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
@@ -480,34 +52,56 @@ details[open] > summary .pm::after{display:none}
       <a href="#how">How it works</a>
       <a href="#benchmark">Benchmark</a>
       <a href="#code">Security</a>
+      <a href="blog/">Blog</a>
       <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
     </nav>
     <div class="nav__cta">
       <a class="nav__signin" href="https://shield.quillaudits.com/login">Sign in</a>
       <a class="btn btn--primary btn--sm" href="https://shield.quillaudits.com/register">Start now</a>
       <details class="menu">
-        <summary>Menu</summary>
-        <div class="menu__panel">
+        <summary><span class="menu__lab">Menu</span><span class="menu__lab menu__lab--x">Close</span></summary>
+        <nav class="menu__panel" aria-label="Primary">
+          <a class="menu__start" href="https://shield.quillaudits.com/register">Start now</a>
           <a href="#findings">Independent test</a>
           <a href="#how">How it works</a>
           <a href="#benchmark">Benchmark</a>
           <a href="#code">Security</a>
+          <a href="blog/">Blog</a>
           <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
           <a class="ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
-          <a href="https://shield.quillaudits.com/login">Sign in</a>
-        </div>
+          <a class="menu__signin" href="https://shield.quillaudits.com/login">Sign in</a>
+        </nav>
       </details>
     </div>
   </div>
 </header>
+<script>
+(function(){
+  var d=document, m=d.querySelector('.menu');
+  if(!m){return}
+  var s=m.querySelector('summary');
+  function shut(back){if(m.open){m.open=false;if(back){s.focus()}}}
+  /* the phone menu closes after a choice, on Escape, on a press outside it and when focus leaves it */
+  m.addEventListener('click',function(e){if(e.target.closest('.menu__panel a')){shut()}});
+  d.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.open){shut(true)}});
+  d.addEventListener('pointerdown',function(e){if(m.open&&!m.contains(e.target)){shut()}});
+  m.addEventListener('focusout',function(e){if(m.open&&e.relatedTarget&&!m.contains(e.relatedTarget)){shut()}});
+  /* a table or a code block is a Tab stop only while it scrolls sideways */
+  d.addEventListener('DOMContentLoaded',function(){
+    var sc=[].slice.call(d.querySelectorAll('.tscroll,.prose pre'));
+    function tab(){sc.forEach(function(x){if(x.scrollWidth>x.clientWidth+1){x.setAttribute('tabindex','0')}else{x.removeAttribute('tabindex')}})}
+    if(sc.length){tab();window.addEventListener('resize',tab);if(d.fonts&&d.fonts.ready){d.fonts.ready.then(tab)}}
+  });
+})();
+</script>
 
 <main id="main">
 
-<section class="hero" id="top">
+<section class="hero t-blue" id="top">
   <div class="wrap hero__grid">
     <div class="hero__copy">
       <h1>The AI security reviewer for onchain code</h1>
-      <p class="hero__sub">AI agents that review every pull request with the full context of your protocol, starting from a complete audit of it.</p>
+      <p class="hero__sub">AI agents that review every pull request with the full context of your protocol, starting from a complete audit of your smart contracts.</p>
       <div class="hero__cta">
         <a class="btn btn--primary" href="https://shield.quillaudits.com/register">Start now</a>
         <a class="btn btn--ghost ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
@@ -516,59 +110,55 @@ details[open] > summary .pm::after{display:none}
       <p class="hero__alt"><a class="tlink" href="#findings">See what an independent researcher found with it</a></p>
     </div>
     <div class="hero__panel">
-      <p class="hero__cap">Real output. Full audit of a demo vault, 23 October 2026.</p>
-      <div class="audit" id="audit" role="group" aria-label="Example: full audit of the Mini DeFi Vault demo">
+      <p class="hero__cap">Real output. Full audit of a demo vault, 23&nbsp;October&nbsp;2026.</p>
+      <div class="audit t-dark" id="audit" role="group" aria-label="Example: full audit of the Mini DeFi Vault demo">
         <div class="audit__head">
           <div>
             <p class="audit__title">Mini DeFi Vault</p>
             <p class="audit__kind">Full audit with proof of concept</p>
           </div>
-          <p class="audit__state"><span class="s-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Completed</span><span class="s-run"><i class="dot"></i>Running</span></p>
+          <p class="audit__state"><span class="s-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Completed</span><span class="s-run" data-run="Running" aria-hidden="true"><i class="dot"></i></span></p>
         </div>
         <div class="audit__stats">
           <div class="audit__stat"><p class="audit__n num" data-c="findings">5</p><p class="audit__l">findings</p></div>
           <div class="audit__stat"><p class="audit__n num" data-c="critical">3</p><p class="audit__l">Critical</p></div>
           <div class="audit__stat"><p class="audit__n num"><span data-c="poc">5</span> of 5</p><p class="audit__l">proofs of concept passed</p></div>
-          <div class="audit__stat"><p class="audit__n num">2h 7m</p><p class="audit__l">start to finish</p></div>
+          <div class="audit__stat"><p class="audit__n num">2h&nbsp;7m</p><p class="audit__l">start to finish</p></div>
         </div>
         <ol class="audit__rows">
-          <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">deposit() prices new shares on a balance that already includes msg.value, so depositors are under-minted and earlier holders take their principal</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:26</p></details></li>
-          <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">redeem() reduces totalShares by only shares/1e9, so remaining holders lose value and ETH is permanently locked</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:40</p></details></li>
-          <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">Broken share accounting permanently freezes depositor principal and donations in MiniYieldVault</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:26</p></details></li>
-          <li><details class="frow" data-row data-sev="medium"><summary><span class="sev sev--medium">Medium</span><span class="frow__t">redeem() checks the share count against minAssets instead of the ETH paid, so redemptions have no slippage protection</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:38</p></details></li>
-          <li><details class="frow" data-row data-sev="medium"><summary><span class="sev sev--medium">Medium</span><span class="frow__t">Searcher can sandwich a visible ETH donation and take yield meant for existing holders</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run">Running PoC</span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:27</p></details></li>
+          <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">deposit() prices new shares on a balance that already includes msg.value, so depositors are under-minted and earlier holders take their principal</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run" data-run="Running PoC" aria-hidden="true"></span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:26</p></details></li>
+          <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">redeem() reduces totalShares by only shares/1e9, so remaining holders lose value and ETH is permanently locked</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run" data-run="Running PoC" aria-hidden="true"></span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:40</p></details></li>
+          <li><details class="frow" data-row data-sev="critical"><summary><span class="sev sev--critical">Critical</span><span class="frow__t">Broken share accounting permanently freezes depositor principal and donations in MiniYieldVault</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run" data-run="Running PoC" aria-hidden="true"></span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:26</p></details></li>
+          <li><details class="frow" data-row data-sev="medium"><summary><span class="sev sev--medium">Medium</span><span class="frow__t">redeem() checks the share count against minAssets instead of the ETH paid, so redemptions have no slippage protection</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run" data-run="Running PoC" aria-hidden="true"></span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:38</p></details></li>
+          <li><details class="frow" data-row data-sev="medium"><summary><span class="sev sev--medium">Medium</span><span class="frow__t">Searcher can sandwich a visible ETH donation and take yield meant for existing holders</span><span class="poc"><span class="p-ok"><svg class="tick" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>PoC passed</span><span class="p-run" data-run="Running PoC" aria-hidden="true"></span></span><i class="pm" aria-hidden="true"></i></summary><p class="frow__more">src/MiniYieldVault.sol:27</p></details></li>
         </ol>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec--line stats" aria-label="QuillShield in numbers">
+<section class="sec stats t-light" aria-labelledby="h-numbers">
+  <h2 class="sr-only" id="h-numbers">QuillShield in numbers</h2>
   <div class="wrap stats__grid">
     <div class="tile tile--a">
       <p class="tile__n num">90%</p>
       <p class="tile__l">of the findings QuillAudits auditors reviewed were valid</p>
-      <p class="tile__s">Private beta, client Solidity code. November 2026.</p>
+      <p class="tile__s">Private beta, client Solidity code. Reported November&nbsp;2026.</p>
     </div>
     <div class="tile tile--b">
       <p class="tile__n num">83.8%</p>
-      <p class="tile__l">of known vulnerabilities found on EVMbench, the OpenAI and Paradigm benchmark. The best single model in the paper found 45.6%.</p>
-      <p class="tile__s">Our own alpha run, July 2026.</p>
+      <p class="tile__l">of known vulnerabilities found on EVMbench, the OpenAI and Paradigm benchmark</p>
+      <p class="tile__s">Our own alpha run, July&nbsp;2026. The best single model in the paper’s first release found 45.6%.</p>
     </div>
     <div class="tile tile--c">
-      <p class="tile__n num">350,000+</p>
-      <p class="tile__l">lines of Solidity reviewed across 155 projects</p>
-      <p class="tile__s">Private beta, August 2026.</p>
-    </div>
-    <div class="tile tile--d">
-      <p class="tile__n num">100+</p>
-      <p class="tile__l">users in the beta</p>
-      <p class="tile__s">27 October 2026.</p>
+      <p class="tile__n num">150,000+</p>
+      <p class="tile__l">lines of Solidity in completed audits, across about 60 projects</p>
+      <p class="tile__s">2&nbsp;July to 3&nbsp;November&nbsp;2026. In-scope lines, without comments or blank lines.</p>
     </div>
   </div>
 </section>
 
-<section class="sec sec--line find" id="findings">
+<section class="sec sec--line find t-light" id="findings">
   <div class="wrap">
     <h2 class="h2">An independent researcher tested it on a live lending contract</h2>
     <div class="case">
@@ -576,16 +166,16 @@ details[open] > summary .pm::after{display:none}
         <p class="case__lead">He had already audited the contract and ruled this bug out.</p>
         <div class="case__quote">
           <blockquote>“Their path worked and mine didn’t.”</blockquote>
-          <p class="case__by">Independent security researcher, in his public write-up. 26 October 2026.</p>
+          <p class="case__by">Independent security researcher, in his public <span class="nb">write-up</span>. 26&nbsp;October&nbsp;2026.</p>
         </div>
         <p class="case__link"><a class="tlink ext" href="https://x.com/Harvesto12/status/2114723142396498119" target="_blank" rel="noopener" title="Opens in a new tab">Read the write-up</a></p>
         <div class="minis">
           <div class="mini"><p class="mini__n num">8</p><p class="mini__l">findings: 2 Medium, 2 Low, 4 Info</p></div>
-          <div class="mini"><p class="mini__n num">3 of 8</p><span class="units" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span><p class="mini__l">proofs of concept passed</p></div>
+          <div class="mini"><p class="mini__n num">3 of 8</p><p class="mini__l">proofs of concept passed</p><span class="units" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span></div>
           <div class="mini"><p class="mini__n num">4</p><p class="mini__l">findings the earlier AI pass missed</p></div>
-          <div class="mini"><p class="mini__n num">2h 30m</p><p class="mini__l">for the full audit</p></div>
+          <div class="mini"><p class="mini__n num">2h&nbsp;30m</p><p class="mini__l">for the full audit</p></div>
         </div>
-        <p class="case__fine">He ran the audit with a free promo code from us. The write-up is his own.</p>
+        <p class="case__fine">He ran the audit with a free promo code from us. The <span class="nb">write-up</span> is his own.</p>
       </div>
       <div class="case__trail">
         <p class="trail__root"><i class="mk mk--root" aria-hidden="true"></i>One root cause, two attack paths</p>
@@ -600,22 +190,23 @@ details[open] > summary .pm::after{display:none}
   </div>
 </section>
 
-<section class="sec sec--line words" aria-label="What users say">
+<section class="sec words t-tint" aria-labelledby="h-words">
+  <h2 class="sr-only" id="h-words">What users say</h2>
   <div class="wrap words__grid">
     <figure>
       <div class="card">
         <div class="card__head">
-          <div><p class="card__title">Audit feedback</p><p class="card__meta">28 October 2026</p></div>
+          <div><p class="card__title">Audit feedback</p><p class="card__meta">28&nbsp;October&nbsp;2026</p></div>
           <span class="chip chip--good">Positive</span>
         </div>
         <div class="card__body">
           <p class="card__k">Categories</p>
           <div class="chips"><span class="chip">Clear report</span><span class="chip">Accurate findings</span><span class="chip">Helpful guidance</span></div>
-          <p class="card__k">Message</p>
+          <p class="card__k">From the message</p>
           <div class="say"><blockquote>I have run my repo through 2 other AI auditors to prepare for formal audits and to find out highs were missed is surprising. Glad I was able to test it out.</blockquote></div>
         </div>
       </div>
-      <figcaption class="words__by">Feedback form in the app, from a beta user. Name removed.</figcaption>
+      <figcaption class="words__by">Excerpt from the feedback form in the app, from a beta user. Name removed.</figcaption>
     </figure>
     <figure>
       <div class="card">
@@ -623,6 +214,7 @@ details[open] > summary .pm::after{display:none}
           <div><p class="card__title">Message from a client</p><p class="card__meta">On receiving their audit report</p></div>
         </div>
         <div class="card__body">
+          <p class="card__k">Message</p>
           <div class="say"><blockquote>I’m very impressed by the workflow, PoC feature and layout of QuillShield. I can see how this will become an industry standard for smart contracts.</blockquote></div>
         </div>
       </div>
@@ -631,7 +223,7 @@ details[open] > summary .pm::after{display:none}
   </div>
 </section>
 
-<section class="sec sec--band how" id="how">
+<section class="sec sec--band how t-dark" id="how">
   <div class="wrap">
     <h2 class="h2">How QuillShield reviews every pull request</h2>
     <ol class="steps">
@@ -710,10 +302,11 @@ details[open] > summary .pm::after{display:none}
       </li>
     </ol>
     <p class="how__note">The graph is a schematic. The finding is from the demo audit at the top of this page, and the pull request list is an illustration.</p>
+    <p><a class="tlink" href="guides/check-every-pull-request-on-github/">Guide: check every pull request on GitHub</a></p>
   </div>
 </section>
 
-<section class="sec stack" id="stack">
+<section class="sec stack t-dark" id="stack">
   <div class="wrap">
     <h2 class="h2">Built for code written by people and agents</h2>
     <div class="stack__grid">
@@ -737,17 +330,17 @@ details[open] > summary .pm::after{display:none}
         <a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/mcp-for-cursor-and-claude" target="_blank" rel="noopener" title="Opens in a new tab">MCP setup</a>
       </div>
       <div>
-        <div class="term" role="img" aria-label="Terminal commands to install the qs command line tool and run an audit"><span class="dim">$</span> npm install -g @quillaudits/cli
+        <pre class="term"><code><span class="dim">$</span> npm install -g @quillaudits/cli
 <span class="dim">$</span> qs init
-<span class="dim">$</span> qs audit &lt;repo&gt; --watch</div>
+<span class="dim">$</span> qs audit &lt;repo&gt; --watch</code></pre>
         <h3 class="h3">CLI</h3>
         <p class="stack__t">Run and follow audits from the terminal.</p>
         <a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/cli-install-and-init" target="_blank" rel="noopener" title="Opens in a new tab">CLI install</a>
       </div>
       <div>
-        <div class="term" role="img" aria-label="REST API calls for findings, reports and live events"><span class="dim">GET</span> /v1/audits/:job_id/findings
+        <pre class="term"><code><span class="dim">GET</span> /v1/audits/:job_id/findings
 <span class="dim">GET</span> /v1/audits/:job_id/report
-<span class="dim">GET</span> /v1/audits/:job_id/events</div>
+<span class="dim">GET</span> /v1/audits/:job_id/events</code></pre>
         <h3 class="h3">REST API</h3>
         <p class="stack__t">Findings, reports and live events for any pipeline.</p>
         <a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/developers" target="_blank" rel="noopener" title="Opens in a new tab">API reference</a>
@@ -756,7 +349,7 @@ details[open] > summary .pm::after{display:none}
   </div>
 </section>
 
-<section class="sec sec--line human" id="auditors">
+<section class="sec human t-light" id="auditors">
   <div class="wrap human__grid">
     <div class="human__copy">
       <h2 class="h2">Escalate any&nbsp;finding to an auditor</h2>
@@ -774,33 +367,33 @@ details[open] > summary .pm::after{display:none}
   </div>
 </section>
 
-<section class="sec bench" id="benchmark">
+<section class="sec bench t-blue" id="benchmark">
   <div class="wrap">
     <h2 class="h2">Measured on EVMbench</h2>
-    <p class="lede">EVMbench is a benchmark built by OpenAI and Paradigm from vulnerabilities found in real smart contract audits. In July 2026, QuillShield’s alpha found 98 of the 117 known vulnerabilities in it.</p>
+    <p class="lede">EVMbench is a benchmark built by OpenAI and Paradigm from vulnerabilities found in real smart contract audits. In July&nbsp;2026, QuillShield’s alpha found 98&nbsp;of&nbsp;the&nbsp;117 known vulnerabilities in it.</p>
     <div class="bench__grid">
       <div class="bench__bars">
         <div class="brow">
-          <div class="brow__top"><div><p class="brow__name">QuillShield alpha</p><p class="brow__sub">July 2026 run</p></div><p class="brow__v num">83.8%</p></div>
+          <div class="brow__top"><div><p class="brow__name">QuillShield alpha</p><p class="brow__sub">July&nbsp;2026 run</p></div><p class="brow__v num">83.8%</p></div>
           <div class="track" role="img" aria-label="83.8 percent"><i style="width:83.8%"></i></div>
         </div>
         <div class="brow">
-          <div class="brow__top"><div><p class="brow__name">Best single model</p><p class="brow__sub">EVMbench paper, February 2026</p></div><p class="brow__v num">45.6%</p></div>
+          <div class="brow__top"><div><p class="brow__name">Best single model</p><p class="brow__sub">EVMbench paper, February&nbsp;2026</p></div><p class="brow__v num">45.6%</p></div>
           <div class="track" role="img" aria-label="45.6 percent"><i class="base" style="width:45.6%"></i></div>
         </div>
-        <p class="bench__note">Our own run on 8 July 2026, across 40 audited projects. It compares a multi-agent system with the best single model in the paper, not with other tools.</p>
-        <p><a class="tlink ext" href="https://openai.com/index/introducing-evmbench/" target="_blank" rel="noopener" title="Opens in a new tab">About EVMbench</a></p>
+        <p class="bench__note">Our own run on 8&nbsp;July&nbsp;2026, across 40 audited projects. It compares a multi-agent system with the best single model in the paper, not with other tools. The paper’s first release put that model at 45.6%. Its March revision, on the same 117 vulnerabilities, puts it at 45.9%.</p>
+        <p><a class="tlink ext" href="https://openai.com/index/introducing-evmbench/" target="_blank" rel="noopener" title="Opens in a new tab">About EVMbench</a> <a class="tlink" href="blog/evmbench-results/">How we ran it</a></p>
       </div>
       <div class="bench__waffle">
         <div class="waffle" role="img" aria-label="Grid of 117 squares, one for each known vulnerability. 98 are filled as found and 19 are outlined as missed."><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i><i class="miss"></i></div>
         <p class="waffle__cap">Each square is one known vulnerability. 98 found, 19 missed.</p>
-        <p class="waffle__sub">In 28 of the 40 projects, it found every known vulnerability.</p>
+        <p class="waffle__sub">In 28&nbsp;of&nbsp;the&nbsp;40 projects, it found every known vulnerability.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec code" id="code">
+<section class="sec code t-light" id="code">
   <div class="wrap">
     <h2 class="h2">Your unaudited code stays yours</h2>
     <div class="code__grid">
@@ -818,40 +411,53 @@ details[open] > summary .pm::after{display:none}
   </div>
 </section>
 
-<section class="sec sec--line faq" id="faq">
+<section class="sec sec--line latest t-light" id="latest">
+  <div class="wrap">
+    <h2 class="h2">Latest from the team</h2>
+    <ul class="rows">
+      <li class="row rail"><p class="rail__k row__k"><time datetime="2026-11-17">17 November 2026</time> <span class="row__m">6 minute read</span></p><div class="rail__b"><h3 class="row__t"><a href="blog/evmbench-results/"><span>Our EVMbench results: 98&nbsp;of&nbsp;117 known vulnerabilities found</span></a></h3><p class="row__s">The QuillShield alpha found 98 of 117 known vulnerabilities on EVMbench (83.8%) in our own run on 8 July 2026. What EVMbench measures and how we ran it.</p></div></li>
+      <li class="row rail"><p class="rail__k row__k"><time datetime="2026-11-17">17 November 2026</time> <span class="row__m">6 minute read</span></p><div class="rail__b"><h3 class="row__t"><a href="blog/can-ai-audit-smart-contracts/"><span>Can AI audit smart contracts? What the data shows</span></a></h3><p class="row__s">Yes, within limits. What AI finds on a public benchmark, how many findings hold up when auditors check them, and why it does not replace a manual audit.</p></div></li>
+      <li class="row rail"><p class="rail__k row__k"><time datetime="2026-11-17">17 November 2026</time> <span class="row__m">6 minute read</span></p><div class="rail__b"><h3 class="row__t"><a href="blog/ai-audit-vs-manual-audit/"><span>AI audit vs manual audit: what each one is for</span></a></h3><p class="row__s">An AI audit reviews every change, and QuillShield tests findings with exploits where it can. A manual audit adds human judgment. How to use both.</p></div></li>
+      <li class="row rail"><p class="rail__k row__k"><time datetime="2026-09-30">30 September 2026</time> <span class="row__m">Product update</span></p><div class="rail__b"><h3 class="row__t"><a href="updates/#2026-09-30-gitlab-com-checks-new-sign-in-options-and-public-reports"><span>GitLab.com checks, new <span class="nb">sign-in</span> options and public reports</span></a></h3><p class="row__s">Pull request checks cover GitLab.com.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec faq t-tint" id="faq">
   <div class="wrap faq__grid">
     <h2 class="h2 faq__h">Questions teams ask first</h2>
     <div class="faq__list">
       <details open>
-        <summary>How do I start, and when do I pay?<i class="pm" aria-hidden="true"></i></summary>
-        <div class="faq__a"><p>Sign up for free, import a repo and choose what to audit. You see the exact price before anything is charged, and the audit starts when you approve it. The $50 credit for new accounts covers up to half of an order and expires after six months.</p></div>
+        <summary><h3 class="faq__q">How do I start, and when do I pay?</h3><i class="pm" aria-hidden="true"></i></summary>
+        <div class="faq__a"><p>Sign up for free, import a repo and choose what to audit. You see the exact price before anything is charged, and the audit starts when you approve it. The $50 credit for new accounts covers up to half of an order and expires after six months.</p>
+        <a class="tlink" href="guides/run-your-first-audit/">Guide: run your first audit</a></div>
       </details>
       <details>
-        <summary>Does QuillShield replace a manual audit?<i class="pm" aria-hidden="true"></i></summary>
-        <div class="faq__a"><p>No. It reviews every change between audits, and you can request a manual audit from QuillAudits.</p></div>
+        <summary><h3 class="faq__q">Does QuillShield replace a manual audit?</h3><i class="pm" aria-hidden="true"></i></summary>
+        <div class="faq__a"><p>No. QuillShield is an AI smart contract audit that runs between manual audits. It reviews every change, and you can request a manual audit from QuillAudits.</p></div>
       </details>
       <details>
-        <summary>Which languages does it support?<i class="pm" aria-hidden="true"></i></summary>
+        <summary><h3 class="faq__q">Which languages does QuillShield support?</h3><i class="pm" aria-hidden="true"></i></summary>
         <div class="faq__a"><p>Solidity is supported today, for Foundry projects. More languages are coming, one at a time.</p></div>
       </details>
       <details>
-        <summary>How long does an audit take?<i class="pm" aria-hidden="true"></i></summary>
-        <div class="faq__a"><p>The demo vault at the top of this page took 2h 7m, and the researcher’s lending contract took 2h 30m. Larger codebases take longer. Findings appear while the audit runs, so your team can start fixing before it finishes.</p></div>
+        <summary><h3 class="faq__q">How long does a QuillShield audit take?</h3><i class="pm" aria-hidden="true"></i></summary>
+        <div class="faq__a"><p>The demo vault at the top of this page took 2h&nbsp;7m, and the researcher’s lending contract took 2h&nbsp;30m. Larger codebases take longer. Findings appear while the audit runs, so your team can start fixing before it finishes.</p></div>
       </details>
       <details>
-        <summary>How are findings checked before they reach me?<i class="pm" aria-hidden="true"></i></summary>
+        <summary><h3 class="faq__q">How are findings checked before they reach me?</h3><i class="pm" aria-hidden="true"></i></summary>
         <div class="faq__a"><p>A separate reviewer agent tries to disprove every finding before you see it. Each one that holds up arrives with the exact lines, the impact, a recommended fix and, on full audits, the proof of concept result. If you want a human check as well, you can ask a QuillAudits auditor to verify specific findings from the audit page.</p>
         <a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/expert-review-and-support" target="_blank" rel="noopener" title="Opens in a new tab">How expert review works</a></div>
       </details>
       <details>
-        <summary>Can a failing check stop a merge?<i class="pm" aria-hidden="true"></i></summary>
-        <div class="faq__a"><p>Yes, on GitHub. Make the QuillShield check required and a pull request cannot merge while it has a High or Critical finding, or one at the threshold you set. Each full audit comes with five pull request checks, and more can be added. They need a GitHub or GitLab.com repo, so an uploaded zip gets a full audit and no checks.</p></div>
+        <summary><h3 class="faq__q">Can a failing check stop a merge?</h3><i class="pm" aria-hidden="true"></i></summary>
+        <div class="faq__a"><p>Yes, on GitHub, where your plan includes branch protection or rulesets. Make the QuillShield check required and a pull request cannot merge while it has a High or Critical finding, or one at the threshold you set. Each full audit comes with five pull request checks, and more can be added. They need a GitHub or GitLab.com repo, so an uploaded zip gets a full audit and no checks.</p></div>
       </details>
     </div>
   </div>
 </section>
 
-<section class="sec sec--band close" aria-label="Get started">
+<section class="sec sec--band close t-dark" aria-label="Get started">
   <div class="wrap close__grid">
     <div class="close__main">
       <p class="close__t">QuillShield is building the security layer between AI and money, so you can keep shipping between audits.</p>
@@ -871,9 +477,9 @@ details[open] > summary .pm::after{display:none}
 
 </main>
 
-<footer class="foot">
+<footer class="foot t-dark">
   <div class="wrap">
-    <div class="foot__top">
+    <nav class="foot__top" aria-label="Footer">
       <div class="foot__brand">
         <a class="logo" href="#top" aria-label="QuillShield, back to top">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" aria-hidden="true"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
@@ -881,8 +487,8 @@ details[open] > summary .pm::after{display:none}
         <p class="foot__tag">The AI security reviewer for onchain code.</p>
       </div>
       <div>
-        <h3 class="foot__h">Product</h3>
-        <ul>
+        <p class="foot__h" id="fh-product">Product</p>
+        <ul aria-labelledby="fh-product">
           <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/run-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Full audit</a></li>
           <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">Pull request checks</a></li>
           <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/workflows" target="_blank" rel="noopener" title="Opens in a new tab">Workflows</a></li>
@@ -892,18 +498,21 @@ details[open] > summary .pm::after{display:none}
         </ul>
       </div>
       <div>
-        <h3 class="foot__h">Resources</h3>
-        <ul>
+        <p class="foot__h" id="fh-resources">Resources</p>
+        <ul aria-labelledby="fh-resources">
+          <li><a href="blog/">Blog</a></li>
+          <li><a href="guides/">Guides</a></li>
+          <li><a href="updates/">Product updates</a></li>
           <li><a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a></li>
           <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/getting-started/quickstart" target="_blank" rel="noopener" title="Opens in a new tab">Quickstart</a></li>
-          <li><a class="ext" href="https://www.quillaudits.com/quillshield/changelog" target="_blank" rel="noopener" title="Opens in a new tab">Changelog</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/changelog" target="_blank" rel="noopener" title="Opens in a new tab">Docs changelog</a></li>
           <li><a href="#benchmark">Benchmark</a></li>
           <li><a class="ext" href="https://www.quillaudits.com/leaderboard" target="_blank" rel="noopener" title="Opens in a new tab">Audit leaderboard</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="foot__h">QuillAudits</h3>
-        <ul>
+        <p class="foot__h" id="fh-quillaudits">QuillAudits</p>
+        <ul aria-labelledby="fh-quillaudits">
           <li><a class="ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">Manual audits</a></li>
           <li><a class="ext" href="https://github.com/Quillhash/QuillAudit_smart_contract_audit_Reports" target="_blank" rel="noopener" title="Opens in a new tab">Audit reports on GitHub</a></li>
           <li><a class="ext" href="https://www.quillaudits.com/web3-hacks-database" target="_blank" rel="noopener" title="Opens in a new tab">Web3 hacks database</a></li>
@@ -911,14 +520,14 @@ details[open] > summary .pm::after{display:none}
         </ul>
       </div>
       <div>
-        <h3 class="foot__h">Legal</h3>
-        <ul>
+        <p class="foot__h" id="fh-legal">Legal</p>
+        <ul aria-labelledby="fh-legal">
           <li><a href="#code">Security</a></li>
           <li><a class="ext" href="https://shield.quillaudits.com/terms" target="_blank" rel="noopener" title="Opens in a new tab">Terms of service</a></li>
           <li><a class="ext" href="https://shield.quillaudits.com/privacy" target="_blank" rel="noopener" title="Opens in a new tab">Privacy policy</a></li>
         </ul>
       </div>
-    </div>
+    </nav>
     <div class="foot__bot">
       <p>© 2026 QuillAudits Inc.</p>
       <div class="foot__soc">
@@ -935,9 +544,6 @@ details[open] > summary .pm::after{display:none}
 <script>
 (function(){
   var d=document, root=d.documentElement;
-  /* close the mobile menu after a choice */
-  var menu=d.querySelector('.menu');
-  if(menu){menu.addEventListener('click',function(e){if(e.target.closest('.menu__panel a')){menu.removeAttribute('open')}})}
   /* diagrams draw once when they scroll into view */
   var figs=[].slice.call(d.querySelectorAll('.fig--draw')), calm=true;
   try{calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}

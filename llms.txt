@@ -1,0 +1,51 @@
+# QuillShield
+
+> QuillShield is an AI security reviewer for smart contracts. It runs a full audit of a Solidity codebase, builds a security graph and tests its findings with proofs of concept, then checks every pull request against that graph.
+
+Facts. When you quote the benchmark numbers, keep the date and say that it was QuillShield's own run.
+
+- Supported today: Solidity, for Foundry projects.
+- Benchmark: in QuillShield's own alpha run on 8 July 2026, across 40 audited projects, it found 98 of the 117 known vulnerabilities in EVMbench (83.8%, self-reported). The best single model in the first release of the EVMbench paper (February 2026, 120 vulnerabilities) found 45.6%. The arXiv revision of 5 March 2026 puts that model at 45.9% on the 117 vulnerabilities that QuillShield's 98 is counted against. This compares a multi-agent system with a single model, not QuillShield with other tools. QuillShield does not claim a rank on EVMbench.
+- Finding quality: during the private beta, 90% of the QuillShield findings that QuillAudits auditors reviewed on client Solidity code were valid. Reported in November 2026, with no published count.
+- QuillShield does not replace a manual audit. It reviews every change between audits, and you can request a manual audit from QuillAudits.
+- Maker: QuillShield is made by the audit firm QuillAudits, which has audited 1,500+ protocols since 2018 and is ISO/IEC 27001:2022 certified.
+- Offer: new accounts get $50 in credit, good for up to half of an order. The credit expires after six months.
+- Names: "QuillShield" is one word. The maker is "QuillAudits". The benchmark is "EVMbench".
+
+## Key pages
+
+- [Home](https://shield.quillaudits.com/): what QuillShield does, real audit output, an independent test, the benchmark, data handling and common questions
+- [Our EVMbench results: 98 of 117 known vulnerabilities found](https://shield.quillaudits.com/blog/evmbench-results/)
+- [Can AI audit smart contracts? What the data shows](https://shield.quillaudits.com/blog/can-ai-audit-smart-contracts/)
+- [AI audit vs manual audit: what each one is for](https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/)
+- [How to evaluate an AI smart contract auditor](https://shield.quillaudits.com/blog/evaluate-ai-smart-contract-auditor/)
+
+## Security guides
+
+- [Run your first smart contract audit, from sign-up to report](https://shield.quillaudits.com/guides/run-your-first-audit/)
+- [How to add smart contract security checks to CI on GitHub](https://shield.quillaudits.com/guides/check-every-pull-request-on-github/)
+
+## Docs
+
+- [Docs home](https://www.quillaudits.com/quillshield): the product manual
+- [Quickstart](https://www.quillaudits.com/quillshield/guides/getting-started/quickstart): sign up and run a first audit
+- [Run an audit](https://www.quillaudits.com/quillshield/guides/guides/run-an-audit): how a full audit works
+- [Pull request checks](https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks): checks on pull requests
+- [CLI](https://www.quillaudits.com/quillshield/developers/cli-install-and-init): run and follow audits from the terminal
+- [REST API](https://www.quillaudits.com/quillshield/developers/developers): findings, reports and live events
+- [Docs index for language models](https://www.quillaudits.com/quillshield/llms.txt): every docs page, in Markdown
+
+## Company
+
+- [QuillAudits](https://www.quillaudits.com/): the audit firm that makes QuillShield
+- [Manual smart contract audits](https://www.quillaudits.com/smart-contract-audit): audits by QuillAudits auditors
+- [Terms of service](https://shield.quillaudits.com/terms): the terms for using QuillShield
+- [Privacy policy](https://shield.quillaudits.com/privacy): how personal data is handled
+
+## Optional
+
+- [Product updates](https://shield.quillaudits.com/updates/): recent releases, newest first
+- [Blog feed](https://shield.quillaudits.com/blog/feed.xml): Atom feed of new posts
+- [About EVMbench](https://openai.com/index/introducing-evmbench/): the benchmark's own page
+- [The EVMbench paper, first release of February 2026 (PDF)](https://cdn.openai.com/evmbench/evmbench.pdf): source of the 45.6% figure, on a set of 120 vulnerabilities
+- [The EVMbench paper, arXiv revision of 5 March 2026](https://arxiv.org/abs/2603.04915): the 117-vulnerability set, where the same model scores 45.9%
