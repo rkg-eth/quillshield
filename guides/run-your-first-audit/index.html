@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run your first smart contract audit, from sign-up to report</title>
+<meta name="description" content="Sign up for QuillShield, import a Solidity project, choose the files in scope, pay and read the findings. Every button is named as the docs name it.">
+<link rel="canonical" href="https://shield.quillaudits.com/guides/run-your-first-audit/">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#103DD3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QuillShield">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shield.quillaudits.com/guides/run-your-first-audit/">
+<meta property="og:title" content="Run your first smart contract audit, from sign-up to report">
+<meta property="og:description" content="Sign up for QuillShield, import a Solidity project, choose the files in scope, pay and read the findings. Every button is named as the docs name it.">
+<meta property="og:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="QuillShield. The AI security reviewer for onchain code. AI agents that review every pull request, starting from a full audit.">
+<meta property="article:published_time" content="2026-11-17T00:00:00Z">
+<meta property="article:modified_time" content="2026-11-17T00:00:00Z">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@QuillAudits_AI">
+<meta name="twitter:title" content="Run your first smart contract audit, from sign-up to report">
+<meta name="twitter:description" content="Sign up for QuillShield, import a Solidity project, choose the files in scope, pay and read the findings. Every button is named as the docs name it.">
+<meta name="twitter:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta name="twitter:image:alt" content="QuillShield. The AI security reviewer for onchain code. AI agents that review every pull request, starting from a full audit.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../site.css?v=174dc19c">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://shield.quillaudits.com/guides/run-your-first-audit/#article","mainEntityOfPage":"https://shield.quillaudits.com/guides/run-your-first-audit/","headline":"Run your first smart contract audit, from sign-up to report","description":"Sign up for QuillShield, import a Solidity project, choose the files in scope, pay and read the findings. Every button is named as the docs name it.","image":["https://shield.quillaudits.com/og.png"],"datePublished":"2026-11-17T00:00:00Z","dateModified":"2026-11-17T00:00:00Z","inLanguage":"en","author":{"@type":"Organization","name":"The QuillShield team","url":"https://shield.quillaudits.com/"},"publisher":{"@type":"Organization","@id":"https://www.quillaudits.com/#organization","name":"QuillAudits","url":"https://www.quillaudits.com/","logo":{"@type":"ImageObject","url":"https://www.quillaudits.com/logo/quillaudits-full.svg"}}},{"@type":"BreadcrumbList","@id":"https://shield.quillaudits.com/guides/run-your-first-audit/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"QuillShield","item":"https://shield.quillaudits.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://shield.quillaudits.com/guides/"},{"@type":"ListItem","position":3,"name":"Run your first smart contract audit, from sign-up to report","item":"https://shield.quillaudits.com/guides/run-your-first-audit/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://shield.quillaudits.com/guides/run-your-first-audit/#faq","mainEntity":[{"@type":"Question","name":"How long does a QuillShield audit take?","acceptedAnswer":{"@type":"Answer","text":"The docs give no fixed time. The demo vault on the QuillShield home page took 2h 7m, and larger codebases take longer. Findings appear while the audit runs."}},{"@type":"Question","name":"Which languages does QuillShield support?","acceptedAnswer":{"@type":"Answer","text":"Solidity is supported today, for Foundry projects."}},{"@type":"Question","name":"When do I pay for an audit?","acceptedAnswer":{"@type":"Answer","text":"You see the exact price before anything is charged, and the audit starts when the order is paid. New accounts get $50 in credit, good for up to half of an order, and it expires after six months."}},{"@type":"Question","name":"Can I audit a zip instead of a repository?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can upload a Foundry zip of up to 50 MiB, a folder or a single .sol file. An upload gets a full audit and no pull request checks, because checks need a GitHub or GitLab.com repository."}}]}</script>
+</head>
+<body class="t-light">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav t-blue" id="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="../../" aria-label="QuillShield home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" role="img" aria-label="QuillShield"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="../../#findings">Independent test</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#benchmark">Benchmark</a>
+      <a href="../../#code">Security</a>
+      <a href="../../blog/">Blog</a>
+      <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__signin" href="https://shield.quillaudits.com/login">Sign in</a>
+      <a class="btn btn--primary btn--sm" href="https://shield.quillaudits.com/register">Start now</a>
+      <details class="menu">
+        <summary><span class="menu__lab">Menu</span><span class="menu__lab menu__lab--x">Close</span></summary>
+        <nav class="menu__panel" aria-label="Primary">
+          <a class="menu__start" href="https://shield.quillaudits.com/register">Start now</a>
+          <a href="../../#findings">Independent test</a>
+          <a href="../../#how">How it works</a>
+          <a href="../../#benchmark">Benchmark</a>
+          <a href="../../#code">Security</a>
+          <a href="../../blog/">Blog</a>
+          <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
+          <a class="ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+          <a class="menu__signin" href="https://shield.quillaudits.com/login">Sign in</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<script>
+(function(){
+  var d=document, m=d.querySelector('.menu');
+  if(!m){return}
+  var s=m.querySelector('summary');
+  function shut(back){if(m.open){m.open=false;if(back){s.focus()}}}
+  /* the phone menu closes after a choice, on Escape, on a press outside it and when focus leaves it */
+  m.addEventListener('click',function(e){if(e.target.closest('.menu__panel a')){shut()}});
+  d.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.open){shut(true)}});
+  d.addEventListener('pointerdown',function(e){if(m.open&&!m.contains(e.target)){shut()}});
+  m.addEventListener('focusout',function(e){if(m.open&&e.relatedTarget&&!m.contains(e.relatedTarget)){shut()}});
+  /* a table or a code block is a Tab stop only while it scrolls sideways */
+  d.addEventListener('DOMContentLoaded',function(){
+    var sc=[].slice.call(d.querySelectorAll('.tscroll,.prose pre'));
+    function tab(){sc.forEach(function(x){if(x.scrollWidth>x.clientWidth+1){x.setAttribute('tabindex','0')}else{x.removeAttribute('tabindex')}})}
+    if(sc.length){tab();window.addEventListener('resize',tab);if(d.fonts&&d.fonts.ready){d.fonts.ready.then(tab)}}
+  });
+})();
+</script>
+
+<main id="main">
+<article>
+<header class="phead phead--doc t-blue">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../../">QuillShield</a></li><li><a href="../../guides/">Guides</a></li><li class="sr-only" aria-current="page">Run your first smart contract audit, from sign-up to report</li></ol></nav>
+    <h1>Run your first smart contract audit, from <span class="nb">sign-up</span> to report</h1>
+    <p class="lede">To run your first QuillShield audit, sign up, create a project from your Solidity repository or a zip, choose the files in scope, check the quote and pay. The audit starts when the order is paid. Findings appear while it runs, and the finished report downloads as Markdown or PDF.</p>
+    <p class="phead__meta">Last updated <time datetime="2026-11-17">17 November 2026</time>. 4 minute read. By the QuillShield team.</p>
+  </div>
+</header>
+<div class="doc">
+  <div class="wrap rail">
+    <div class="prose">
+<p>When you finish this guide you will have a completed full audit of your Solidity project in QuillShield, with findings grouped by severity, a status your team sets on each one, and a report to download or share. The QuillShield docs give no fixed time for an audit. The demo vault on the <a href="../../">QuillShield home page</a> took 2h 7m, and larger codebases take longer.</p>
+<h2 id="what-do-you-need-before-your-first-audit">What do you need before your first audit?</h2>
+<ul>
+<li>A Solidity project built with Foundry. That is what QuillShield supports today.</li>
+<li>The code as a GitHub or GitLab.com repository, a git URL, a Foundry <code>.zip</code> of up to 50 MiB, a folder, or a single <code>.sol</code> file. Use a GitHub or GitLab.com repository if you want pull request checks later, because an upload gets a full audit and no checks.</li>
+<li>A way to pay the quote through Stripe Checkout. New accounts get $50 in credit, good for up to half of an order, and it expires after six months.</li>
+<li>The admin or owner role, if you are joining an existing organization, because only those roles create projects.</li>
+</ul>
+<h2 id="how-do-you-run-a-full-audit-in-quillshield">How do you run a full audit in QuillShield?</h2>
+<ol class="stps">
+<li><span class="stp__n num">1</span> Create your account. Open the <a href="https://shield.quillaudits.com/register">sign-up page</a>. Register with email and password, or choose one of the <strong>Continue with</strong> buttons shown, for Google, GitHub or GitLab, and accept the Terms of Service. Email sign-up ends with a 2FA code sent to your inbox.</li>
+<li><span class="stp__n num">2</span> Start a project. Go to <strong>Projects&nbsp;→ New project</strong> and pick a source tab: <strong>GitHub</strong>, <strong>GitLab.com</strong>, <strong>Git URL</strong> or <strong>Zip / folder / .sol</strong>. For GitHub or GitLab.com, connect the account under <strong>Settings&nbsp;→ Integrations</strong> first, unless you signed in with it. Then pick the repository and a branch, tag or commit.</li>
+<li><span class="stp__n num">3</span> Choose the scope. On <strong>Scope</strong>, select the <code>.sol</code> files to audit. Tests, <code>lib/</code>, mocks, scripts and generated folders are left out by default. Click <strong>Save &amp; continue</strong>.</li>
+<li><span class="stp__n num">4</span> Attach documents, or skip. On <strong>Docs</strong>, upload PDF or Markdown, paste text or import a public URL. The limits are 24 files, 10 MiB each, 40 MiB in total and 80 PDF pages. Click <strong>Continue</strong>, or <strong>Skip</strong>.</li>
+<li><span class="stp__n num">5</span> Keep the default workflow. If your workspace shows a <strong>Workflow</strong> step, leave the <strong>QuillShield Audit Agent</strong> selected and click <strong>Save &amp; continue</strong>. Workspaces without workflows do not have this step.</li>
+<li><span class="stp__n num">6</span> Review and pay. On the last step, <strong>Review &amp; pay</strong>, check the quote, which shows the exact price before anything is charged. Your credit and any wallet balance are applied first, and the rest is paid through Stripe Checkout. The audit starts by itself when the order is paid.</li>
+<li><span class="stp__n num">7</span> Watch it run. The audit page streams status and findings as the job moves through <strong>Preparing</strong>, <strong>Mapping</strong>, <strong>Modeling</strong>, <strong>Consolidating</strong> and <strong>Finalizing</strong>. <strong>Cancel</strong> works while the job is queued, building or running.</li>
+<li><span class="stp__n num">8</span> Read the results. Open <strong>Audits</strong> and select the job. Mark each finding as open, acknowledged, fixed or false positive, then download the <strong>Report (Markdown / PDF / JSON)</strong>.</li>
+</ol>
+<p>From a terminal, three commands do the same. <code>qs init</code> asks for the API URL, which is <code>https://api.quillaudits.ai</code>, and an API key from <strong>Settings&nbsp;→ API keys</strong>. Without <code>--yes</code>, <code>qs audit</code> asks you to confirm the charge. Add <code>--yes</code> only in CI, where it skips that question.</p>
+<pre class="term term--wide t-dark" tabindex="0"><code>npm install -g @quillaudits/cli
+qs init
+qs audit https://github.com/org/contract --ref main --watch
+</code></pre>
+<h2 id="what-does-a-finished-audit-include">What does a finished audit include?</h2>
+<ul>
+<li>Findings grouped by severity, from critical to info, each with a title, a description, the impact and the code locations.</li>
+<li>Proof of concept (PoC) results. A full audit may include a PoC status on a finding (none, pending, passed or failed) and a <strong>PoC bundle</strong> to download.</li>
+<li>The report in Markdown or PDF, and <strong>Artifacts</strong>, which may include <code>recon.md</code> and <code>invariants.md</code>.</li>
+<li><strong>Ask AI</strong>, a chat that answers from the saved findings without re-running the audit.</li>
+<li><strong>Share</strong>, a read-only public link to the findings and report with no PoCs or source code, and <strong>Publish</strong>, which lists the audit on the QuillAudits leaderboard, as a public report, or both. Neither happens unless you choose it.</li>
+<li><strong>Verify findings with expert</strong>, a form that asks a QuillAudits auditor to check specific findings.</li>
+</ul>
+<p>On a git project, this audit is also the baseline for pull request checks, and it comes with five. Next, <a href="../../guides/check-every-pull-request-on-github/">check every pull request on GitHub</a>.</p>
+<h2 id="common-problems-when-starting-an-audit">Common problems when starting an audit</h2>
+<div class="tscroll tscroll--wide" role="region" aria-label="Table: What you see, Why, What to do" tabindex="0"><table>
+<thead>
+<tr>
+<th scope="col">What you see</th>
+<th scope="col">Why</th>
+<th scope="col">What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Checkout says payment is required</th>
+<td>An amount is still due on the order</td>
+<td>Finish Stripe Checkout, or add prepaid balance under <strong>Billing</strong> and retry. The sign-up credit covers up to half of an order</td>
+</tr>
+<tr>
+<th scope="row">A private repository will not import</th>
+<td>QuillShield has no access to it</td>
+<td>Connect your GitHub or GitLab.com account under <strong>Settings&nbsp;→ Integrations</strong>, or install the GitHub App</td>
+</tr>
+<tr>
+<th scope="row"><code>scope_changed</code></th>
+<td>The scope was edited after an unpaid order</td>
+<td>Save the scope again and get a fresh quote</td>
+</tr>
+<tr>
+<th scope="row">Audit failed</th>
+<td>The project could not be analyzed as submitted</td>
+<td>Read the job error on the audit page, fix the source and start a new audit</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="full-reference-in-the-quillshield-docs">Full reference in the QuillShield docs</h2>
+<p>The <a class="ext" href="https://www.quillaudits.com/quillshield/guides/getting-started/quickstart" target="_blank" rel="noopener" title="Opens in a new tab">Quickstart in the QuillShield docs</a> covers the same steps. <a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/run-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Run an audit</a> and <a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/review-findings" target="_blank" rel="noopener" title="Opens in a new tab">Review findings</a> go further on checkout and triage.</p>
+    </div>
+  </div>
+</div>
+<div class="after t-tint">
+  <div class="wrap">
+      <section class="aft rail" aria-labelledby="h-questions"><h2 class="aft__h" id="h-questions">Common questions</h2><div class="rail__b faq"><details open><summary><h3 class="faq__q">How long does a QuillShield audit take?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>The docs give no fixed time. The demo vault on the QuillShield home page took 2h 7m, and larger codebases take longer. Findings appear while the audit runs.</p></div></details><details><summary><h3 class="faq__q">Which languages does QuillShield support?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Solidity is supported today, for Foundry projects.</p></div></details><details><summary><h3 class="faq__q">When do I pay for an audit?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>You see the exact price before anything is charged, and the audit starts when the order is paid. New accounts get $50 in credit, good for up to half of an order, and it expires after six months.</p></div></details><details><summary><h3 class="faq__q">Can I audit a zip instead of a repository?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Yes. You can upload a Foundry zip of up to 50 MiB, a folder or a single .sol file. An upload gets a full audit and no pull request checks, because checks need a GitHub or GitLab.com repository.</p></div></details></div></section>
+      <section class="aft rail" aria-labelledby="h-sources"><h2 class="aft__h" id="h-sources">Sources</h2><ul class="rail__b srcs"><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/getting-started/quickstart" target="_blank" rel="noopener" title="Opens in a new tab">Quickstart, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/what-is-quillshield" target="_blank" rel="noopener" title="Opens in a new tab">What is QuillShield?, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/account-and-security" target="_blank" rel="noopener" title="Opens in a new tab">Account and security, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/create-a-project" target="_blank" rel="noopener" title="Opens in a new tab">Create a project, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/scope-and-documentation" target="_blank" rel="noopener" title="Opens in a new tab">Scope and documentation, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/workflows/use-a-workflow-in-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Use a workflow in an audit, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/run-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Run an audit, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/review-findings" target="_blank" rel="noopener" title="Opens in a new tab">Review findings, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/ask-ai-about-findings" target="_blank" rel="noopener" title="Opens in a new tab">Ask AI about findings, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/share-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Share an audit, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/expert-review-and-support" target="_blank" rel="noopener" title="Opens in a new tab">Expert review and support, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/cli-install-and-init" target="_blank" rel="noopener" title="Opens in a new tab">CLI install and init, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/developers/cli-submit-and-watch" target="_blank" rel="noopener" title="Opens in a new tab">CLI submit and watch, QuillShield docs</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/reference/troubleshooting" target="_blank" rel="noopener" title="Opens in a new tab">Troubleshooting, QuillShield docs</a></li></ul></section>
+      <nav class="aft rail" aria-labelledby="h-next"><h2 class="aft__h" id="h-next">Keep reading</h2><ul class="rail__b next"><li class="row"><p class="row__k">Guide</p><h3 class="row__t"><a href="../../guides/check-every-pull-request-on-github/">How to add smart contract security checks to CI on GitHub</a></h3></li><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/evmbench-results/">Our EVMbench results: 98 of 117 known vulnerabilities found</a></h3></li><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/can-ai-audit-smart-contracts/">Can AI audit smart contracts? What the data shows</a></h3></li></ul></nav>
+  </div>
+</div>
+</article>
+<section class="sec sec--band close t-dark" aria-label="Get started">
+  <div class="wrap close__grid">
+    <div class="close__main">
+      <p class="close__t">QuillShield is building the security layer between AI and money, so you can keep shipping between audits.</p>
+      <div class="close__cta">
+        <a class="btn btn--primary" href="https://shield.quillaudits.com/register">Start now</a>
+        <a class="btn btn--ghost ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+      </div>
+      <p class="close__note">Free to sign up. New accounts get $50 in credit, good for up to half of an order.</p>
+    </div>
+    <ol class="start" aria-label="How to start">
+      <li><span class="start__n num">1</span><span>Sign up and import a repo</span></li>
+      <li><span class="start__n num">2</span><span>See the exact price before anything is charged</span></li>
+      <li><span class="start__n num">3</span><span>Approve it, and the audit starts</span></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="foot t-dark">
+  <div class="wrap">
+    <nav class="foot__top" aria-label="Footer">
+      <div class="foot__brand">
+        <a class="logo" href="../../" aria-label="QuillShield home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" aria-hidden="true"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
+        </a>
+        <p class="foot__tag">The AI security reviewer for onchain code.</p>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-product">Product</p>
+        <ul aria-labelledby="fh-product">
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/run-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Full audit</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">Pull request checks</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/workflows" target="_blank" rel="noopener" title="Opens in a new tab">Workflows</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/mcp-for-cursor-and-claude" target="_blank" rel="noopener" title="Opens in a new tab">MCP for Cursor and Claude</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/cli-install-and-init" target="_blank" rel="noopener" title="Opens in a new tab">CLI</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/developers" target="_blank" rel="noopener" title="Opens in a new tab">REST API</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-resources">Resources</p>
+        <ul aria-labelledby="fh-resources">
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../guides/">Guides</a></li>
+          <li><a href="../../updates/">Product updates</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/getting-started/quickstart" target="_blank" rel="noopener" title="Opens in a new tab">Quickstart</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/changelog" target="_blank" rel="noopener" title="Opens in a new tab">Docs changelog</a></li>
+          <li><a href="../../#benchmark">Benchmark</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/leaderboard" target="_blank" rel="noopener" title="Opens in a new tab">Audit leaderboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-quillaudits">QuillAudits</p>
+        <ul aria-labelledby="fh-quillaudits">
+          <li><a class="ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">Manual audits</a></li>
+          <li><a class="ext" href="https://github.com/Quillhash/QuillAudit_smart_contract_audit_Reports" target="_blank" rel="noopener" title="Opens in a new tab">Audit reports on GitHub</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/web3-hacks-database" target="_blank" rel="noopener" title="Opens in a new tab">Web3 hacks database</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/blog/web3-security/quillaudits-iso-certified" target="_blank" rel="noopener" title="Opens in a new tab">ISO/IEC 27001</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-legal">Legal</p>
+        <ul aria-labelledby="fh-legal">
+          <li><a href="../../#code">Security</a></li>
+          <li><a class="ext" href="https://shield.quillaudits.com/terms" target="_blank" rel="noopener" title="Opens in a new tab">Terms of service</a></li>
+          <li><a class="ext" href="https://shield.quillaudits.com/privacy" target="_blank" rel="noopener" title="Opens in a new tab">Privacy policy</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="foot__bot">
+      <p>© 2026 QuillAudits Inc.</p>
+      <div class="foot__soc">
+        <a class="ext xs" href="https://x.com/QuillAudits_AI" target="_blank" rel="noopener" title="Opens in a new tab">X</a>
+        <a class="ext" href="https://github.com/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">GitHub</a>
+        <a class="ext" href="https://telegram.me/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">Telegram</a>
+        <a class="ext" href="https://discord.gg/C6M2eQZagw" target="_blank" rel="noopener" title="Opens in a new tab">Discord</a>
+        <a class="ext" href="https://www.linkedin.com/company/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
