@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>QuillShield blog</title>
+  <subtitle>Our EVMbench results and plain explainers on AI smart contract audits and pull request security.</subtitle>
+  <id>https://shield.quillaudits.com/blog/</id>
+  <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/"/>
+  <link rel="self" type="application/atom+xml" href="https://shield.quillaudits.com/blog/feed.xml"/>
+  <updated>2026-11-17T00:00:00Z</updated>
+  <author>
+    <name>The QuillShield team</name>
+    <uri>https://shield.quillaudits.com/</uri>
+  </author>
+  <entry>
+    <title>Our EVMbench results: 98 of 117 known vulnerabilities found</title>
+    <id>https://shield.quillaudits.com/blog/evmbench-results/</id>
+    <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/evmbench-results/"/>
+    <published>2026-11-17T00:00:00Z</published>
+    <updated>2026-11-17T00:00:00Z</updated>
+    <summary>The QuillShield alpha found 98 of 117 known vulnerabilities on EVMbench (83.8%) in our own run on 8 July 2026. What EVMbench measures and how we ran it.</summary>
+  </entry>
+  <entry>
+    <title>Can AI audit smart contracts? What the data shows</title>
+    <id>https://shield.quillaudits.com/blog/can-ai-audit-smart-contracts/</id>
+    <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/can-ai-audit-smart-contracts/"/>
+    <published>2026-11-17T00:00:00Z</published>
+    <updated>2026-11-17T00:00:00Z</updated>
+    <summary>Yes, within limits. What AI finds on a public benchmark, how many findings hold up when auditors check them, and why it does not replace a manual audit.</summary>
+  </entry>
+  <entry>
+    <title>AI audit vs manual audit: what each one is for</title>
+    <id>https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/</id>
+    <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/"/>
+    <published>2026-11-17T00:00:00Z</published>
+    <updated>2026-11-17T00:00:00Z</updated>
+    <summary>An AI audit reviews every change, and QuillShield tests findings with exploits where it can. A manual audit adds human judgment. How to use both.</summary>
+  </entry>
+  <entry>
+    <title>How to evaluate an AI smart contract auditor</title>
+    <id>https://shield.quillaudits.com/blog/evaluate-ai-smart-contract-auditor/</id>
+    <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/evaluate-ai-smart-contract-auditor/"/>
+    <published>2026-11-17T00:00:00Z</published>
+    <updated>2026-11-17T00:00:00Z</updated>
+    <summary>What to ask before you trust an AI auditor with unreleased code: benchmark results, findings that hold up, proof of concept, privacy and pull requests.</summary>
+  </entry>
+</feed>
