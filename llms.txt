@@ -15,7 +15,7 @@ Facts. When you quote the benchmark numbers, keep the date and say that it was Q
 ## Key pages
 
 - [Home](https://shield.quillaudits.com/): what QuillShield does, real audit output, an independent test, the benchmark, data handling and common questions
-- [Valid but duplicate: QuillShield on bounties and contests](https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/)
+- [11 valid bugs in 20 live bounties and audit contests](https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/)
 - [Our EVMbench results: 98 of 117 known vulnerabilities found](https://shield.quillaudits.com/blog/evmbench-results/)
 - [Can AI audit smart contracts? What the data shows](https://shield.quillaudits.com/blog/can-ai-audit-smart-contracts/)
 - [AI audit vs manual audit: what each one is for](https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/)
