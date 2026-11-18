@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function(){var d=document.documentElement,s=1;d.classList.add('js');
+try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');try{s=sessionStorage.getItem('qs-h1')}catch(e){}
+if(!s){d.classList.add('h1in');setTimeout(function(){d.classList.remove('h1in')},1500)}
+setTimeout(function(){d.classList.remove('anim')},7000)}}catch(e){}})();
+</script>
+<title>Valid but duplicate: QuillShield on bounties and contests</title>
+<meta name="description" content="43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 8 rejected, none unique, 18 in judging.">
+<link rel="canonical" href="https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#103DD3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QuillShield">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/">
+<meta property="og:title" content="Valid but duplicate: QuillShield on bounties and contests">
+<meta property="og:description" content="43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 8 rejected, none unique, 18 in judging.">
+<meta property="og:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="QuillShield. The AI security reviewer for onchain code. AI agents that review every pull request, starting from a full audit.">
+<meta property="article:published_time" content="2026-11-18T00:00:00Z">
+<meta property="article:modified_time" content="2026-11-18T00:00:00Z">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@QuillAudits_AI">
+<meta name="twitter:title" content="Valid but duplicate: QuillShield on bounties and contests">
+<meta name="twitter:description" content="43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 8 rejected, none unique, 18 in judging.">
+<meta name="twitter:image" content="https://rkg-eth.github.io/quillshield/og.png">
+<meta name="twitter:image:alt" content="QuillShield. The AI security reviewer for onchain code. AI agents that review every pull request, starting from a full audit.">
+<link rel="alternate" type="application/atom+xml" title="QuillShield blog" href="../../blog/feed.xml">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../site.css?v=9f66e186">
+<script src="../../motion.js?v=c326abf8" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/#article","mainEntityOfPage":"https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/","headline":"Valid but duplicate: QuillShield on bounties and contests","description":"43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 8 rejected, none unique, 18 in judging.","image":["https://shield.quillaudits.com/og.png"],"datePublished":"2026-11-18T00:00:00Z","dateModified":"2026-11-18T00:00:00Z","inLanguage":"en","author":{"@type":"Organization","name":"The QuillShield team","url":"https://shield.quillaudits.com/"},"publisher":{"@type":"Organization","@id":"https://www.quillaudits.com/#organization","name":"QuillAudits","url":"https://www.quillaudits.com/","logo":{"@type":"ImageObject","url":"https://www.quillaudits.com/logo/quillaudits-full.svg"}},"isPartOf":{"@type":"Blog","@id":"https://shield.quillaudits.com/blog/#blog","name":"QuillShield blog","url":"https://shield.quillaudits.com/blog/"}},{"@type":"BreadcrumbList","@id":"https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"QuillShield","item":"https://shield.quillaudits.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://shield.quillaudits.com/blog/"},{"@type":"ListItem","position":3,"name":"Valid but duplicate","item":"https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/#faq","mainEntity":[{"@type":"Question","name":"Did QuillShield find a unique bug in a live bug bounty or audit contest?","acceptedAnswer":{"@type":"Answer","text":"Not in these records. From March to November 2026 the QuillShield team filed 43 findings in 20 Solidity bug bounties and audit contests. Of the 20 findings with a final ruling, 11 were judged valid duplicates, 1 was closed as a duplicate and 8 were rejected. None was judged unique. Another 18, all from one competition, were still in judging on 18 November 2026."}},{"@type":"Question","name":"What does a valid duplicate mean in a bug bounty or audit contest?","acceptedAnswer":{"@type":"Answer","text":"It means the judge agreed the bug is real and someone else reported it first. It is not a win and not a loss. In the Intuition audit on Code4rena in March 2026, for example, 42 wardens and teams were credited with the same Medium, QuillAudits_Team among them."}},{"@type":"Question","name":"Did QuillShield find every bug the team filed?","acceptedAnswer":{"@type":"Answer","text":"Our records do not say for most findings. QuillShield ran a full audit of the in-scope Solidity code before manual review. People then triaged its output, reproduced each finding and wrote it up, and they also used other AI workflows and skills, fuzzing and manual review. The records name QuillShield as the source for a few findings, including the Intuition Medium."}},{"@type":"Question","name":"Why are most of the programs not named?","acceptedAnswer":{"@type":"Answer","text":"Bug bounty and contest platforms limit what researchers may say about reports. We name a contest only when its results and report are public, describe a bounty without naming it when the result reveals nothing exploitable, and keep everything else in the totals."}}]}</script>
+</head>
+<body class="t-light">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav t-blue" id="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="../../" aria-label="QuillShield home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" role="img" aria-label="QuillShield"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="../../#findings">Independent test</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#benchmark">Benchmark</a>
+      <a href="../../#code">Security</a>
+      <a href="../../blog/" aria-current="true">Blog</a>
+      <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__signin" href="https://shield.quillaudits.com/login">Sign in</a>
+      <a class="btn btn--primary btn--sm" href="https://shield.quillaudits.com/register">Start now</a>
+      <details class="menu">
+        <summary><span class="menu__lab">Menu</span><span class="menu__lab menu__lab--x">Close</span></summary>
+        <nav class="menu__panel" aria-label="Primary">
+          <a class="menu__start" href="https://shield.quillaudits.com/register">Start now</a>
+          <a href="../../#findings">Independent test</a>
+          <a href="../../#how">How it works</a>
+          <a href="../../#benchmark">Benchmark</a>
+          <a href="../../#code">Security</a>
+          <a href="../../blog/" aria-current="true">Blog</a>
+          <a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a>
+          <a class="ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+          <a class="menu__signin" href="https://shield.quillaudits.com/login">Sign in</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<script>
+(function(){
+  var d=document, m=d.querySelector('.menu');
+  if(!m){return}
+  var s=m.querySelector('summary');
+  function shut(back){if(m.open){m.open=false;if(back){s.focus()}}}
+  /* the phone menu closes after a choice, on Escape, on a press outside it and when focus leaves it */
+  m.addEventListener('click',function(e){if(e.target.closest('.menu__panel a')){shut()}});
+  d.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.open){shut(true)}});
+  d.addEventListener('pointerdown',function(e){if(m.open&&!m.contains(e.target)){shut()}});
+  m.addEventListener('focusout',function(e){if(m.open&&e.relatedTarget&&!m.contains(e.relatedTarget)){shut()}});
+  /* a table or a code block is a Tab stop only while it scrolls sideways */
+  d.addEventListener('DOMContentLoaded',function(){
+    var sc=[].slice.call(d.querySelectorAll('.tscroll,.prose pre'));
+    function tab(){sc.forEach(function(x){if(x.scrollWidth>x.clientWidth+1){x.setAttribute('tabindex','0')}else{x.removeAttribute('tabindex')}})}
+    if(sc.length){tab();window.addEventListener('resize',tab);if(d.fonts&&d.fonts.ready){d.fonts.ready.then(tab)}}
+  });
+})();
+</script>
+
+<main id="main">
+<article>
+<header class="phead phead--doc t-blue">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../../">QuillShield</a></li><li><a href="../../blog/">Blog</a></li><li class="sr-only" aria-current="page">Valid but duplicate</li></ol></nav>
+    <h1>Valid but duplicate: QuillShield on bounties and contests</h1>
+    <p class="lede">From March to November 2026 the QuillShield team filed 43 findings in Solidity bug bounties and audit contests. Of the 20 with a final ruling, 12 were duplicates of earlier reports (11 judged valid) and 8 were rejected. None was judged unique. Another 18, from one competition, are still in judging, and 5 have no result on record.</p>
+    <p class="phead__meta">Published <time datetime="2026-11-18">18 November 2026</time>. 11 minute read. By the QuillShield team.</p>
+  </div>
+</header>
+<div class="doc">
+  <div class="wrap rail">
+    <nav class="toc" aria-label="On this page"><ul><li><a href="#what-we-did-and-why">What we did and why</a></li><li><a href="#how-each-run-worked">How each run worked</a></li><li><a href="#the-results-across-every-program">The results across every program</a></li><li><a href="#the-20-programs-we-can-show">The 20 programs we can show</a></li><li><a href="#three-public-contests">Three public contests</a></li><li><a href="#what-a-valid-duplicate-means">What a valid duplicate means</a></li><li><a href="#what-this-says-about-an-ai-review-before-a-bounty-or-contest">What this says about an AI review before a bounty or contest</a></li><li><a href="#limits">Limits</a></li><li><a href="#about-the-data">About the data</a></li><li><a href="#what-to-do-next">What to do next</a></li></ul></nav>
+    <div class="prose">
+<p>We wanted a test of QuillShield that we could not grade ourselves, and live bug bounties and audit contests are that test. Other researchers hunt the same code at the same time, and a judge who does not work for us decides what counts. So from March to November 2026 our team ran QuillShield on the programs it entered and filed what held up under human review. This post lists every result we can, the misses included.</p>
+<h2 id="what-we-did-and-why">What we did and why</h2>
+<p>Our <a href="../../blog/evmbench-results/">EVMbench run</a> measures how many known bugs QuillShield finds, and we graded it ourselves. In a bounty or a contest nobody knows the bugs in advance, the platform or the protocol's team rules on each report, and a finding only counts in full if it is real, in scope and not already reported.</p>
+<p>Between March and November 2026 the QuillShield team filed 43 findings in 20 Solidity programs, 7 audit contests and 13 bug bounties. QuillShield also ran on at least five more Solidity programs where we filed nothing.</p>
+<h2 id="how-each-run-worked">How each run worked</h2>
+<p>The team's practice was to run a full QuillShield audit of the in-scope code before anyone reviewed it by hand. That was already how it worked in March, when QuillShield's report on the Intuition contest came back with proofs of concept. In July the team made it a rule, with manual review limited to two or three contracts out of ten. The same month it started skipping projects that top audit firms had already reviewed heavily.</p>
+<p>Auditors then triaged. They checked each QuillShield finding against the program's known issues and earlier audits, and sorted it into real, false, already known, or needs a proof of concept. The team's written process says nothing goes out until a person has reproduced it with a failing test or a proof of concept. The team also used other AI workflows and skills, fuzzing and manual review, and later a tool that maps a protocol's external dependencies. So every result below is the team's, with QuillShield doing the opening pass.</p>
+<p>One staking protocol's bug bounty shows the effort. QuillShield reported eight findings and the team filed one. The engagement log records 25 hours, split into 10 to understand the protocol, 2 for setup, 3 to triage QuillShield's output, 3 of manual review, 4 for the proof of concept and 3 for the report.</p>
+<h2 id="the-results-across-every-program">The results across every program</h2>
+<p>Severity is as filed. Where our records disagree, on one finding's severity and on the count filed to four bounties, we took the less favourable reading.</p>
+<div class="tscroll tscroll--wide" role="region" aria-label="Table: Outcome, Contests, Bug bounties, All, Filed as High, Medium, Low, Not recorded" tabindex="0"><table>
+<thead>
+<tr>
+<th scope="col">Outcome</th>
+<th scope="col">Contests</th>
+<th scope="col">Bug bounties</th>
+<th scope="col">All</th>
+<th scope="col">Filed as High</th>
+<th scope="col">Medium</th>
+<th scope="col">Low</th>
+<th scope="col">Not recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Valid, unique</th>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row">Valid, duplicate</th>
+<td>5</td>
+<td>6</td>
+<td>11</td>
+<td>4</td>
+<td>6</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row">Duplicate, validity not recorded</th>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row">Invalid or not accepted</th>
+<td>1</td>
+<td>4</td>
+<td>5</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr>
+<th scope="row">Out of scope</th>
+<td>0</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row">No reply since May</th>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row">No result on record</th>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row">Still in judging</th>
+<td>18</td>
+<td>0</td>
+<td>18</td>
+<td>4</td>
+<td>14</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row">Findings</th>
+<td>27</td>
+<td>16</td>
+<td>43</td>
+<td>10</td>
+<td>26</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<th scope="row">Programs</th>
+<td>7</td>
+<td>13</td>
+<td>20</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Left out are 14 findings in five programs whose code was mostly Move, Go or Rust, because QuillShield reviews Solidity only. Of those, 5 were judged valid at Informational, 3 invalid, 1 was closed as a known issue and 5 have no result on record. Two tracker entries that log submissions without a count are left out too.</p>
+<p>All 18 findings still in judging come from one audit competition. Results are due about 20 November, and we will update this post when they are out.</p>
+<h2 id="the-20-programs-we-can-show">The 20 programs we can show</h2>
+<p>We name a contest only when its results and report are public. We describe a program without naming it when the result reveals nothing anyone could exploit. Everything else stays in the totals. That covers programs whose rules bar discussion, findings closed as out of scope or still unanswered, and entries we know too little about. It hides some of our better results. Four valid duplicates were filed as High, and three of them are on programs we cannot discuss.</p>
+<div class="tscroll tscroll--wide" role="region" aria-label="Table: Program, Type, Month, Bug class, Filed as, Outcome, What we learned" tabindex="0"><table>
+<thead>
+<tr>
+<th scope="col">Program</th>
+<th scope="col">Type</th>
+<th scope="col">Month</th>
+<th scope="col">Bug class</th>
+<th scope="col">Filed as</th>
+<th scope="col">Outcome</th>
+<th scope="col">What we learned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><a class="ext" href="https://code4rena.com/audits/2026-03-intuition" target="_blank" rel="noopener" title="Opens in a new tab">Intuition</a> on Code4rena</th>
+<td>Contest</td>
+<td>Mar 2026</td>
+<td>Reward accounting at an epoch boundary</td>
+<td>Medium, plus a low-severity report</td>
+<td>Valid, duplicate, later fixed</td>
+<td>QuillShield found a real bug that 41 other wardens and teams also found</td>
+</tr>
+<tr>
+<th scope="row">A staking protocol</th>
+<td>Bug bounty</td>
+<td>Jul 2026</td>
+<td>Fee accounting (griefing)</td>
+<td>Medium</td>
+<td>Valid, duplicate</td>
+<td>QuillShield did not check whether the bug was already reported. Part of it was, in 2024</td>
+</tr>
+<tr>
+<th scope="row">A token launch protocol</th>
+<td>Bug bounty</td>
+<td>Aug 2026</td>
+<td>Theft of funds</td>
+<td>High</td>
+<td>Valid, duplicate, judged Medium</td>
+<td>Our severity was a step too high</td>
+</tr>
+<tr>
+<th scope="row">A tokenised asset protocol</th>
+<td>Bug bounty</td>
+<td>Apr 2026</td>
+<td>Input validation</td>
+<td>Medium (one record says High)</td>
+<td>Valid, duplicate</td>
+<td>Our two records disagree on severity, so we count the lower one</td>
+</tr>
+<tr>
+<th scope="row">A DeFi automation protocol</th>
+<td>Bug bounty</td>
+<td>May 2026</td>
+<td>Denial of service (griefing)</td>
+<td>Medium</td>
+<td>Valid, duplicate</td>
+<td>Our note that week called it a good signal even as a duplicate</td>
+</tr>
+<tr>
+<th scope="row">A stablecoin protocol</th>
+<td>Bug bounty</td>
+<td>Aug 2026</td>
+<td>Not recorded</td>
+<td>Not recorded</td>
+<td>Duplicate</td>
+<td>QuillShield flagged 1 High and 22 Medium candidates. Other automated tools surfaced mostly known issues</td>
+</tr>
+<tr>
+<th scope="row">A lending and automation protocol</th>
+<td>Contest</td>
+<td>Oct 2026</td>
+<td>18 findings across classes</td>
+<td>4 High, 14 Medium</td>
+<td>Still in judging</td>
+<td>The test of the dependency tool and the team's newer workflows</td>
+</tr>
+<tr>
+<th scope="row"><a class="ext" href="https://audits.sherlock.xyz/contests/1279" target="_blank" rel="noopener" title="Opens in a new tab">Metric</a> on Sherlock</th>
+<td>Contest</td>
+<td>Jul 2026</td>
+<td>Share valuation</td>
+<td>Medium</td>
+<td>No result on record</td>
+<td>Our note on filing day said "valid but design choice"</td>
+</tr>
+<tr>
+<th scope="row">A derivatives protocol</th>
+<td>Bug bounty</td>
+<td>Apr 2026</td>
+<td>Business logic</td>
+<td>High, plus one not detailed</td>
+<td>Rejected as a design choice</td>
+<td>Code that looks wrong can be intended</td>
+</tr>
+<tr>
+<th scope="row">A rewards protocol</th>
+<td>Bug bounty</td>
+<td>Jul 2026</td>
+<td>Reward accounting</td>
+<td>High</td>
+<td>Rejected as a design choice</td>
+<td>The same lesson, on a High</td>
+</tr>
+<tr>
+<th scope="row"><a class="ext" href="https://code4rena.com/audits/2026-04-monetrix" target="_blank" rel="noopener" title="Opens in a new tab">Monetrix</a> on Code4rena</th>
+<td>Contest</td>
+<td>Apr to May 2026</td>
+<td>Not recorded</td>
+<td>Not recorded</td>
+<td>Not accepted</td>
+<td>A quick second contest that missed</td>
+</tr>
+<tr>
+<th scope="row">A private credit protocol</th>
+<td>Contest</td>
+<td>Jul 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>QuillShield surfaced leads fast, and manual review was more precise on logic</td>
+</tr>
+<tr>
+<th scope="row">A vault protocol</th>
+<td>Bug bounty</td>
+<td>Sep to Oct 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>Three Lows, below the program's Medium minimum</td>
+</tr>
+<tr>
+<th scope="row">A large NFT platform</th>
+<td>Bug bounty</td>
+<td>Jul 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>About 10,000 lines across 21 contracts in scope, and nothing worth filing</td>
+</tr>
+<tr>
+<th scope="row">An infrastructure protocol</th>
+<td>Contest</td>
+<td>Mar 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>No submission on record</td>
+<td>Good signals at the code level, gaps in coverage</td>
+</tr>
+<tr>
+<th scope="row">A prediction market</th>
+<td>Bug bounty</td>
+<td>Apr 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>No valid issue after the scan and triage</td>
+</tr>
+<tr>
+<th scope="row">A lending protocol</th>
+<td>Contest</td>
+<td>Jun 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>Scan report triaged, nothing worth filing</td>
+</tr>
+<tr>
+<th scope="row">A stablecoin</th>
+<td>Contest</td>
+<td>Jun 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>Triaged, nothing worth filing</td>
+</tr>
+<tr>
+<th scope="row">A DeFi protocol</th>
+<td>Bug bounty</td>
+<td>Jun 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>Scanned, nothing filed</td>
+</tr>
+<tr>
+<th scope="row">A small bridge</th>
+<td>Bug bounty</td>
+<td>Sep 2026</td>
+<td>None filed</td>
+<td>None</td>
+<td>Nothing filed</td>
+<td>No issues on a small codebase</td>
+</tr>
+</tbody>
+</table></div>
+<p>In the last six rows our records say the team scanned or triaged the code but do not name the tool.</p>
+<h2 id="three-public-contests">Three public contests</h2>
+<h3 id="intuition-on-code4rena-one-real-medium-found-42-times">Intuition on Code4rena: one real Medium, found 42 times</h3>
+<p>Code4rena ran the Intuition audit from 4 to 9&nbsp;March&nbsp;2026, on five contracts and 844 lines of Solidity. QuillShield's report came with proofs of concept, and our auditors checked each finding. One candidate said a governance setting could change reward maths partway through an epoch. Asked for a proof of concept, QuillShield's validation argued against its own finding, because the setting belongs to a trusted role behind a three-day timelock. The auditor moved on.</p>
+<p>What we filed was judged a Medium. Checkpoints made at an epoch boundary could qualify for the previous epoch's rewards. The <a class="ext" href="https://code4rena.com/reports/2026-03-intuition" target="_blank" rel="noopener" title="Opens in a new tab">published report</a> lists it as M-02 and credits 42 wardens and teams with it, QuillAudits_Team among them. The contest had two Mediums and no Highs, and we did not report the other one. Intuition fixed both, and a mitigation review confirmed the fixes.</p>
+<h3 id="metric-on-sherlock-our-note-said-design-choice">Metric on Sherlock: our note said design choice</h3>
+<p>Metric's contest ran on Sherlock from 6 to 27&nbsp;July&nbsp;2026. Our engagement log lists 77 contracts in scope, all reviewed with QuillShield and a set of audit skills. We filed one Medium on share valuation, and the team's note that day called it "valid but design choice". Nobody logged the final ruling, so it counts as no result on record. Every finding Sherlock published for this contest is a Medium.</p>
+<h3 id="monetrix-on-code4rena-a-second-swing-that-missed">Monetrix on Code4rena: a second swing that missed</h3>
+<p>Monetrix ran on Code4rena from 24 April to 4&nbsp;May&nbsp;2026. We took it on next to a bounty review already under way, betting the setup would carry over. Our one finding is not among the awarded findings in the <a class="ext" href="https://code4rena.com/audits/2026-04-monetrix" target="_blank" rel="noopener" title="Opens in a new tab">published results</a>, and our tracker records it as not accepted. The tracker does not say what the finding was.</p>
+<h2 id="what-a-valid-duplicate-means">What a valid duplicate means</h2>
+<p>A valid duplicate means the bug was real and someone else reported it first. It is not a win and it is not a loss. In a contest, everyone who filed the bug shares the credit. On a bug bounty, the earliest report takes it and later ones are closed as duplicates.</p>
+<p>Eleven of our findings ended as valid duplicates, and none of the 20 with a final ruling was judged unique. Common Solidity bug patterns are widely known, and most of our findings were filed by other researchers at about the same time. On Intuition, 42 wardens and teams filed the same Medium.</p>
+<p>So the team changed its method. It started building about 100 bug patterns for each type of protocol, a map of each protocol's external dependencies and a shared list of invariants. The dependency tool was part of our entry in the competition still in judging.</p>
+<h2 id="what-this-says-about-an-ai-review-before-a-bounty-or-contest">What this says about an AI review before a bounty or contest</h2>
+<p>Look at the duplicates from the protocol's side. If QuillShield and a small team found a bug that 41 others also found, that bug was there to be caught before the contest opened. A protocol paying a crowd for it is paying for something a scan before launch would have flagged.</p>
+<p>So run an AI reviewer before you open a bounty or book a contest, fix what it finds, and let the crowd spend its time on bugs that need a person. Don't expect the AI pass to replace that step. Three more lessons came from the misses.</p>
+<ul>
+<li>Treat severity as a starting guess. On one bounty a High we filed was judged Medium, and our July notes say QuillShield needs each platform's severity rules.</li>
+<li>Learn what the protocol calls intended. Two Highs on bounties were rejected as design choices, and on Intuition QuillShield's own validation argued a candidate down for the same reason.</li>
+<li>Read the program's rules before spending the hours. Three findings were closed as out of scope, and on one bounty our three Lows sat below the program's minimum severity.</li>
+</ul>
+<p>The <a href="../../#benchmark">benchmark</a> points the same way. On EVMbench, a set of known bugs from past audits, the QuillShield alpha found 98&nbsp;of&nbsp;117 (83.8%) in our own run, as the <a href="../../blog/evmbench-results/">EVMbench post</a> explains. QuillShield is good at the bugs many reviewers can find. That is worth a lot before launch and much less in a race to file.</p>
+<h2 id="limits">Limits</h2>
+<ul>
+<li>QuillShield did the opening pass, but people triaged, reproduced and wrote up every finding, with other tools as well. Our records name QuillShield as the source for only a few findings, including the Intuition Medium and the staking bounty's Medium.</li>
+<li>Twenty-three of the 43 findings have no final ruling. Eighteen are in judging, one has had no reply since May and four have no result on record.</li>
+<li>Most programs can't be named under platform rules, so only the three named contests can be checked against public results.</li>
+<li>The engagement log records time for one program only.</li>
+<li>We count rulings, not rewards. This post makes no claim about what any finding paid.</li>
+<li>These are our own records. The platforms did the judging, and we did the counting.</li>
+</ul>
+<h2 id="about-the-data">About the data</h2>
+<div class="tscroll" role="region" aria-label="Table: About the data" tabindex="0"><table>
+<tbody>
+<tr>
+<th scope="row">What was counted</th>
+<td>Every finding the QuillShield team filed in a Solidity bug bounty or audit contest from March to November 2026. That is 43 findings in 20 programs.</td>
+</tr>
+<tr>
+<th scope="row">Where it comes from</th>
+<td>Our contest tracker, our log of filed findings, our engagement log, team call notes and Slack, plus the public results of the three named contests.</td>
+</tr>
+<tr>
+<th scope="row">Who judged</th>
+<td>The platforms and the protocols' teams. We report their rulings.</td>
+</tr>
+<tr>
+<th scope="row">Severity</th>
+<td>As filed. Where our records disagree, we use the less favourable reading.</td>
+</tr>
+<tr>
+<th scope="row">QuillShield's part</th>
+<td>A full audit of the in-scope code before manual review. People triaged, reproduced and wrote up every finding.</td>
+</tr>
+<tr>
+<th scope="row">Left out</th>
+<td>14 findings on Move, Go and Rust code, two tracker entries with no count, findings the team held back, and payouts.</td>
+</tr>
+<tr>
+<th scope="row">As of</th>
+<td>18&nbsp;November&nbsp;2026, with one competition of 18 findings still in judging.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>If you are about to open a bounty or book a contest, run QuillShield on the in-scope code beforehand and fix what it finds. <a href="https://shield.quillaudits.com/register">Start an audit</a>, or follow the <a href="../../guides/run-your-first-audit/">guide to your first audit</a>.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var d=document,t=d.querySelector('.toc');
+  if(!t||!('IntersectionObserver' in window)){return}
+  var as=[].slice.call(t.querySelectorAll('a')),hs=as.map(function(a){return d.getElementById(a.hash.slice(1))});
+  function mark(){var y=innerHeight/3,c=-1;hs.forEach(function(h,i){if(h&&h.getBoundingClientRect().top<y){c=i}});
+    as.forEach(function(a,i){if(i===c){a.setAttribute('aria-current','true')}else{a.removeAttribute('aria-current')}})}
+  var io=new IntersectionObserver(mark,{rootMargin:'0px 0px -67% 0px'});
+  [].forEach.call(d.querySelectorAll('.doc .prose > *'),function(x){io.observe(x)});
+  /* in a guide the list ends 24px above the steps, whose numbers hang in the same columns */
+  var st=t.classList.contains('toc--steps')&&d.querySelector('.doc .stps');
+  if(st&&'ResizeObserver' in window){new ResizeObserver(function(){if(t.offsetParent){t.style.height=Math.max(0,st.getBoundingClientRect().top-t.getBoundingClientRect().top-24)+'px'}}).observe(d.querySelector('.doc .prose'))}
+})();
+</script>
+<div class="after t-tint">
+  <div class="wrap">
+      <section class="aft rail" aria-labelledby="h-questions"><h2 class="aft__h" id="h-questions">Common questions</h2><div class="rail__b faq"><details open><summary><h3 class="faq__q">Did QuillShield find a unique bug in a live bug bounty or audit contest?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Not in these records. From March to November 2026 the QuillShield team filed 43 findings in 20 Solidity bug bounties and audit contests. Of the 20 findings with a final ruling, 11 were judged valid duplicates, 1 was closed as a duplicate and 8 were rejected. None was judged unique. Another 18, all from one competition, were still in judging on 18&nbsp;November&nbsp;2026.</p></div></details><details><summary><h3 class="faq__q">What does a valid duplicate mean in a bug bounty or audit contest?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>It means the judge agreed the bug is real and someone else reported it first. It is not a win and not a loss. In the Intuition audit on Code4rena in March 2026, for example, 42 wardens and teams were credited with the same Medium, QuillAudits_Team among them.</p></div></details><details><summary><h3 class="faq__q">Did QuillShield find every bug the team filed?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Our records do not say for most findings. QuillShield ran a full audit of the in-scope Solidity code before manual review. People then triaged its output, reproduced each finding and wrote it up, and they also used other AI workflows and skills, fuzzing and manual review. The records name QuillShield as the source for a few findings, including the Intuition Medium.</p></div></details><details><summary><h3 class="faq__q">Why are most of the programs not named?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Bug bounty and contest platforms limit what researchers may say about reports. We name a contest only when its results and report are public, describe a bounty without naming it when the result reveals nothing exploitable, and keep everything else in the totals.</p></div></details></div></section>
+      <section class="aft rail" aria-labelledby="h-sources"><h2 class="aft__h" id="h-sources">Sources</h2><ul class="rail__b srcs"><li><a class="tlink ext" href="https://code4rena.com/audits/2026-03-intuition" target="_blank" rel="noopener" title="Opens in a new tab">Intuition audit results, Code4rena, 4 to 9&nbsp;March&nbsp;2026</a></li><li><a class="tlink ext" href="https://code4rena.com/reports/2026-03-intuition" target="_blank" rel="noopener" title="Opens in a new tab">Intuition findings and analysis report, Code4rena, 27&nbsp;April&nbsp;2026</a></li><li><a class="tlink ext" href="https://code4rena.com/audits/2026-04-monetrix" target="_blank" rel="noopener" title="Opens in a new tab">Monetrix audit results, Code4rena, 24 April to 4&nbsp;May&nbsp;2026</a></li><li><a class="tlink ext" href="https://audits.sherlock.xyz/contests/1279" target="_blank" rel="noopener" title="Opens in a new tab">Metric contest, Sherlock, 6 to 27&nbsp;July&nbsp;2026</a></li></ul></section>
+      <nav class="aft rail" aria-labelledby="h-next"><h2 class="aft__h" id="h-next">Keep reading</h2><ul class="rail__b next"><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/evmbench-results/"><span>Our EVMbench results: 98&nbsp;of&nbsp;117 known vulnerabilities found</span></a></h3></li><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/can-ai-audit-smart-contracts/"><span>Can AI audit smart contracts? What the data shows</span></a></h3></li><li class="row"><p class="row__k">Guide</p><h3 class="row__t"><a href="../../guides/run-your-first-audit/"><span>Run your first smart contract audit, from <span class="nb">sign-up</span> to report</span></a></h3></li></ul></nav>
+  </div>
+</div>
+</article>
+<section class="sec sec--band close t-dark" aria-label="Get started">
+  <div class="wrap close__grid">
+    <div class="close__main">
+      <p class="close__t">QuillShield is building the security layer between AI and money, so you can keep shipping between audits.</p>
+      <div class="close__cta">
+        <a class="btn btn--primary" href="https://shield.quillaudits.com/register">Start now</a>
+        <a class="btn btn--ghost ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">Talk to an auditor</a>
+      </div>
+      <p class="close__note">Free to sign up. New accounts get $50 in credit, good for up to half of an order.</p>
+    </div>
+    <ol class="start" aria-label="How to start">
+      <li><span class="start__n num">1</span><span>Sign up and import a repo</span></li>
+      <li><span class="start__n num">2</span><span>See the exact price before anything is charged</span></li>
+      <li><span class="start__n num">3</span><span>Approve it, and the audit starts</span></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="foot t-dark">
+  <div class="wrap">
+    <nav class="foot__top" aria-label="Footer">
+      <div class="foot__brand">
+        <a class="logo" href="../../" aria-label="QuillShield home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146 24" fill="currentColor" aria-hidden="true"><path d="M25.4609 13.4607L14.4305 24L13.4551 22.5103L23.885 12.2317V12.1945L15.8187 4.07584L16.419 2.39999L25.9486 12.12L25.4609 13.4607Z"/><path d="M0.451573 10.5766L11.5151 0L12.4935 1.48966L2.03208 11.8055V11.8428L10.1604 19.9242L9.55829 21.6L0 11.9172L0.451573 10.5766Z"/><path d="M8.40918 17.04C8.52165 16.6432 8.67162 16.2861 8.82156 15.929C9.45892 14.5404 10.1251 13.3104 11.0624 12.1598C12.2996 10.6917 13.458 9.12869 15.0654 8.10365C15.7948 7.63846 16.7439 7.24918 17.5312 6.97145C17.4562 7.01112 17.5687 6.93178 17.5312 6.97145L17.1587 7.63846C16.6831 8.41385 16.3978 8.9954 15.9448 9.66015C15.9073 9.73949 15.8698 9.73949 15.7948 9.73949C15.4949 9.81884 15.1575 9.8982 14.8201 9.8982C14.9326 10.0569 15.12 10.1363 15.27 10.2156C15.345 10.2553 15.4949 10.2553 15.5324 10.3743C15.5324 10.4537 15.4199 10.5727 15.3825 10.6521C15.3075 10.8504 15.1575 10.9695 14.9701 11.0091C14.6701 11.0885 14.3702 11.1679 14.0328 11.1679C14.0328 11.2472 14.0703 11.2472 14.1078 11.2869C14.2952 11.4456 14.5202 11.5646 14.7451 11.644C14.8201 11.6837 14.8201 11.7233 14.7826 11.8027C14.7076 12.0011 14.5576 12.0804 14.3702 12.1201C13.8828 12.2788 13.3954 12.3978 12.908 12.4375H12.8706C12.983 12.5565 13.0955 12.6359 13.208 12.7153C13.4329 12.8343 13.6579 12.9136 13.9203 12.993C13.9578 12.993 13.9953 13.0327 13.9578 13.0723C13.7703 13.3501 13.5829 13.6278 13.3205 13.8262C13.133 14.0246 12.908 14.0246 12.6456 14.0246H11.7833C11.5584 14.0246 11.3335 14.0246 11.1085 14.0642C10.921 14.1039 10.7711 14.1833 10.6586 14.342C10.2837 14.7784 10.0588 15.3339 9.79634 15.8497L9.68386 16.0877C9.60887 16.4052 9.42142 16.5639 9.15898 16.6829C8.93405 16.7226 8.67162 16.8813 8.40918 17.04Z"/><path d="M41.829 20.629Q40.145 20.629 38.696 20.001Q37.246 19.372 36.158 18.252Q35.07 17.131 34.462 15.648Q33.854 14.165 33.854 12.465Q33.854 10.756 34.458 9.285Q35.062 7.814 36.142 6.702Q37.223 5.589 38.661 4.968Q40.1 4.347 41.783 4.347Q43.466 4.347 44.909 4.968Q46.351 5.589 47.435 6.702Q48.518 7.814 49.126 9.296Q49.735 10.779 49.735 12.488Q49.735 14.188 49.131 15.671Q48.527 17.154 47.446 18.263Q46.366 19.372 44.931 20.001Q43.497 20.629 41.829 20.629ZM49.569 21.525 42.02 13.977 43.251 12.746 50.8 20.294ZM41.783 18.788Q43.529 18.788 44.87 17.97Q46.211 17.151 46.982 15.724Q47.754 14.297 47.754 12.465Q47.754 11.103 47.31 9.958Q46.867 8.813 46.065 7.964Q45.264 7.115 44.177 6.651Q43.091 6.188 41.783 6.188Q40.051 6.188 38.71 6.995Q37.369 7.802 36.602 9.218Q35.834 10.633 35.834 12.465Q35.834 13.828 36.278 14.991Q36.722 16.155 37.516 17.001Q38.311 17.847 39.404 18.318Q40.497 18.788 41.783 18.788Z M57.955 20.629Q56.623 20.629 55.576 20.024Q54.528 19.418 53.943 18.35Q53.357 17.281 53.357 15.873V9.58H55.198V15.794Q55.198 16.733 55.53 17.423Q55.862 18.113 56.489 18.492Q57.116 18.871 57.959 18.871Q59.243 18.871 59.977 18.043Q60.711 17.214 60.711 15.794V9.58H62.552V15.874Q62.552 17.283 61.966 18.358Q61.381 19.432 60.346 20.031Q59.31 20.629 57.955 20.629Z M66.131 20.4V9.58H67.972V20.4ZM67.047 7.333Q66.535 7.333 66.193 6.975Q65.851 6.617 65.851 6.105Q65.851 5.584 66.193 5.234Q66.535 4.885 67.047 4.885Q67.583 4.885 67.922 5.234Q68.261 5.584 68.261 6.105Q68.261 6.617 67.922 6.975Q67.583 7.333 67.047 7.333Z M71.809 20.4V4.118H73.65V20.4Z M77.479 20.4V4.118H79.319V20.4Z M87.914 20.629Q86.056 20.629 84.728 19.938Q83.4 19.246 82.389 17.961L83.703 16.656Q84.479 17.746 85.507 18.293Q86.534 18.84 87.988 18.84Q89.454 18.84 90.351 18.187Q91.249 17.535 91.249 16.384Q91.249 15.471 90.824 14.894Q90.399 14.317 89.702 13.946Q89.005 13.576 88.17 13.287Q87.336 12.998 86.501 12.666Q85.667 12.333 84.97 11.834Q84.273 11.334 83.848 10.546Q83.423 9.757 83.423 8.538Q83.423 7.23 84.061 6.294Q84.699 5.358 85.804 4.852Q86.909 4.347 88.306 4.347Q89.852 4.347 91.07 4.948Q92.288 5.549 93.084 6.554L91.77 7.859Q91.048 7.003 90.21 6.57Q89.371 6.136 88.263 6.136Q86.935 6.136 86.143 6.737Q85.352 7.338 85.352 8.415Q85.352 9.259 85.777 9.783Q86.202 10.307 86.899 10.659Q87.596 11.011 88.431 11.299Q89.265 11.586 90.099 11.93Q90.934 12.273 91.631 12.799Q92.328 13.324 92.753 14.15Q93.178 14.976 93.178 16.232Q93.178 18.308 91.758 19.468Q90.338 20.629 87.914 20.629Z M104.323 20.4V14.074Q104.323 12.743 103.518 11.904Q102.712 11.065 101.41 11.065Q100.524 11.065 99.846 11.45Q99.168 11.835 98.783 12.511Q98.398 13.186 98.398 14.065L97.602 13.619Q97.602 12.385 98.165 11.425Q98.727 10.464 99.707 9.908Q100.688 9.351 101.927 9.351Q103.167 9.351 104.124 9.909Q105.082 10.467 105.623 11.453Q106.164 12.439 106.164 13.73V20.4ZM96.557 20.4V4.118H98.398V20.4Z M109.775 20.4V9.58H111.616V20.4ZM110.691 7.333Q110.179 7.333 109.837 6.975Q109.495 6.617 109.495 6.105Q109.495 5.584 109.837 5.234Q110.179 4.885 110.691 4.885Q111.226 4.885 111.566 5.234Q111.905 5.584 111.905 6.105Q111.905 6.617 111.566 6.975Q111.226 7.333 110.691 7.333Z M120.457 20.629Q118.834 20.629 117.543 19.893Q116.252 19.158 115.502 17.874Q114.752 16.59 114.752 14.981Q114.752 13.381 115.486 12.109Q116.22 10.836 117.488 10.094Q118.756 9.351 120.319 9.351Q121.811 9.351 122.956 10.031Q124.101 10.71 124.755 11.904Q125.409 13.098 125.409 14.635Q125.409 14.841 125.383 15.093Q125.357 15.345 125.297 15.671H116.043V14.134H124.31L123.645 14.709Q123.651 13.573 123.248 12.757Q122.844 11.941 122.094 11.493Q121.344 11.045 120.282 11.045Q119.166 11.045 118.331 11.531Q117.497 12.016 117.034 12.88Q116.572 13.745 116.572 14.921Q116.572 16.115 117.057 17.014Q117.543 17.912 118.427 18.409Q119.312 18.906 120.477 18.906Q121.418 18.906 122.217 18.565Q123.016 18.224 123.571 17.558L124.753 18.754Q123.986 19.659 122.863 20.144Q121.739 20.629 120.457 20.629Z M128.45 20.4V4.118H130.291V20.4Z M138.714 20.629Q137.217 20.629 136.024 19.887Q134.831 19.144 134.136 17.871Q133.441 16.599 133.441 15.01Q133.441 13.398 134.135 12.124Q134.829 10.851 136.025 10.101Q137.22 9.351 138.714 9.351Q139.93 9.351 140.917 9.85Q141.903 10.35 142.531 11.246Q143.159 12.142 143.254 13.324V16.647Q143.151 17.812 142.538 18.713Q141.926 19.613 140.937 20.121Q139.948 20.629 138.714 20.629ZM139.023 18.891Q140.099 18.891 140.908 18.392Q141.716 17.893 142.172 17.016Q142.627 16.138 142.627 14.998Q142.627 13.836 142.166 12.96Q141.705 12.084 140.894 11.586Q140.082 11.088 139.004 11.088Q137.927 11.088 137.105 11.588Q136.283 12.087 135.808 12.965Q135.333 13.843 135.333 14.99Q135.333 16.129 135.806 17.013Q136.278 17.897 137.115 18.394Q137.951 18.891 139.023 18.891ZM144.359 20.4H142.518V17.497L142.876 14.844L142.518 12.23V4.118H144.359Z"/></svg>
+        </a>
+        <p class="foot__tag">The AI security reviewer for onchain code.</p>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-product">Product</p>
+        <ul aria-labelledby="fh-product">
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/run-an-audit" target="_blank" rel="noopener" title="Opens in a new tab">Full audit</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">Pull request checks</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/workflows" target="_blank" rel="noopener" title="Opens in a new tab">Workflows</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/mcp-for-cursor-and-claude" target="_blank" rel="noopener" title="Opens in a new tab">MCP for Cursor and Claude</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/cli-install-and-init" target="_blank" rel="noopener" title="Opens in a new tab">CLI</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/developers/developers" target="_blank" rel="noopener" title="Opens in a new tab">REST API</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-resources">Resources</p>
+        <ul aria-labelledby="fh-resources">
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../guides/">Guides</a></li>
+          <li><a href="../../updates/">Product updates</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield" target="_blank" rel="noopener" title="Opens in a new tab">Docs</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/guides/getting-started/quickstart" target="_blank" rel="noopener" title="Opens in a new tab">Quickstart</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/quillshield/changelog" target="_blank" rel="noopener" title="Opens in a new tab">Docs changelog</a></li>
+          <li><a href="../../#benchmark">Benchmark</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/leaderboard" target="_blank" rel="noopener" title="Opens in a new tab">Audit leaderboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-quillaudits">QuillAudits</p>
+        <ul aria-labelledby="fh-quillaudits">
+          <li><a class="ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">Manual audits</a></li>
+          <li><a class="ext" href="https://github.com/Quillhash/QuillAudit_smart_contract_audit_Reports" target="_blank" rel="noopener" title="Opens in a new tab">Audit reports on GitHub</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/web3-hacks-database" target="_blank" rel="noopener" title="Opens in a new tab">Web3 hacks database</a></li>
+          <li><a class="ext" href="https://www.quillaudits.com/blog/web3-security/quillaudits-iso-certified" target="_blank" rel="noopener" title="Opens in a new tab">ISO/IEC 27001</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h" id="fh-legal">Legal</p>
+        <ul aria-labelledby="fh-legal">
+          <li><a href="../../#code">Security</a></li>
+          <li><a class="ext" href="https://shield.quillaudits.com/terms" target="_blank" rel="noopener" title="Opens in a new tab">Terms of service</a></li>
+          <li><a class="ext" href="https://shield.quillaudits.com/privacy" target="_blank" rel="noopener" title="Opens in a new tab">Privacy policy</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="foot__bot">
+      <p>© 2026 QuillAudits Inc.</p>
+      <div class="foot__soc">
+        <a class="ext xs" href="https://x.com/QuillAudits_AI" target="_blank" rel="noopener" title="Opens in a new tab">X</a>
+        <a class="ext" href="https://github.com/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">GitHub</a>
+        <a class="ext" href="https://telegram.me/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">Telegram</a>
+        <a class="ext" href="https://discord.gg/C6M2eQZagw" target="_blank" rel="noopener" title="Opens in a new tab">Discord</a>
+        <a class="ext" href="https://www.linkedin.com/company/quillaudits" target="_blank" rel="noopener" title="Opens in a new tab">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
