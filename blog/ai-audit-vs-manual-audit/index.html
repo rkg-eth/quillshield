@@ -33,7 +33,7 @@
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="preload" href="../../archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../site.css?v=025e8105">
+<link rel="stylesheet" href="../../site.css?v=ba8b148d">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/#article","mainEntityOfPage":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/","headline":"AI audit vs manual audit: what each one is for","description":"An AI audit reviews every change, and QuillShield tests findings with exploits where it can. A manual audit adds human judgment. How to use both.","image":["https://shield.quillaudits.com/og.png"],"datePublished":"2026-11-17T00:00:00Z","dateModified":"2026-11-17T00:00:00Z","inLanguage":"en","author":{"@type":"Organization","name":"The QuillShield team","url":"https://shield.quillaudits.com/"},"publisher":{"@type":"Organization","@id":"https://www.quillaudits.com/#organization","name":"QuillAudits","url":"https://www.quillaudits.com/","logo":{"@type":"ImageObject","url":"https://www.quillaudits.com/logo/quillaudits-full.svg"}},"isPartOf":{"@type":"Blog","@id":"https://shield.quillaudits.com/blog/#blog","name":"QuillShield blog","url":"https://shield.quillaudits.com/blog/"}},{"@type":"BreadcrumbList","@id":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"QuillShield","item":"https://shield.quillaudits.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://shield.quillaudits.com/blog/"},{"@type":"ListItem","position":3,"name":"AI audit vs manual audit","item":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/"}]}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/#faq","mainEntity":[{"@type":"Question","name":"Does QuillShield replace a manual audit?","acceptedAnswer":{"@type":"Answer","text":"No. QuillShield is an AI smart contract audit that runs between manual audits. It reviews every change, and you can request a manual audit from QuillAudits."}},{"@type":"Question","name":"Should I run an AI audit before a manual audit?","acceptedAnswer":{"@type":"Answer","text":"Yes. Run the AI audit first and fix what it finds, so the auditors can spend their time on design, economics and intent. You can give them the AI report as a starting point."}},{"@type":"Question","name":"Can a human auditor check an AI finding?","acceptedAnswer":{"@type":"Answer","text":"Yes. On a completed QuillShield audit you can ask a QuillAudits auditor to verify specific findings. The request is a form that goes to the QuillAudits team. It is not a self-serve purchase."}}]}</script>
 </head>
@@ -185,24 +185,28 @@
 <div class="tscroll" role="region" aria-label="Table: About the data" tabindex="0"><table>
 <tbody>
 <tr>
-<th scope="row">Who ran it</th>
+<th scope="row">83.8% on EVMbench</th>
 <td>The EVMbench figure is the QuillShield alpha's own run, finished on 8&nbsp;July&nbsp;2026 and self-reported. It found 98&nbsp;of&nbsp;the&nbsp;117 known vulnerabilities (83.8%) across 40 audited projects, found every known vulnerability in 28 of them and missed 19.</td>
 </tr>
 <tr>
-<th scope="row">Source</th>
-<td>The 45.6% baseline is the best single model in the original EVMbench paper (February 2026, 120 vulnerabilities). The <a class="ext" href="https://arxiv.org/abs/2603.04915" target="_blank" rel="noopener" title="Opens in a new tab">arXiv version</a> of 5&nbsp;March&nbsp;2026 has 117 vulnerabilities and reports 45.9%. The 1,500+ figure is QuillAudits' own count of protocols audited since 2018.</td>
+<th scope="row">45.6% baseline</th>
+<td>The 45.6% baseline is the best single model in the original EVMbench paper (February 2026, 120 vulnerabilities). The <a class="ext" href="https://arxiv.org/abs/2603.04915" target="_blank" rel="noopener" title="Opens in a new tab">arXiv version</a> of 5&nbsp;March&nbsp;2026 has 117 vulnerabilities and reports 45.9%.</td>
+</tr>
+<tr>
+<th scope="row">90% judged valid</th>
+<td>The 90% figure is the share of findings that QuillAudits auditors reviewed on client Solidity code during the private beta and judged valid, as reported in November 2026, with no published count.</td>
+</tr>
+<tr>
+<th scope="row">Demo audit</th>
+<td>The demo audit ran on a demo vault on 23&nbsp;October&nbsp;2026.</td>
+</tr>
+<tr>
+<th scope="row">1,500+ protocols</th>
+<td>The 1,500+ figure is QuillAudits' own count of protocols audited since 2018.</td>
 </tr>
 <tr>
 <th scope="row">What it does not show</th>
 <td>The comparison is between a multi-agent system and a single model, and it is not a ranking of tools. Nothing in this post measures an AI audit and a manual audit on the same code.</td>
-</tr>
-<tr>
-<th scope="row">What was measured</th>
-<td>The 90% figure is the share of findings that QuillAudits auditors reviewed on client Solidity code during the private beta and judged valid, as reported in November 2026, with no published count.</td>
-</tr>
-<tr>
-<th scope="row">When</th>
-<td>The demo audit ran on a demo vault on 23&nbsp;October&nbsp;2026.</td>
 </tr>
 </tbody>
 </table></div>
