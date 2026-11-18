@@ -33,7 +33,7 @@
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="preload" href="../../archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../site.css?v=174dc19c">
+<link rel="stylesheet" href="../../site.css?v=025e8105">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/#article","mainEntityOfPage":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/","headline":"AI audit vs manual audit: what each one is for","description":"An AI audit reviews every change, and QuillShield tests findings with exploits where it can. A manual audit adds human judgment. How to use both.","image":["https://shield.quillaudits.com/og.png"],"datePublished":"2026-11-17T00:00:00Z","dateModified":"2026-11-17T00:00:00Z","inLanguage":"en","author":{"@type":"Organization","name":"The QuillShield team","url":"https://shield.quillaudits.com/"},"publisher":{"@type":"Organization","@id":"https://www.quillaudits.com/#organization","name":"QuillAudits","url":"https://www.quillaudits.com/","logo":{"@type":"ImageObject","url":"https://www.quillaudits.com/logo/quillaudits-full.svg"}},"isPartOf":{"@type":"Blog","@id":"https://shield.quillaudits.com/blog/#blog","name":"QuillShield blog","url":"https://shield.quillaudits.com/blog/"}},{"@type":"BreadcrumbList","@id":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"QuillShield","item":"https://shield.quillaudits.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://shield.quillaudits.com/blog/"},{"@type":"ListItem","position":3,"name":"AI audit vs manual audit","item":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/"}]}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://shield.quillaudits.com/blog/ai-audit-vs-manual-audit/#faq","mainEntity":[{"@type":"Question","name":"Does QuillShield replace a manual audit?","acceptedAnswer":{"@type":"Answer","text":"No. QuillShield is an AI smart contract audit that runs between manual audits. It reviews every change, and you can request a manual audit from QuillAudits."}},{"@type":"Question","name":"Should I run an AI audit before a manual audit?","acceptedAnswer":{"@type":"Answer","text":"Yes. Run the AI audit first and fix what it finds, so the auditors can spend their time on design, economics and intent. You can give them the AI report as a starting point."}},{"@type":"Question","name":"Can a human auditor check an AI finding?","acceptedAnswer":{"@type":"Answer","text":"Yes. On a completed QuillShield audit you can ask a QuillAudits auditor to verify specific findings. The request is a form that goes to the QuillAudits team. It is not a self-serve purchase."}}]}</script>
 </head>
@@ -105,6 +105,7 @@
 </header>
 <div class="doc">
   <div class="wrap rail">
+    <nav class="toc" aria-label="On this page"><ul><li><a href="#do-you-still-need-a-manual-audit-if-you-run-an-ai-audit">Do you still need a manual audit if you run an AI audit?</a></li><li><a href="#what-does-an-ai-audit-do-well">What does an AI audit do well?</a></li><li><a href="#what-does-a-manual-audit-do-that-ai-does-not">What does a manual audit do that AI does not?</a></li><li><a href="#ai-audit-vs-manual-audit-side-by-side">AI audit vs manual audit, side by side</a></li><li><a href="#which-should-you-use-and-when">Which should you use, and when?</a></li><li><a href="#how-do-you-escalate-an-ai-finding-to-an-auditor">How do you escalate an AI finding to an auditor?</a></li><li><a href="#about-the-data">About the data</a></li><li><a href="#what-to-do-next">What to do next</a></li></ul></nav>
     <div class="prose">
 <p>QuillAudits has audited 1,500+ protocols since 2018 and also makes <a href="../../">QuillShield</a>, so we sell both sides of this comparison. Our advice is to use both, in a set order, and to know what each one cannot do.</p>
 <h2 id="do-you-still-need-a-manual-audit-if-you-run-an-ai-audit">Do you still need a manual audit if you run an AI audit?</h2>
@@ -112,9 +113,9 @@
 <h2 id="what-does-an-ai-audit-do-well">What does an AI audit do well?</h2>
 <ul>
 <li>It reads everything in scope, then every change. An AI audit goes through all the files you select, and a pull request check then reviews each change against that audit. No team can book auditors for every merge.</li>
-<li>It finds known bug types. In our own run on 8 July 2026, the QuillShield alpha found 98 of the 117 known vulnerabilities in EVMbench (83.8%, self-reported) across 40 audited projects. The best single model in the <a class="ext" href="https://cdn.openai.com/evmbench/evmbench.pdf" target="_blank" rel="noopener" title="Opens in a new tab">original EVMbench paper</a> found 45.6%. That compares a multi-agent system with one model working alone, and it is not a ranking of tools. <a href="../../blog/evmbench-results/">Our EVMbench results</a> has the detail.</li>
+<li>It finds known bug types. In our own run on 8&nbsp;July&nbsp;2026, the QuillShield alpha found 98&nbsp;of&nbsp;the&nbsp;117 known vulnerabilities in EVMbench (83.8%, self-reported) across 40 audited projects. The best single model in the <a class="ext" href="https://cdn.openai.com/evmbench/evmbench.pdf" target="_blank" rel="noopener" title="Opens in a new tab">original EVMbench paper</a> found 45.6%. That compares a multi-agent system with one model working alone, and it is not a ranking of tools. <a href="../../blog/evmbench-results/">Our EVMbench results</a> has the detail.</li>
 <li>It shows its evidence. Each QuillShield finding comes with the exact lines, the impact and a recommended fix. On a full audit it also carries a proof of concept result.</li>
-<li>It returns in hours. The demo audit on the home page reported 5 findings, 3 of them Critical, with 5 of 5 proofs of concept passed, in 2h 7m. Larger codebases take longer.</li>
+<li>It returns in hours. The demo audit on the home page reported 5 findings, 3 of them Critical, with 5&nbsp;of&nbsp;5 proofs of concept passed, in 2h&nbsp;7m. Larger codebases take longer.</li>
 <li>Most reviewed findings held up. During the private beta, 90% of the findings QuillAudits auditors reviewed on client Solidity code were valid.</li>
 </ul>
 <h2 id="what-does-a-manual-audit-do-that-ai-does-not">What does a manual audit do that AI does not?</h2>
@@ -122,7 +123,7 @@
 <li>It judges the design. Auditors ask whether the mechanism does what the team intends, whether the incentives hold when markets move, and which roles and oracles the protocol has to trust. QuillShield can check code against the documents you attach. It does not decide whether the plan in those documents is a good one.</li>
 <li>It puts more than one person on the code. A <a class="ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">manual audit by QuillAudits</a> means two line-by-line passes over the code, then a lead auditor's own review.</li>
 <li>It can look outside the repository. Deployment settings, key management and off-chain services are part of the attack surface, and a manual engagement can bring them into scope. An AI audit sees the files you give it.</li>
-<li>It can catch what the machine missed. In our own EVMbench run the alpha missed 19 of the 117 known vulnerabilities. Some AI findings are also invalid, and proofs of concept do not pass for every finding.</li>
+<li>It can catch what the machine missed. In our own EVMbench run the alpha missed 19&nbsp;of&nbsp;the&nbsp;117 known vulnerabilities. Some AI findings are also invalid, and proofs of concept do not pass for every finding.</li>
 <li>It covers code QuillShield cannot take yet. QuillShield supports Solidity for Foundry projects and nothing else today. QuillAudits lists manual audits for chains beyond the EVM, such as Solana and NEAR.</li>
 <li>It puts a named firm behind the review. Exchanges and investors often ask for a report from a firm they know before a listing or a funding round.</li>
 </ul>
@@ -181,17 +182,54 @@
 <p>A completed QuillShield audit offers two requests, described in the docs on <a class="ext" href="https://www.quillaudits.com/quillshield/guides/guides/expert-review-and-support" target="_blank" rel="noopener" title="Opens in a new tab">expert review</a>. One asks a QuillAudits auditor to verify specific findings. The other asks for a manual audit led by auditors. Both are forms that go to the QuillAudits team. Neither is a self-serve purchase and the docs give no turnaround time, so ask about timing when you send one.</p>
 <p>This post leaves prices out. QuillShield shows the exact price for your scope before anything is charged. For the evidence behind the numbers above, see <a href="../../blog/can-ai-audit-smart-contracts/">can AI audit smart contracts</a>.</p>
 <h2 id="about-the-data">About the data</h2>
-<p>The EVMbench figure is the QuillShield alpha's own run, finished on 8 July 2026 and self-reported. It found 98 of the 117 known vulnerabilities (83.8%) across 40 audited projects, found every known vulnerability in 28 of them and missed 19. The 45.6% baseline is the best single model in the original EVMbench paper (February 2026, 120 vulnerabilities). The <a class="ext" href="https://arxiv.org/abs/2603.04915" target="_blank" rel="noopener" title="Opens in a new tab">arXiv version</a> of 5 March 2026 has 117 vulnerabilities and reports 45.9%. The comparison is between a multi-agent system and a single model, and it is not a ranking of tools. The 90% figure is the share of findings that QuillAudits auditors reviewed on client Solidity code during the private beta and judged valid, as reported in November 2026, with no published count. The demo audit ran on a demo vault on 23 October 2026. The 1,500+ figure is QuillAudits' own count of protocols audited since 2018. Nothing in this post measures an AI audit and a manual audit on the same code.</p>
+<div class="tscroll" role="region" aria-label="Table: About the data" tabindex="0"><table>
+<tbody>
+<tr>
+<th scope="row">Who ran it</th>
+<td>The EVMbench figure is the QuillShield alpha's own run, finished on 8&nbsp;July&nbsp;2026 and self-reported. It found 98&nbsp;of&nbsp;the&nbsp;117 known vulnerabilities (83.8%) across 40 audited projects, found every known vulnerability in 28 of them and missed 19.</td>
+</tr>
+<tr>
+<th scope="row">Source</th>
+<td>The 45.6% baseline is the best single model in the original EVMbench paper (February 2026, 120 vulnerabilities). The <a class="ext" href="https://arxiv.org/abs/2603.04915" target="_blank" rel="noopener" title="Opens in a new tab">arXiv version</a> of 5&nbsp;March&nbsp;2026 has 117 vulnerabilities and reports 45.9%. The 1,500+ figure is QuillAudits' own count of protocols audited since 2018.</td>
+</tr>
+<tr>
+<th scope="row">What it does not show</th>
+<td>The comparison is between a multi-agent system and a single model, and it is not a ranking of tools. Nothing in this post measures an AI audit and a manual audit on the same code.</td>
+</tr>
+<tr>
+<th scope="row">What was measured</th>
+<td>The 90% figure is the share of findings that QuillAudits auditors reviewed on client Solidity code during the private beta and judged valid, as reported in November 2026, with no published count.</td>
+</tr>
+<tr>
+<th scope="row">When</th>
+<td>The demo audit ran on a demo vault on 23&nbsp;October&nbsp;2026.</td>
+</tr>
+</tbody>
+</table></div>
 <h2 id="what-to-do-next">What to do next</h2>
 <p>If you are deciding how to split the work between the two, <a class="ext" href="https://calendly.com/akshadh-a-quillaudits/30min" target="_blank" rel="noopener" title="Opens in a new tab">talk to an auditor</a>.</p>
     </div>
   </div>
 </div>
+<script>
+(function(){
+  var d=document,t=d.querySelector('.toc');
+  if(!t||!('IntersectionObserver' in window)){return}
+  var as=[].slice.call(t.querySelectorAll('a')),hs=as.map(function(a){return d.getElementById(a.hash.slice(1))});
+  function mark(){var y=innerHeight/3,c=-1;hs.forEach(function(h,i){if(h&&h.getBoundingClientRect().top<y){c=i}});
+    as.forEach(function(a,i){if(i===c){a.setAttribute('aria-current','true')}else{a.removeAttribute('aria-current')}})}
+  var io=new IntersectionObserver(mark,{rootMargin:'0px 0px -67% 0px'});
+  [].forEach.call(d.querySelectorAll('.doc .prose > *'),function(x){io.observe(x)});
+  /* in a guide the list ends 24px above the steps, whose numbers hang in the same columns */
+  var st=t.classList.contains('toc--steps')&&d.querySelector('.doc .stps');
+  if(st&&'ResizeObserver' in window){new ResizeObserver(function(){if(t.offsetParent){t.style.height=Math.max(0,st.getBoundingClientRect().top-t.getBoundingClientRect().top-24)+'px'}}).observe(d.querySelector('.doc .prose'))}
+})();
+</script>
 <div class="after t-tint">
   <div class="wrap">
       <section class="aft rail" aria-labelledby="h-questions"><h2 class="aft__h" id="h-questions">Common questions</h2><div class="rail__b faq"><details open><summary><h3 class="faq__q">Does QuillShield replace a manual audit?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>No. QuillShield is an AI smart contract audit that runs between manual audits. It reviews every change, and you can request a manual audit from QuillAudits.</p></div></details><details><summary><h3 class="faq__q">Should I run an AI audit before a manual audit?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Yes. Run the AI audit first and fix what it finds, so the auditors can spend their time on design, economics and intent. You can give them the AI report as a starting point.</p></div></details><details><summary><h3 class="faq__q">Can a human auditor check an AI finding?</h3><i class="pm" aria-hidden="true"></i></summary><div class="faq__a"><p>Yes. On a completed QuillShield audit you can ask a QuillAudits auditor to verify specific findings. The request is a form that goes to the QuillAudits team. It is not a self-serve purchase.</p></div></details></div></section>
-      <section class="aft rail" aria-labelledby="h-sources"><h2 class="aft__h" id="h-sources">Sources</h2><ul class="rail__b srcs"><li><a class="tlink ext" href="https://cdn.openai.com/evmbench/evmbench.pdf" target="_blank" rel="noopener" title="Opens in a new tab">EVMbench paper, original release of February 2026 (PDF)</a></li><li><a class="tlink ext" href="https://arxiv.org/abs/2603.04915" target="_blank" rel="noopener" title="Opens in a new tab">EVMbench paper, arXiv version of 5 March 2026</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">Manual smart contract audits by QuillAudits</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/expert-review-and-support" target="_blank" rel="noopener" title="Opens in a new tab">QuillShield docs, Expert review and support</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">QuillShield docs, CI/CD checks</a></li></ul></section>
-      <nav class="aft rail" aria-labelledby="h-next"><h2 class="aft__h" id="h-next">Keep reading</h2><ul class="rail__b next"><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/can-ai-audit-smart-contracts/">Can AI audit smart contracts? What the data shows</a></h3></li><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/evaluate-ai-smart-contract-auditor/">How to evaluate an AI smart contract auditor</a></h3></li><li class="row"><p class="row__k">Guide</p><h3 class="row__t"><a href="../../guides/run-your-first-audit/">Run your first smart contract audit, from sign-up to report</a></h3></li></ul></nav>
+      <section class="aft rail" aria-labelledby="h-sources"><h2 class="aft__h" id="h-sources">Sources</h2><ul class="rail__b srcs"><li><a class="tlink ext" href="https://cdn.openai.com/evmbench/evmbench.pdf" target="_blank" rel="noopener" title="Opens in a new tab">EVMbench paper, original release of February 2026 (PDF)</a></li><li><a class="tlink ext" href="https://arxiv.org/abs/2603.04915" target="_blank" rel="noopener" title="Opens in a new tab">EVMbench paper, arXiv version of 5&nbsp;March&nbsp;2026</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/smart-contract-audit" target="_blank" rel="noopener" title="Opens in a new tab">Manual smart contract audits by QuillAudits</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/expert-review-and-support" target="_blank" rel="noopener" title="Opens in a new tab">QuillShield docs, Expert review and support</a></li><li><a class="tlink ext" href="https://www.quillaudits.com/quillshield/guides/guides/ci-cd-checks" target="_blank" rel="noopener" title="Opens in a new tab">QuillShield docs, CI/CD checks</a></li></ul></section>
+      <nav class="aft rail" aria-labelledby="h-next"><h2 class="aft__h" id="h-next">Keep reading</h2><ul class="rail__b next"><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/can-ai-audit-smart-contracts/"><span>Can AI audit smart contracts? What the data shows</span></a></h3></li><li class="row"><p class="row__k"><time datetime="2026-11-17">17 November 2026</time></p><h3 class="row__t"><a href="../../blog/evaluate-ai-smart-contract-auditor/"><span>How to evaluate an AI smart contract auditor</span></a></h3></li><li class="row"><p class="row__k">Guide</p><h3 class="row__t"><a href="../../guides/run-your-first-audit/"><span>Run your first smart contract audit, from <span class="nb">sign-up</span> to report</span></a></h3></li></ul></nav>
   </div>
 </div>
 </article>
