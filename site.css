@@ -137,9 +137,10 @@ details[open] > summary .pm::after{display:none}
 .sev{display:inline-flex;align-items:center;justify-content:center;padding:var(--sp-1) var(--sp-2);border:1px solid transparent;font-size:var(--step--1);line-height:var(--lh-ui);font-weight:var(--w-strong);white-space:nowrap}
 .sev--critical{background:var(--crit);color:var(--on-core)}
 .sev--medium{border-color:var(--text-3);color:var(--text)}
-/* a closed row shows two lines of its title, an open row shows all of it */
+/* on a phone a closed row shows two lines of its title and an open row all of it. From 761px every title shows in full */
 .frow__t{font-size:var(--step-0);line-height:var(--lh-ui);font-weight:var(--w-medium);color:var(--text);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 .frow[open] .frow__t{display:block}
+@media (min-width:761px){.frow__t{display:block;overflow:visible}}
 .frow__more{padding:0 var(--sp-5) var(--sp-3) calc(var(--sev) + var(--sp-4) + var(--sp-5));font-family:var(--mono);font-size:var(--step--1);color:var(--text-3)}
 .poc{display:inline-grid;justify-items:end;align-items:baseline;font-size:var(--step--1);font-weight:var(--w-strong);color:var(--good);white-space:nowrap}
 .p-run{visibility:hidden;color:var(--text-3);font-weight:var(--w-medium)}
@@ -156,7 +157,8 @@ details[open] > summary .pm::after{display:none}
 /* ---------- stat tiles ---------- */
 .stats__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
 .tile{border-top:1px solid var(--line-2);padding-top:var(--sp-4)}
-@supports (grid-template-rows:subgrid){@media (min-width:1101px){.tile{display:grid;grid-row:span 3;grid-template-rows:subgrid}}}
+/* wherever the three tiles stand side by side, number, label and note each share one row, so the notes start on one line */
+@supports (grid-template-rows:subgrid){@media (min-width:761px){.tile{display:grid;grid-row:span 3;grid-template-rows:subgrid}}}
 .tile--a,.tile--b,.tile--c{grid-column:span 4}
 .tile__n{font-size:var(--fs-num);line-height:var(--lh-display);letter-spacing:var(--track-display);font-weight:var(--w-num);color:var(--data)}
 .tile__l{margin-top:var(--sp-3);line-height:var(--lh-ui);font-weight:var(--w-medium);color:var(--text)}
@@ -313,7 +315,7 @@ details[open] > summary .pm::after{display:none}
 .stack__t{margin-top:var(--sp-1)}
 .stack .tlink{margin-top:auto;align-self:flex-start;justify-self:start}
 /* a section that ends on a row of links ends where the others do: the links' 44px targets hang 12px below their text */
-.stack__grid,.code__links{margin-bottom:calc(-1 * var(--sp-3))}
+.stack__grid,.code__links,.how .wrap > p:last-child{margin-bottom:calc(-1 * var(--sp-3))}
 
 /* ---------- human review ---------- */
 .human__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start}
@@ -504,7 +506,7 @@ details[open] > summary .pm::after{display:none}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .faq__q{font:inherit;letter-spacing:inherit}
 .faq__a p + p{margin-top:var(--sp-3)}
-.nav__links a[aria-current],.menu__panel a[aria-current],.switch a[aria-current]{color:var(--text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
+.nav__links a[aria-current],.menu__panel a[aria-current],.switch a[aria-current],.toc a[aria-current]{color:var(--text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
 
 /* ---------- the rail: three columns of data, then the words ---------- */
 .rail{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
@@ -549,8 +551,21 @@ details[open] > summary .pm::after{display:none}
 /* ---------- article body ---------- */
 .doc{padding:var(--sp-8) 0 var(--section)}
 .doc .prose{grid-column:4 / span 6}
+/* the contents list sits in the three empty columns left of the text and stays in view while the text scrolls.
+   Small links as in the footer; the section in view is marked as the header marks the current page.
+   The links' 44px targets hang 12px above their text, so the first entry lines up with the first line of the text */
+.toc{display:none}
+.toc a{display:block;padding:var(--sp-3) 0;color:var(--text-2);text-decoration:none}
+.toc a:hover{color:var(--text)}
+@media (min-width:1101px){
+  .doc .toc{display:block;grid-column:1 / span 3;grid-row:1;margin-top:calc(-1 * var(--sp-3));font-size:var(--step--1);line-height:var(--lh-body)}
+  .toc ul{position:sticky;top:calc(var(--nav-h) + var(--sp-5))}
+  /* a guide's steps hang their numbers and rules in the same columns, so there the list ends above the steps:
+     its script sets the height. Without the script the list simply stays at the top */
+  .doc .toc--steps{align-self:start}
+}
 /* running text keeps one measure of 33rem, about 73 characters. Tables, code and the rules of the steps keep the column */
-.doc .prose > :where(p,ul,ol,blockquote){max-width:33rem}
+.doc .prose > :where(p,ul,ol,blockquote,.benchfig){max-width:33rem}
 .prose{min-width:0;overflow-wrap:break-word}
 .prose > * + *{margin-top:var(--sp-4)}
 .prose h2{margin-top:var(--sp-7);font-size:var(--step-2);line-height:var(--lh-head);letter-spacing:var(--track-head);font-weight:var(--w-strong);color:var(--text);text-wrap:balance}
@@ -574,10 +589,15 @@ details[open] > summary .pm::after{display:none}
 .prose :not(pre) > code{padding:var(--sp-1);background:var(--surface);color:var(--text)}
 .prose pre{margin-bottom:0}
 .prose .term{min-height:0}
-.prose .term,.prose .tscroll,.prose :where(.term,.tscroll) + *{margin-top:var(--sp-5)}
+.prose .term,.prose .tscroll,.prose .benchfig,.prose :where(.term,.tscroll,.benchfig) + *{margin-top:var(--sp-5)}
 /* a heading sits as close to a table or a code block as to a paragraph: a table's cell padding already gives the 12px */
 .prose :is(h2,h3,h4) + .tscroll{margin-top:0}
 .prose :is(h2,h3,h4) + .term{margin-top:var(--sp-3)}
+/* the benchmark figure in a post: the home page's two bars and grid of squares, stacked in one blue block on the
+   measure of the text. The squares fill the block, so bars and grid share both edges */
+.benchfig{padding:var(--sp-5)}
+.benchfig .waffle{margin-top:var(--sp-6)}
+.benchfig .waffle,.benchfig .waffle__cap{max-width:none}
 /* a prompt written in plain words wraps like text */
 .prose .term--text{white-space:pre-wrap;overflow-wrap:anywhere}
 /* in running text the arrow of an external link cannot start a line: a zero-width no-break space, which the font holds, ties it to the last word */
@@ -622,7 +642,7 @@ details[open] > summary .pm::after{display:none}
   .rail__b{grid-column:4 / -1}
   .doc .prose,.aft__h,.aft > .rail__b{grid-column:1 / -1}
   .doc .prose > *,.aft > .rail__b{max-width:38rem}
-  .doc .prose > :where(p,ul,ol:not(.stps),blockquote){max-width:33rem}
+  .doc .prose > :where(p,ul,ol:not(.stps),blockquote,.benchfig){max-width:33rem}
   .doc .prose > .tscroll--wide,.doc .prose > .term--wide{width:auto;max-width:none}
   .prose .term--wide{width:auto}
   .aft__h{margin-bottom:var(--sp-3)}
