@@ -342,7 +342,7 @@ details[open] > summary .pm::after{display:none}
 .track{position:relative;height:24px;margin-top:var(--sp-3);background:var(--core-track)}
 .track i{position:absolute;left:0;top:0;bottom:0;background:var(--on-core)}
 .track i.base{background:var(--core-soft)}
-.bench__note{margin-top:var(--sp-5);font-size:var(--step--1);color:var(--on-core-2);max-width:40em}
+.bench__note{margin-top:var(--sp-5);font-size:var(--step--1);color:var(--on-core-2);max-width:32em}
 .bench__note + p{display:flex;flex-wrap:wrap;gap:0 var(--sp-6)}
 .waffle{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:var(--sp-1)}
 .waffle i{aspect-ratio:1 / 1;background:var(--on-core)}
