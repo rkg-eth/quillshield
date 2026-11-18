@@ -873,4 +873,4 @@ details[open]:not(.is-shut) > summary .pm::after{transform:rotate(180deg)}
    On the first page of a visit the H1's lines rise 8px into place, 40ms apart, 480ms in all. The head script hides
    the H1 until motion.js starts it, and shows it anyway after 1.5s. The words never change: for the 480ms each line
    sits in its own block, then the H1 gets its own markup back */
-.h1in h1{opacity:0}
+

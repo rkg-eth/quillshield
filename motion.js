@@ -391,7 +391,7 @@
       });
     }
     var mqA = W.matchMedia ? W.matchMedia('(min-width: 1101px)') : null, canA = !!(W.CSS && CSS.supports('grid-template-rows', 'subgrid')),
-      aOn = false, on = 0, nav2 = d.querySelector('.nav');
+      aOn = false, on = 0, line = innerHeight / 2, nav2 = d.querySelector('.nav');
     var setStep = function (n) {
       on = n;
       hs.forEach(function (s, i) { s.classList.toggle('is-on', i === n - 1); });
@@ -404,10 +404,11 @@
         how.classList.add('is-a'); ol.style.setProperty('--plate-h', '0px'); ol.style.setProperty('--tail', '0px');
         var ph = Math.max.apply(0, pl.map(function (p) { return p.offsetHeight; })), top = (nav2 ? nav2.offsetHeight : 0) + px2('--sp-5');
         want = ph + top + px2('--sp-7') <= innerHeight;
+        line = Math.min(innerHeight / 2, top + ph / 2);
         if (want) {
           var last = hs[hs.length - 1], blk = last.querySelector('.step__t').getBoundingClientRect().bottom - last.querySelector('.step__n').getBoundingClientRect().top;
           ol.style.setProperty('--plate-h', ph + 'px');
-          ol.style.setProperty('--tail', Math.max(0, top + ph - innerHeight / 2 - blk + 2 * px2('--sp-9')) + 'px');
+          ol.style.setProperty('--tail', Math.max(0, top + ph - line - blk + 2 * px2('--sp-9')) + 'px');
           placeNodes();
         }
       }
@@ -458,49 +459,10 @@
     watch(function (re) {
       if (re) fitA();
       if (!aOn) return;
-      var m = innerHeight / 2, n = 1;
+      var m = line, n = 1;
       hs.forEach(function (s, i) { if (s.querySelector('.step__n').getBoundingClientRect().top < m) n = i + 1; });
       if (n !== on) setStep(n);
     });
   }
 
-  var h1 = d.querySelector('h1');
-  if (h1 && H.classList.contains('h1in')) {
-    try { sessionStorage.setItem('qs-h1', '1'); } catch (e) {}
-    var rise = function () {
-      if (!H.classList.contains('h1in')) return;
-      if (calm()) { H.classList.remove('h1in'); return; }
-      var units = [], wrapped = false, h0 = h1.offsetHeight, g = d.createRange();
-      [].slice.call(h1.childNodes).forEach(function (n) {
-        if (n.nodeType === 3) {
-          var re = /[^ ]+ *| +/g, mm;
-          while ((mm = re.exec(n.nodeValue))) {
-            g.setStart(n, mm.index); g.setEnd(n, mm.index + mm[0].replace(/ +$/, '').length || mm.index + mm[0].length);
-            var rs = g.getClientRects(); if (rs.length > 1 && rs[0].top !== rs[rs.length - 1].top) wrapped = true;
-            units.push([d.createTextNode(mm[0]), rs.length ? rs[0].top : null]);
-          }
-        } else if (n.nodeType === 1) units.push([n.cloneNode(true), n.getClientRects().length ? n.getClientRects()[0].top : null]);
-      });
-      var lines = [];
-      units.forEach(function (u) {
-        var l = lines[lines.length - 1];
-        if (!l || (u[1] != null && Math.abs(u[1] - l.top) > 2)) { l = { top: u[1] == null ? (l ? l.top : 0) : u[1], el: d.createElement('span') }; l.el.style.display = 'block'; lines.push(l); }
-        l.el.appendChild(u[0]);
-      });
-      var own = d.createDocumentFragment(), parts = [];
-      while (h1.firstChild) own.appendChild(h1.firstChild);
-      lines.forEach(function (l) { h1.appendChild(l.el); parts.push(l.el); });
-      if (wrapped || !lines.length || h1.offsetHeight !== h0) { h1.textContent = ''; h1.appendChild(own); parts = [h1]; }
-      H.classList.remove('h1in');
-      var gap = 40, last;
-      parts.forEach(function (el, i) {
-        last = el.animate([{ opacity: 0, transform: 'translateY(' + px2b('--sp-2') + 'px)' }, { opacity: 1, transform: 'none' }],
-          { duration: D3 - gap * (parts.length - 1), delay: gap * i, easing: EO, fill: 'backwards' });
-      });
-      if (parts[0] !== h1) last.onfinish = last.oncancel = function () { h1.textContent = ''; h1.appendChild(own); };
-    };
-    var px2b = function (n) { return parseFloat(tok(n)) || 0; };
-    var wait = setTimeout(rise, 800);
-    if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { clearTimeout(wait); rise(); }); else rise();
-  }
 })();
