@@ -16,7 +16,7 @@
     <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/"/>
     <published>2026-11-18T00:00:00Z</published>
     <updated>2026-11-18T00:00:00Z</updated>
-    <summary>43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 8 rejected, none unique, 18 in judging.</summary>
+    <summary>43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 9 rejected, none unique, 18 in judging.</summary>
   </entry>
   <entry>
     <title>Our EVMbench results: 98 of 117 known vulnerabilities found</title>
