@@ -11,12 +11,12 @@
     <uri>https://shield.quillaudits.com/</uri>
   </author>
   <entry>
-    <title>Valid but duplicate: QuillShield on bounties and contests</title>
+    <title>11 valid bugs in 20 live bounties and audit contests</title>
     <id>https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/</id>
     <link rel="alternate" type="text/html" href="https://shield.quillaudits.com/blog/bug-bounty-and-contest-results/"/>
     <published>2026-11-18T00:00:00Z</published>
     <updated>2026-11-18T00:00:00Z</updated>
-    <summary>43 findings in 20 Solidity bug bounties and audit contests from March to November 2026. 11 valid duplicates, 9 rejected, none unique, 18 in judging.</summary>
+    <summary>11 findings judged valid, 4 filed as High, in 20 live Solidity bug bounties and audit contests from March to November 2026. 18 more are in judging.</summary>
   </entry>
   <entry>
     <title>Our EVMbench results: 98 of 117 known vulnerabilities found</title>
